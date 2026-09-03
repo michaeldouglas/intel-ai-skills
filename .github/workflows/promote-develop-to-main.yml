@@ -58,7 +58,7 @@ jobs:
                 'Review the changes, confirm the checks are green, and merge this pull request when the release is approved.',
                 '',
                 '> This pull request was created automatically. The workflow never merges into `main` on its own.',
-              ].join('\\n'),
+              ].join('\n'),
             });
 
             core.notice(`Created promotion PR: ${pullRequest.html_url}`);
