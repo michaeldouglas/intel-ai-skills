@@ -25,15 +25,36 @@ feature/<name> -> develop -> main
 ```
 
 Before starting work, sync `develop`, create the feature branch from it, and
-open the first PR against `develop`. After that PR is merged and the integrated
-state is validated, open a promotion PR from `develop` to `main`. Do not open a
-feature PR directly against `main`.
+implement the change in the local repository. The intended changes MUST be
+committed locally and pushed with Git before opening the first PR against
+`develop`; opening a PR is the final step after the remote feature ref exists.
+After that PR is merged and the integrated state is validated, GitHub Actions
+automatically opens or reuses a promotion PR from `develop` to `main`. Do not
+open a feature PR directly against `main`.
 
 Every feature must also follow the Spec Kit sequence documented in the project
 constitution: specification, clarification when needed, plan, tasks,
 analysis, implementation, evaluation, and quality review. Branch policy is
 enforced by `.github/workflows/branch-policy.yml` and project checks are run by
 the quality-gate workflow.
+
+### Publication consent
+
+The agent MUST keep the local repository and the remote repository as separate
+steps. It MAY prepare and commit intended changes locally, but MUST NOT run
+`git push`, publish a branch, or open/update a pull request silently.
+
+When a change set is broad (multiple files or commits, workflow/configuration
+changes, generated artifacts, or changes across more than one project area),
+the agent MUST stop after the local commit and ask for explicit confirmation
+before publishing. The question should summarize the branch, commit(s), file
+count, and destination, for example: "A alteração está commitada localmente
+em `feature/<name>`. Deseja que eu faça o push e abra o PR para `develop`?"
+
+After explicit confirmation, the agent MUST push the existing local branch
+with Git first and only then create or update the pull request. GitHub MCP may
+be used for the PR operation after the push; it MUST NOT replace the local
+commit-and-push sequence.
 
 ## Skill factory workflow
 
