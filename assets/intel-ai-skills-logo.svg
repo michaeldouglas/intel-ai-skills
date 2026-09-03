@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">Intel AI Skills</title>
+  <desc id="desc">A geometric neural graph representing evidence-driven artificial intelligence skills for Intel hardware.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#081225"/>
+      <stop offset="0.55" stop-color="#10264a"/>
+      <stop offset="1" stop-color="#132b3f"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9ff7ff"/>
+      <stop offset="1" stop-color="#39d5e6"/>
+    </linearGradient>
+    <linearGradient id="orange" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffd166"/>
+      <stop offset="1" stop-color="#f59e0b"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="360" rx="42" fill="url(#bg)"/>
+  <path d="M42 286C170 222 235 314 355 244S558 164 671 224" fill="none" stroke="#24456b" stroke-width="2" opacity=".7"/>
+  <path d="M48 82C178 136 220 52 348 105S556 194 688 112" fill="none" stroke="#1b4965" stroke-width="2" opacity=".7"/>
+
+  <g transform="translate(70 66)">
+    <path d="M112 12 205 66v108l-93 54-93-54V66Z" fill="none" stroke="url(#cyan)" stroke-width="7" opacity=".95"/>
+    <path d="m112 12 93 54-93 55-93-55Z" fill="#102e4e" stroke="#72edf5" stroke-width="3"/>
+    <path d="M112 121v107M19 66l93 55 93-55M19 174l93 54 93-54" fill="none" stroke="#3aa8c8" stroke-width="3" opacity=".9"/>
+    <path d="M112 121 48 84M112 121l65-38M112 121l-64 40M112 121l65 40" fill="none" stroke="#b6fbff" stroke-width="4" filter="url(#glow)"/>
+    <circle cx="112" cy="121" r="15" fill="url(#orange)" filter="url(#glow)"/>
+    <circle cx="19" cy="66" r="9" fill="#8df3fa"/>
+    <circle cx="205" cy="66" r="9" fill="#8df3fa"/>
+    <circle cx="19" cy="174" r="9" fill="#8df3fa"/>
+    <circle cx="205" cy="174" r="9" fill="#8df3fa"/>
+    <circle cx="112" cy="12" r="9" fill="#ffd166"/>
+    <circle cx="112" cy="228" r="9" fill="#ffd166"/>
+  </g>
+
+  <g transform="translate(365 98)">
+    <text x="0" y="78" fill="#f8fbff" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="72" font-weight="700" letter-spacing="-2">intel-ai-skills</text>
+    <rect x="4" y="104" width="116" height="5" rx="2.5" fill="url(#orange)"/>
+    <text x="0" y="151" fill="#a9c7df" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="24" font-weight="500" letter-spacing="3">EVIDENCE · PORTABILITY · INTELLIGENCE</text>
+  </g>
+</svg>
