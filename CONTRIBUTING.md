@@ -12,13 +12,16 @@ Rules:
 
 1. Create every change from `develop` in a branch named
    `feature/<kebab-case-name>`.
-2. Open the feature pull request with base `develop`.
-3. Wait for the required checks and review, then merge the feature pull
+2. Implement and validate the change in the local repository.
+3. Commit the intended changes locally with Git.
+4. Push the feature branch to the remote repository.
+5. Only after the push, open the feature pull request with base `develop`.
+6. Wait for the required checks and review, then merge the feature pull
    request into `develop`.
-4. When the feature PR is merged, GitHub Actions automatically opens or reuses
+7. When the feature PR is merged, GitHub Actions automatically opens or reuses
    a promotion pull request from `develop` to `main`. Its head must be exactly
    `develop`.
-5. Never commit or push directly to `main`. Do not merge a feature branch
+8. Never commit or push directly to `main`. Do not merge a feature branch
    directly into `main`.
 
 Example:
@@ -29,7 +32,10 @@ git switch develop
 git pull --ff-only origin develop
 git switch -c feature/add-openvino-probe
 # implement the change
+git add .
+git commit -m "feat: add OpenVINO probe"
 git push --set-upstream origin feature/add-openvino-probe
+# now open the pull request against develop
 ```
 
 The GitHub Actions branch-policy check validates the allowed pull-request

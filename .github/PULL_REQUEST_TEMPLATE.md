@@ -3,6 +3,8 @@
 - Source branch:
 - Target branch:
 - [ ] This is a `feature/<kebab-case-name>` branch targeting `develop`, or a `develop` promotion targeting `main`.
+- [ ] The intended changes were committed in the local repository before the remote branch was pushed.
+- [ ] The feature branch was pushed with Git before this pull request was opened.
 - [ ] No direct commit or direct push to `main` was used.
 
 ## Spec Kit and validation

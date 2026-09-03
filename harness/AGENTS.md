@@ -25,9 +25,12 @@ feature/<name> -> develop -> main
 ```
 
 Before starting work, sync `develop`, create the feature branch from it, and
-open the first PR against `develop`. After that PR is merged and the integrated
-state is validated, GitHub Actions automatically opens or reuses a promotion
-PR from `develop` to `main`. Do not open a feature PR directly against `main`.
+implement the change in the local repository. The intended changes MUST be
+committed locally and pushed with Git before opening the first PR against
+`develop`; opening a PR is the final step after the remote feature ref exists.
+After that PR is merged and the integrated state is validated, GitHub Actions
+automatically opens or reuses a promotion PR from `develop` to `main`. Do not
+open a feature PR directly against `main`.
 
 Every feature must also follow the Spec Kit sequence documented in the project
 constitution: specification, clarification when needed, plan, tasks,

@@ -230,7 +230,9 @@ welcome. Before opening a change:
 2. Follow the Spec Kit artifacts for the feature.
 3. Keep fixtures sanitized and reproducible.
 4. Run the relevant tests and evaluations.
-5. Open the PR against `develop` and describe the evidence behind the change.
+5. Commit the intended changes in the local repository.
+6. Push the feature branch with Git.
+7. Open the PR against `develop` and describe the evidence behind the change.
 
 Please read [`CONTRIBUTING.md`](./CONTRIBUTING.md) and the project
 [constitution](./harness/.specify/memory/constitution.md) first.
