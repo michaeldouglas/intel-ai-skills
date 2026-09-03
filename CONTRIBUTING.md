@@ -10,8 +10,9 @@ feature/<kebab-case-name> -> develop -> main
 
 Rules:
 
-1. Create every change from `develop` in a branch named
-   `feature/<kebab-case-name>`.
+1. Ask which existing branch will be used before creating or switching
+   branches. Reuse a compliant `feature/<kebab-case-name>` branch when one is
+   selected; do not create a new branch automatically.
 2. Implement and validate the change in the local repository.
 3. Commit the intended changes locally with Git.
 4. Push the feature branch to the remote repository.
@@ -36,7 +37,13 @@ After confirmation, the local branch is pushed with Git and the pull request
 is opened through GitHub. The GitHub MCP does not replace the local commit and
 push steps.
 
+The repository provides a `git-workflow-manager` sub-agent for this lifecycle.
+It coordinates branch selection, local commits, publication consent, pushes,
+and pull-request operations without changing product files.
+
 Example:
+
+After confirming the branch with the user, if a new feature branch is needed:
 
 ```powershell
 git fetch origin
