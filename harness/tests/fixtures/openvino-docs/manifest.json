@@ -1,0 +1,10 @@
+{
+  "source_url": "https://docs.openvino.ai/2026/index.html",
+  "extracted_at": "2026-09-03",
+  "coverage": {
+    "discovered": 2,
+    "extracted": 2,
+    "skipped": []
+  },
+  "attribution": "OpenVINO documentation, captured for local engineering reference."
+}

@@ -1,0 +1,16 @@
+name = "openvino-docs-sync"
+description = "Updates the local OpenVINO documentation cache only after an explicit user request."
+model = "gpt-5.6-luna"
+model_reasoning_effort = "high"
+sandbox_mode = "workspace-write"
+
+developer_instructions = """
+Read AGENTS.md and then read .codex/agents/openvino-docs-sync.md.
+Follow that role contract exactly.
+
+Only update docs/openvino/ after the user explicitly requests an OpenVINO
+documentation update. Use the extract-spa-docs skill and a real browser. Do
+not use static fetching as a fallback, do not modify candidate skill content,
+and do not write to skills/. Report verification, coverage, skipped pages, and
+browser limitations clearly.
+"""
