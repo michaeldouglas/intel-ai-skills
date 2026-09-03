@@ -1,0 +1,65 @@
+name: Quality gates
+
+on:
+  pull_request:
+    branches: [develop, main]
+
+permissions:
+  contents: read
+
+jobs:
+  project-checks:
+    name: project-checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Run harness tests when present
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! -d harness/tests ]]; then
+            echo "No harness/tests directory is present; nothing to run yet."
+            exit 0
+          fi
+
+          if ! find harness/tests -type f \( -name 'test_*.py' -o -name '*_test.py' \) -print -quit | grep -q .; then
+            echo "No Python test files are present; nothing to run yet."
+            exit 0
+          fi
+
+          python -m pip install --upgrade pip pytest
+          python -m pytest -q harness/tests
+
+      - name: Validate Spec Kit artifact shape when present
+        shell: bash
+        run: |
+          set -euo pipefail
+          specs_dir="harness/specs"
+          if [[ ! -d "$specs_dir" ]]; then
+            echo "No harness/specs directory is present; Spec Kit validation is deferred."
+            exit 0
+          fi
+
+          found=0
+          while IFS= read -r -d '' feature_dir; do
+            found=1
+            for artifact in spec.md plan.md tasks.md; do
+              if [[ ! -f "$feature_dir/$artifact" ]]; then
+                echo "Missing $feature_dir/$artifact"
+                exit 1
+              fi
+            done
+          done < <(find "$specs_dir" -mindepth 1 -maxdepth 1 -type d -print0)
+
+          if [[ "$found" -eq 0 ]]; then
+            echo "No Spec Kit feature directory is present; nothing to validate yet."
+          else
+            echo "Spec Kit artifact shape is valid."
+          fi
