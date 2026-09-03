@@ -24,13 +24,22 @@ The normal flow is:
 feature/<name> -> develop -> main
 ```
 
-Before starting work, sync `develop`, create the feature branch from it, and
-implement the change in the local repository. The intended changes MUST be
+Before starting work, ask which branch to use. If a new feature branch is
+approved, sync `develop` and create it from there, then implement the change
+in the local repository. The intended changes MUST be
 committed locally and pushed with Git before opening the first PR against
 `develop`; opening a PR is the final step after the remote feature ref exists.
 After that PR is merged and the integrated state is validated, GitHub Actions
 automatically opens or reuses a promotion PR from `develop` to `main`. Do not
 open a feature PR directly against `main`.
+
+Before creating or switching to a branch, the agent MUST ask which branch the
+user wants to use. If the user names an existing compliant `feature/...`
+branch, the agent MUST reuse it and MUST NOT create another branch. A new
+branch may be created only after the user requests one or confirms the proposed
+branch name. If the user selects `develop` or `main` for implementation work,
+the agent MUST explain the protection rule and ask for a compliant feature
+branch or an explicitly documented exception.
 
 Every feature must also follow the Spec Kit sequence documented in the project
 constitution: specification, clarification when needed, plan, tasks,
@@ -97,6 +106,9 @@ and remains responsible for the final decision.
 - `skill-release-manager`: promote only an approved candidate from
   `candidates/` to the sibling `..\skills\` directory, then validate the final
   copy again.
+- `git-workflow-manager`: own branch selection, local Git status, local
+  commits, publication consent, Git pushes, and pull-request coordination;
+  never edit product files or bypass the branch policy.
 
 Do not run multiple write-capable agents against the same files concurrently.
 Keep the main skill author as the single owner of the candidate `SKILL.md`,
