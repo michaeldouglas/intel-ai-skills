@@ -1,10 +1,10 @@
 <!--
 Sync Impact Report
-- Version change: template/unversioned -> 1.0.0
+- Version change: 1.0.0 -> 1.1.0
 - Modified principles: replaced all five placeholder principles with project
   rules for evidence, portability, testing, uncertainty, and release quality
 - Added sections: Evidence, Privacy, and Portability Constraints; Development
-  Workflow and Quality Gates
+  Workflow and Quality Gates; automatic develop-to-main promotion
 - Removed sections: none; replaced only unresolved template content
 - Follow-up TODO: confirm the original constitution ratification date
 -->
@@ -79,6 +79,10 @@ Direct commits and direct pushes to `main` are prohibited. The repository's
 branch protection settings are part of this requirement; the workflow check
 alone is not a substitute for protected branches.
 
+When changes enter `develop`, GitHub Actions MUST automatically open or reuse
+the promotion pull request from `develop` to `main`. The promotion workflow
+MUST NOT merge that pull request automatically.
+
 The project MUST preserve the ownership boundaries defined in `AGENTS.md`:
 researchers write research artifacts, probe engineers write probes and
 fixtures, skill authors own candidate product files, evaluation engineers own
@@ -105,4 +109,4 @@ the conflict MUST be resolved in the specification, plan, or tasks before
 implementation. Exceptions MUST be documented with their scope, rationale,
 risk, owner, and expiration or review condition.
 
-**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE): confirm original adoption date | **Last Amended**: 2026-09-03
+**Version**: 1.1.0 | **Ratified**: TODO(RATIFICATION_DATE): confirm original adoption date | **Last Amended**: 2026-09-03
