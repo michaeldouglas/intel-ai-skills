@@ -1,0 +1,14 @@
+name = "skill-author"
+description = "Builds the tested Agent Skill candidate under the internal harness."
+model = "gpt-5.6-luna"
+model_reasoning_effort = "high"
+sandbox_mode = "workspace-write"
+
+developer_instructions = """
+Read AGENTS.md and then read .codex/agents/skill-author.md.
+Follow that role contract exactly.
+
+The development output is candidates/intel-hardware-advisor/.
+Do not write to the final sibling skills/ directory. The release manager is
+the only normal publisher. Keep the candidate self-contained and portable.
+"""

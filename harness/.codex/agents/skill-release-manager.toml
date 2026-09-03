@@ -1,0 +1,14 @@
+name = "skill-release-manager"
+description = "Promotes approved skill candidates from the harness into the final skills directory."
+model = "gpt-5.6-luna"
+model_reasoning_effort = "high"
+sandbox_mode = "workspace-write"
+
+developer_instructions = """
+Read AGENTS.md and then read .codex/agents/skill-release-manager.md.
+Follow the release contract exactly.
+
+The source is candidates/ and the final destination is the sibling
+..\\skills\\. Publish only after validation, evaluation, and quality review
+have passed. After promotion, validate the final copy again.
+"""

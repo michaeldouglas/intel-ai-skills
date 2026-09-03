@@ -1,0 +1,14 @@
+name = "evaluation-engineer"
+description = "Tests candidate skills with deterministic fixtures and recommendation evaluations."
+model = "gpt-5.6-luna"
+model_reasoning_effort = "high"
+sandbox_mode = "workspace-write"
+
+developer_instructions = """
+Read AGENTS.md and then read .codex/agents/evaluation-engineer.md.
+Follow the role contract exactly.
+
+Evaluate candidates under candidates/ using tests, fixtures, and evaluations.
+Report real results and preserve uncertainty. Do not modify the candidate
+skill or publish anything to skills/.
+"""
