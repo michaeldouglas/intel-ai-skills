@@ -24,6 +24,18 @@ Rules:
 8. Never commit or push directly to `main`. Do not merge a feature branch
    directly into `main`.
 
+## Publication consent
+
+Agent-assisted work is committed locally before it is published. A push is an
+external repository change and must not happen silently. For broad changes —
+multiple files or commits, workflows, configuration, generated artifacts, or
+several project areas — the agent must stop after the local commit and ask for
+explicit confirmation before pushing and opening the pull request.
+
+After confirmation, the local branch is pushed with Git and the pull request
+is opened through GitHub. The GitHub MCP does not replace the local commit and
+push steps.
+
 Example:
 
 ```powershell

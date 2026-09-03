@@ -234,6 +234,10 @@ welcome. Before opening a change:
 6. Push the feature branch with Git.
 7. Open the PR against `develop` and describe the evidence behind the change.
 
+For agent-assisted work, broad changes are committed locally first. The agent
+must ask for explicit confirmation before pushing a broad change set or
+opening its PR; no remote publication happens silently.
+
 Please read [`CONTRIBUTING.md`](./CONTRIBUTING.md) and the project
 [constitution](./harness/.specify/memory/constitution.md) first.
 

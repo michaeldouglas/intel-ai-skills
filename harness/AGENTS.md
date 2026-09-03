@@ -38,6 +38,24 @@ analysis, implementation, evaluation, and quality review. Branch policy is
 enforced by `.github/workflows/branch-policy.yml` and project checks are run by
 the quality-gate workflow.
 
+### Publication consent
+
+The agent MUST keep the local repository and the remote repository as separate
+steps. It MAY prepare and commit intended changes locally, but MUST NOT run
+`git push`, publish a branch, or open/update a pull request silently.
+
+When a change set is broad (multiple files or commits, workflow/configuration
+changes, generated artifacts, or changes across more than one project area),
+the agent MUST stop after the local commit and ask for explicit confirmation
+before publishing. The question should summarize the branch, commit(s), file
+count, and destination, for example: "A alteração está commitada localmente
+em `feature/<name>`. Deseja que eu faça o push e abra o PR para `develop`?"
+
+After explicit confirmation, the agent MUST push the existing local branch
+with Git first and only then create or update the pull request. GitHub MCP may
+be used for the PR operation after the push; it MUST NOT replace the local
+commit-and-push sequence.
+
 ## Skill factory workflow
 
 This directory is the internal engineering harness. Its job is to research,
