@@ -241,6 +241,11 @@ For agent-assisted work, broad changes are committed locally first. The agent
 must ask for explicit confirmation before pushing a broad change set or
 opening its PR; no remote publication happens silently.
 
+Before creating a branch, the agent asks which branch you want to use and
+reuses an existing compliant feature branch when possible. The
+`git-workflow-manager` sub-agent coordinates the Git lifecycle without editing
+product files.
+
 Please read [`CONTRIBUTING.md`](./CONTRIBUTING.md) and the project
 [constitution](./harness/.specify/memory/constitution.md) first.
 
