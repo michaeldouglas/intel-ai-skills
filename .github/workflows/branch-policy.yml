@@ -1,0 +1,52 @@
+name: Branch policy
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, edited]
+    branches: [develop, main]
+
+permissions:
+  contents: read
+
+jobs:
+  enforce-branch-flow:
+    name: enforce-branch-flow
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate pull-request direction
+        shell: bash
+        env:
+          BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
+          HEAD_BRANCH: ${{ github.event.pull_request.head.ref }}
+          HEAD_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
+          BASE_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          if [[ "$HEAD_REPOSITORY" != "$BASE_REPOSITORY" ]]; then
+            echo "Pull requests must come from a branch in $BASE_REPOSITORY."
+            exit 1
+          fi
+
+          case "$BASE_BRANCH" in
+            develop)
+              if [[ ! "$HEAD_BRANCH" =~ ^feature/[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+                echo "Only feature/<kebab-case-name> branches may target develop."
+                echo "Received: $HEAD_BRANCH"
+                exit 1
+              fi
+              ;;
+            main)
+              if [[ "$HEAD_BRANCH" != "develop" ]]; then
+                echo "Only develop may target main."
+                echo "Received: $HEAD_BRANCH"
+                exit 1
+              fi
+              ;;
+            *)
+              echo "Unsupported pull-request base: $BASE_BRANCH"
+              exit 1
+              ;;
+          esac
+
+          echo "Allowed flow: $HEAD_BRANCH -> $BASE_BRANCH"

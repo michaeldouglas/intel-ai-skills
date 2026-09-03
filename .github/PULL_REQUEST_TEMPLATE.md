@@ -1,0 +1,17 @@
+## Flow
+
+- Source branch:
+- Target branch:
+- [ ] This is a `feature/<kebab-case-name>` branch targeting `develop`, or a `develop` promotion targeting `main`.
+- [ ] No direct commit or direct push to `main` was used.
+
+## Spec Kit and validation
+
+- Spec directory:
+- Tests/evaluations run:
+- [ ] Graphify was refreshed after code or product-artifact changes.
+- [ ] Constitution and release gates were checked.
+
+## Summary
+
+Describe the change, risks, and rollout notes.
