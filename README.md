@@ -22,6 +22,9 @@
 
 > **Build with evidence. Deploy with confidence.**
 
+> 🚦 **Delivery signal:** changes flow through `feature/* → develop → main`,
+> with promotion to `main` prepared automatically after `develop` changes.
+
 Intel AI Skills is an open-source engineering system for building portable,
 deterministic Agent Skills that understand Intel hardware, OpenVINO runtimes,
 and the evidence behind every recommendation.
