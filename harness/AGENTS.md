@@ -11,6 +11,30 @@ Rules:
 - Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.
 - After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).
 
+## Branch and pull-request policy
+
+All changes MUST be developed on a branch named `feature/<kebab-case-name>`.
+Feature branches MUST target `develop` through a pull request. The `main`
+branch MUST receive changes only through a pull request whose source is exactly
+`develop`; direct commits and direct pushes to `main` are forbidden.
+
+The normal flow is:
+
+```text
+feature/<name> -> develop -> main
+```
+
+Before starting work, sync `develop`, create the feature branch from it, and
+open the first PR against `develop`. After that PR is merged and the integrated
+state is validated, open a promotion PR from `develop` to `main`. Do not open a
+feature PR directly against `main`.
+
+Every feature must also follow the Spec Kit sequence documented in the project
+constitution: specification, clarification when needed, plan, tasks,
+analysis, implementation, evaluation, and quality review. Branch policy is
+enforced by `.github/workflows/branch-policy.yml` and project checks are run by
+the quality-gate workflow.
+
 ## Skill factory workflow
 
 This directory is the internal engineering harness. Its job is to research,
