@@ -12,14 +12,29 @@ Rules:
 
 1. Create every change from `develop` in a branch named
    `feature/<kebab-case-name>`.
-2. Open the feature pull request with base `develop`.
-3. Wait for the required checks and review, then merge the feature pull
+2. Implement and validate the change in the local repository.
+3. Commit the intended changes locally with Git.
+4. Push the feature branch to the remote repository.
+5. Only after the push, open the feature pull request with base `develop`.
+6. Wait for the required checks and review, then merge the feature pull
    request into `develop`.
-4. When the feature PR is merged, GitHub Actions automatically opens or reuses
+7. When the feature PR is merged, GitHub Actions automatically opens or reuses
    a promotion pull request from `develop` to `main`. Its head must be exactly
    `develop`.
-5. Never commit or push directly to `main`. Do not merge a feature branch
+8. Never commit or push directly to `main`. Do not merge a feature branch
    directly into `main`.
+
+## Publication consent
+
+Agent-assisted work is committed locally before it is published. A push is an
+external repository change and must not happen silently. For broad changes —
+multiple files or commits, workflows, configuration, generated artifacts, or
+several project areas — the agent must stop after the local commit and ask for
+explicit confirmation before pushing and opening the pull request.
+
+After confirmation, the local branch is pushed with Git and the pull request
+is opened through GitHub. The GitHub MCP does not replace the local commit and
+push steps.
 
 Example:
 
@@ -29,7 +44,10 @@ git switch develop
 git pull --ff-only origin develop
 git switch -c feature/add-openvino-probe
 # implement the change
+git add .
+git commit -m "feat: add OpenVINO probe"
 git push --set-upstream origin feature/add-openvino-probe
+# now open the pull request against develop
 ```
 
 The GitHub Actions branch-policy check validates the allowed pull-request
