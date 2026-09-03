@@ -1,0 +1,20 @@
+{
+  "fixture_version": "1",
+  "platform": {
+    "system": "Linux",
+    "release": null,
+    "machine": "x86_64",
+    "status": "permission_denied"
+  },
+  "runtime": {
+    "openvino": {
+      "status": "permission_denied",
+      "version": null,
+      "devices": []
+    }
+  },
+  "collector_status": {
+    "platform": "permission_denied",
+    "openvino": "permission_denied"
+  }
+}
