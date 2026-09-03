@@ -31,11 +31,13 @@ authoritative.
 ## When the cache is missing or incomplete
 
 Do not download automatically. Tell the user that the local OpenVINO snapshot
-is missing or incomplete and ask whether they want to explicitly update it with
-the `openvino-docs-sync` agent.
+is missing or incomplete and ask whether they want to provide or review an
+updated official documentation archive.
 
-The update phrases are explicit requests such as “vamos atualizar a
-documentação do OpenVINO” or “baixe novamente a documentação do OpenVINO”.
+When the local snapshot is absent, obtain the official OpenVINO documentation
+archive through the repository's approved manual download process, then place
+the reviewed Markdown snapshot under `references/openvino/`. The reader itself
+does not download or unpack archives.
 
 ## Evidence boundaries
 

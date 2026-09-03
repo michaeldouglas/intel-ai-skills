@@ -94,9 +94,6 @@ and remains responsible for the final decision.
 
 - `openvino-researcher`: research authoritative, versioned OpenVINO and Intel
   hardware evidence; write research artifacts under `research/` only.
-- `openvino-docs-sync`: refresh the generated OpenVINO documentation cache
-  under `docs/openvino/` only after an explicit request; use the
-  `extract-spa-docs` browser workflow and do not own candidate skill content.
 - `hardware-probe-engineer`: build deterministic hardware probes and fixtures;
   write candidate scripts and harness tests, but do not own the candidate
   `SKILL.md`.

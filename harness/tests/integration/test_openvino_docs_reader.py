@@ -63,7 +63,7 @@ class OpenVinoDocsReaderTests(unittest.TestCase):
 
     def test_reader_source_has_no_sync_or_network_capability(self):
         source = (READER_DIR / "read_openvino_docs.py").read_text(encoding="utf-8")
-        for forbidden in ("openvino_docs_sync", "subprocess", "requests", "urllib", "httpx"):
+        for forbidden in ("subprocess", "requests", "urllib", "httpx"):
             self.assertNotIn(forbidden, source)
 
     def test_reader_cli_uses_the_same_local_only_path(self):
