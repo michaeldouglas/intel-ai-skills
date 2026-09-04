@@ -1,0 +1,33 @@
+{
+  "fixture_version": "1",
+  "platform": {
+    "system": "Windows",
+    "release": "11",
+    "machine": "x86_64",
+    "status": "detected"
+  },
+  "runtime": {
+    "openvino": {
+      "status": "available",
+      "version": "2025.0",
+      "devices": [
+        {
+          "id": "GPU",
+          "name": "test GPU A",
+          "vendor": "Intel",
+          "status": "detected"
+        },
+        {
+          "id": "NPU",
+          "name": "test NPU B",
+          "vendor": "Other",
+          "status": "detected"
+        }
+      ]
+    }
+  },
+  "collector_status": {
+    "platform": "complete",
+    "openvino": "available"
+  }
+}

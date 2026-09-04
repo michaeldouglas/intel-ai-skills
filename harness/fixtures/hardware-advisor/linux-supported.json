@@ -1,0 +1,27 @@
+{
+  "fixture_version": "1",
+  "platform": {
+    "system": "Linux",
+    "release": "6.8-test",
+    "machine": "x86_64",
+    "status": "detected"
+  },
+  "runtime": {
+    "openvino": {
+      "status": "available",
+      "version": "2025.0",
+      "devices": [
+        {
+          "id": "CPU",
+          "name": "Intel test CPU",
+          "vendor": "Intel",
+          "status": "detected"
+        }
+      ]
+    }
+  },
+  "collector_status": {
+    "platform": "complete",
+    "openvino": "available"
+  }
+}

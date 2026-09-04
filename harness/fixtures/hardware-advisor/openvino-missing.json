@@ -1,0 +1,20 @@
+{
+  "fixture_version": "1",
+  "platform": {
+    "system": "Linux",
+    "release": "6.8-test",
+    "machine": "x86_64",
+    "status": "detected"
+  },
+  "runtime": {
+    "openvino": {
+      "status": "unavailable",
+      "version": null,
+      "devices": []
+    }
+  },
+  "collector_status": {
+    "platform": "complete",
+    "openvino": "unavailable"
+  }
+}

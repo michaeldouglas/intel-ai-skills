@@ -1,0 +1,20 @@
+{
+  "fixture_version": "1",
+  "platform": {
+    "system": "Plan9",
+    "release": "unknown",
+    "machine": "test",
+    "status": "unsupported"
+  },
+  "runtime": {
+    "openvino": {
+      "status": "unavailable",
+      "version": null,
+      "devices": []
+    }
+  },
+  "collector_status": {
+    "platform": "unsupported",
+    "openvino": "unavailable"
+  }
+}
