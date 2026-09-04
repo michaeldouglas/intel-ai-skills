@@ -4,8 +4,8 @@ Skills are developed and tested here before release. A candidate must pass the
 harness validation, tests, evaluations, and quality review before it is
 promoted to the sibling `..\skills\` directory.
 
-The first candidate is `intel-hardware-advisor`. Validate it from the harness
-root with:
+The first candidates are `intel-hardware-advisor` and `intel-docs-reader`.
+Validate them from the harness root with:
 
 ```text
 python -m unittest discover -s tests -p "test*.py"
