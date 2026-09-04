@@ -1,0 +1,37 @@
+{
+  "schema_version": "1",
+  "scenarios": [
+    {
+      "id": "supported-openvino",
+      "fixture": "windows-supported.json",
+      "expected_decision": "guidance",
+      "required_evidence": ["detected"],
+      "forbidden_claims": ["performance", "precision support", "memory savings"]
+    },
+    {
+      "id": "runtime-missing",
+      "fixture": "openvino-missing.json",
+      "expected_decision": "no_decision",
+      "required_status": "partial",
+      "required_rationale": "runtime"
+    },
+    {
+      "id": "conflicting-vendors",
+      "fixture": "conflicting-evidence.json",
+      "expected_decision": "no_decision",
+      "required_rationale": "conflict"
+    },
+    {
+      "id": "unsupported-host",
+      "fixture": "unsupported-platform.json",
+      "expected_status": "unsupported",
+      "expected_decision": "no_decision"
+    },
+    {
+      "id": "permission-failure",
+      "fixture": "permission-failure.json",
+      "expected_status": "failed",
+      "expected_decision": "no_decision"
+    }
+  ]
+}

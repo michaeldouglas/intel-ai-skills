@@ -57,6 +57,9 @@ harness/.local/
 harness/tmp/
 harness/artifacts/
 
+# Local OpenVINO documentation used for analysis only; do not publish extracted pages
+harness/docs/2026/
+
 # Runtime logs and temporary files
 *.log
 *.tmp
