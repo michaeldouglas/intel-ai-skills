@@ -1,0 +1,14 @@
+{
+  "scenarios": [
+    {"name": "ubuntu-apt", "system": "Linux", "ecosystem": "system", "method": "apt", "tool": "apt"},
+    {"name": "rhel-yum", "system": "Linux", "distribution": "RHEL", "ecosystem": "system", "method": "yum", "tool": "yum"},
+    {"name": "opensuse-zypper", "system": "Linux", "distribution": "openSUSE", "ecosystem": "system", "method": "zypper", "tool": "zypper"},
+    {"name": "windows-winget", "system": "Windows", "ecosystem": "system", "method": "winget", "tool": "winget", "version": "2026.3.0"},
+    {"name": "macos-brew", "system": "macOS", "ecosystem": "system", "method": "brew", "tool": "brew"},
+    {"name": "node-npm", "system": "Linux", "ecosystem": "node", "method": "npm", "tool": "npm"},
+    {"name": "cpp-vcpkg", "system": "Windows", "ecosystem": "cpp", "method": "vcpkg", "tool": "vcpkg"},
+    {"name": "cpp-conan", "system": "Linux", "ecosystem": "cpp", "method": "conan", "tool": "conan"},
+    {"name": "linux-docker", "system": "Linux", "ecosystem": "docker", "method": "docker", "tool": "docker"},
+    {"name": "linux-yocto", "system": "Linux", "ecosystem": "yocto", "method": "yocto", "tool": "bitbake"}
+  ]
+}

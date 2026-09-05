@@ -22,6 +22,7 @@ autocontenida y puede instalarse de forma independiente.
 |---|---|---|
 | **Intel Hardware Advisor** | Inspeccionar un entorno local de inferencia Windows, Linux o macOS y entender qué permiten concluir las evidencias disponibles. | [`intel-hardware-advisor/SKILL.md`](../skills/intel-hardware-advisor/SKILL.md) |
 | **Intel Docs Reader** | Buscar y citar el archivo local versionado de la documentación oficial de OpenVINO. | [`intel-docs-reader/SKILL.md`](../skills/intel-docs-reader/SKILL.md) |
+| **Intel OpenVINO Installer** | Elegir, instalar y verificar OpenVINO Runtime con un método documentado para la plataforma y el ecosistema del usuario. | [`intel-openvino-installer/SKILL.md`](../skills/intel-openvino-installer/SKILL.md) |
 
 ### Intel Hardware Advisor
 
@@ -47,6 +48,14 @@ sobre APIs, dispositivos, configuración, instalación o limitaciones
 documentadas. Usa una caché local y cita la página de origen de los resultados
 útiles.
 
+### Intel OpenVINO Installer
+
+Usa esta skill cuando tu agente necesite elegir, instalar o verificar OpenVINO
+Runtime. Selecciona un método documentado para la plataforma y el ecosistema,
+muestra los comandos antes de ejecutarlos, pide confirmación antes de cambiar
+la máquina y separa la validación de la instalación de la validación del
+runtime.
+
 ## Inicio rápido
 
 ### Instalar para tu agente
@@ -57,12 +66,13 @@ Usa el comando de la skill que quieras añadir. El ejemplo usa Codex; cambia
 ```bash
 npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor -a codex
 npx skills add michaeldouglas/intel-ai-skills --skill intel-docs-reader -a codex
+npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-installer -a codex
 ```
 
-O instala las dos skills con un solo comando:
+O instala las tres skills con un solo comando:
 
 ```bash
-npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor --skill intel-docs-reader -a codex
+npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor --skill intel-docs-reader --skill intel-openvino-installer -a codex
 ```
 
 ### Usar las skills instaladas

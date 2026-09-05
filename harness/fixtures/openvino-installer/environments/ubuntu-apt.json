@@ -1,0 +1,20 @@
+{
+  "context": {
+    "system": "Linux",
+    "distribution": "Ubuntu",
+    "distribution_version": "24.04",
+    "architecture": "x86_64",
+    "execution_context": "native",
+    "ecosystem": "system",
+    "permissions": "available",
+    "available_tools": {
+      "apt": true,
+      "python": true
+    }
+  },
+  "request": {
+    "ecosystem": "system",
+    "method": "apt",
+    "version": "maintenance"
+  }
+}
