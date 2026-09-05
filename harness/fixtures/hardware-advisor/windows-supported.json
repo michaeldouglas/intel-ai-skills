@@ -4,6 +4,12 @@
     "system": "Windows",
     "release": "11",
     "machine": "x86_64",
+    "architecture": "x86_64",
+    "os_version": "11",
+    "context": {
+      "wsl": false,
+      "container": false
+    },
     "status": "detected"
   },
   "runtime": {
@@ -15,13 +21,35 @@
           "id": "GPU",
           "name": "Intel Arc test device",
           "vendor": "Intel",
+          "type": "GPU",
           "status": "detected"
         }
       ]
+    },
+    "additional_configurations": {
+        "gpu": {
+          "status": "incomplete",
+          "checks": {
+            "driver": "not_checked",
+            "opencl": "not_checked",
+            "level_zero": "not_checked"
+          },
+          "notes": ["Fixture intentionally omits driver evidence."]
+        },
+        "environment": {
+          "status": "detected",
+          "checks": {
+            "wsl": "not_detected",
+            "container": "not_detected",
+            "setupvars": "not_checked"
+          },
+          "notes": []
+      }
     }
   },
   "collector_status": {
     "platform": "complete",
-    "openvino": "available"
+    "openvino": "available",
+    "configurations": "complete"
   }
 }

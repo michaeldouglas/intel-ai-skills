@@ -59,3 +59,21 @@ is missing or returns malformed output.
 - **Device-name lookup table as a recommendation engine**: rejected because it
   cannot prove version, SKU scope, driver state, model compatibility, or
   precision support.
+
+## OpenVINO 2026 documentation basis
+
+Consulted on 2026-09-05 before this scope amendment:
+
+- `docs/2026/about-openvino/release-notes-openvino/system-requirements.html` —
+  platform, architecture, CPU/GPU/NPU operating-system scope, and driver
+  caveats.
+- `docs/2026/get-started/install-openvino/configurations.html` — additional
+  GPU/NPU drivers, GenAI dependencies, and OpenCV scope.
+- `docs/2026/get-started/install-openvino/configurations/configurations-intel-gpu.html` —
+  OpenCL, Level Zero, Linux kernel, Windows, and WSL indicators.
+- `docs/2026/get-started/install-openvino/configurations/configurations-intel-npu.html` —
+  NPU driver and Linux/Windows setup indicators.
+
+These pages define the evidence questions the advisor can surface. They are not
+copied into the distributable skill; detailed support answers remain the job of
+`intel-docs-reader`.

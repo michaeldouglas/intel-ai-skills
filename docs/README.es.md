@@ -20,7 +20,7 @@ autocontenida y puede instalarse de forma independiente.
 
 | Skill | Úsala cuando necesites | Documentación |
 |---|---|---|
-| **Intel Hardware Advisor** | Inspeccionar un entorno local de inferencia Windows o Linux y entender qué permiten concluir las evidencias disponibles. | [`intel-hardware-advisor/SKILL.md`](../skills/intel-hardware-advisor/SKILL.md) |
+| **Intel Hardware Advisor** | Inspeccionar un entorno local de inferencia Windows, Linux o macOS y entender qué permiten concluir las evidencias disponibles. | [`intel-hardware-advisor/SKILL.md`](../skills/intel-hardware-advisor/SKILL.md) |
 | **Intel Docs Reader** | Buscar y citar el archivo local versionado de la documentación oficial de OpenVINO. | [`intel-docs-reader/SKILL.md`](../skills/intel-docs-reader/SKILL.md) |
 
 ### Intel Hardware Advisor
@@ -35,6 +35,10 @@ No instala paquetes, cambia drivers, ejecuta benchmarks, recorre archivos
 arbitrarios ni infiere compatibilidad de modelos, latencia, throughput,
 ahorro de memoria o soporte de precisión basándose únicamente en el nombre de
 un dispositivo.
+
+También informa estados ligeros de configuración de GPU, NPU, GenAI, OpenCV y
+contexto de ejecución; las dudas detalladas de soporte y configuración quedan
+en el Docs Reader versionado.
 
 ### Intel Docs Reader
 
