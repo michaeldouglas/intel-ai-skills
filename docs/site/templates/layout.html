@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{TITLE}} · Intel AI Skills</title>
+  <meta name="description" content="{{META_DESCRIPTION}}">
+  <meta name="theme-color" content="#0b1728">
+  <meta property="og:title" content="{{TITLE}} · Intel AI Skills">
+  <meta property="og:description" content="{{META_DESCRIPTION}}">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="{{ASSET_PREFIX}}intel-ai-skills-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ASSET_PREFIX}}site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="{{HOME_LINK}}" aria-label="Intel AI Skills home">
+        <img class="brand-logo" src="{{ASSET_PREFIX}}intel-ai-skills-logo-light.svg" data-light-logo="{{ASSET_PREFIX}}intel-ai-skills-logo-light.svg" data-dark-logo="{{ASSET_PREFIX}}intel-ai-skills-logo-dark.svg" alt="Intel AI Skills" width="360" height="90">
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">Menu</button>
+      <nav id="site-navigation" class="site-navigation" aria-label="Primary navigation">
+        {{NAV}}
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" data-theme-toggle>◐ <span>Theme</span></button>
+      </nav>
+    </header>
+    <main id="main-content" class="{{BODY_CLASS}}">
+      {{CONTENT}}
+    </main>
+    <footer class="site-footer">
+      <div>
+        <strong>Intel AI Skills</strong>
+        <p>Evidence-first skills for Intel AI and OpenVINO workloads.</p>
+      </div>
+      <div class="footer-links">
+        <a href="{{REPO_LINK}}">GitHub repository</a>
+        <a href="{{GETTING_STARTED_LINK}}">Get started</a>
+      </div>
+    </footer>
+  </div>
+  <script src="{{ASSET_PREFIX}}site.js" defer></script>
+</body>
+</html>
