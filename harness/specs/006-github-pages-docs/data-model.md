@@ -30,6 +30,16 @@ The generated static site contains:
 - `skills/<slug>.html`: generated detail pages for every Published Skill.
 - `404.html`: branded fallback for invalid routes.
 
+Each documentation route also exposes a shared navigation shell:
+
+- `sidebar`: project entry points plus grouped links for every published skill;
+- `breadcrumbs`: the current location from the project home to the page;
+- `toc`: anchors for the major sections available on the current page;
+- `previous/next`: adjacent skill links on generated skill detail pages.
+
+These navigation fields are generated from the localized site and catalog data;
+they are presentation metadata, not a second source of truth for skill content.
+
 ## Locale
 
 Represents one supported language and its translated public copy.

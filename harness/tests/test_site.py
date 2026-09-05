@@ -71,6 +71,23 @@ def test_public_site_explains_agent_portability_and_keeps_maintainer_preview_out
     assert "What it does not do" in installer
 
 
+def test_docs_pages_use_grouped_navigation_and_contextual_page_navigation() -> None:
+    output = build_site.build()
+    skill = (output / "skills" / "intel-openvino-installer.html").read_text(encoding="utf-8")
+    portuguese_skill = (output / "pt-br" / "skills" / "intel-openvino-installer.html").read_text(encoding="utf-8")
+    getting_started = (output / "getting-started.html").read_text(encoding="utf-8")
+
+    assert 'class="docs-frame docs-layout"' in skill
+    assert 'class="docs-sidebar"' in skill
+    assert 'class="docs-nav"' in skill
+    assert 'class="breadcrumbs"' in skill
+    assert 'class="docs-toc"' in skill
+    assert 'href="#workflow"' in skill
+    assert 'class="prev-next"' in skill
+    assert 'Navegação da documentação' in portuguese_skill
+    assert 'href="#agents"' in getting_started
+
+
 def test_site_keeps_existing_localized_markdown_outside_generated_output() -> None:
     assert (REPOSITORY_ROOT / "docs" / "README.pt-BR.md").is_file()
     assert (REPOSITORY_ROOT / "docs" / "README.es.md").is_file()

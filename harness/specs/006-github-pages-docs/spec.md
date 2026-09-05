@@ -161,6 +161,10 @@ are translated and link to the equivalent page in each language.
   language accessibly.
 - **FR-013**: Build validation MUST verify that every supported locale contains
   translated UI labels, category copy, and metadata for every published skill.
+- **FR-014**: Documentation pages MUST use a consistent docs-oriented shell
+  with grouped left navigation, breadcrumbs, a contextual "on this page"
+  outline, and previous/next links for skill pages; the shell MUST preserve
+  the site's language, theme, accessibility, and responsive behavior.
 
 ### Key Entities
 
@@ -191,6 +195,9 @@ are translated and link to the equivalent page in each language.
   client-side scripting is disabled.
 - **SC-007**: A successful build generates the same complete route set for all
   three supported languages, and every language-switcher link resolves.
+- **SC-008**: A visitor can identify the current documentation location and
+  jump to any major section of a skill page from the generated navigation
+  shell, in every supported locale.
 
 ## Assumptions
 

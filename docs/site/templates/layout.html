@@ -26,9 +26,19 @@
       </nav>
       <div class="language-switcher" aria-label="{{UI_LANGUAGE_LABEL}}">{{LANG_SWITCHER}}</div>
     </header>
-    <main id="main-content" class="{{BODY_CLASS}}">
-      {{CONTENT}}
-    </main>
+    <div class="docs-frame {{LAYOUT_CLASS}}">
+      <aside class="docs-sidebar" aria-label="{{UI_DOCS_NAV}}">{{SIDEBAR}}</aside>
+      <div class="docs-main-column">
+        <div class="breadcrumbs">{{BREADCRUMB}}</div>
+        <main id="main-content" class="{{BODY_CLASS}}">
+          {{CONTENT}}
+        </main>
+      </div>
+      <aside class="docs-toc" aria-label="{{UI_ON_THIS_PAGE}}">
+        <p class="docs-toc-label">{{UI_ON_THIS_PAGE}}</p>
+        {{TOC}}
+      </aside>
+    </div>
     <footer class="site-footer">
       <div>
         <strong>Intel AI Skills</strong>

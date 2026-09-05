@@ -32,6 +32,8 @@ REQUIRED_SKILL_FIELDS = (
 REQUIRED_UI_KEYS = {
     "UI_SKIP", "UI_MENU", "UI_THEME", "UI_LANGUAGE_LABEL", "UI_HOME_LABEL",
     "UI_PRIMARY_NAV", "UI_NAV_HOME", "UI_NAV_GETTING_STARTED", "UI_NAV_SKILLS",
+    "UI_DOCS_NAV", "UI_ON_THIS_PAGE", "UI_BREADCRUMB_HOME", "UI_BREADCRUMB_GETTING",
+    "UI_BREADCRUMB_SKILLS", "UI_SIDEBAR_CATALOG", "UI_PREVIOUS_SKILL", "UI_NEXT_SKILL",
     "UI_FOOTER_TAGLINE", "UI_REPO_LINK", "UI_GET_STARTED_LINK",
     "UI_HOME_EYEBROW", "UI_HOME_TITLE", "UI_HOME_LEDE", "UI_START_BUTTON",
     "UI_CATALOG_BUTTON", "UI_FACTS", "UI_SKILLS", "UI_OPENVINO",
@@ -68,6 +70,10 @@ ENGLISH_UI = {
     "UI_LANGUAGE_LABEL": "Language", "UI_HOME_LABEL": "Intel AI Skills home",
     "UI_PRIMARY_NAV": "Primary navigation", "UI_NAV_HOME": "Home",
     "UI_NAV_GETTING_STARTED": "Get started", "UI_NAV_SKILLS": "Skills",
+    "UI_DOCS_NAV": "Documentation navigation", "UI_ON_THIS_PAGE": "On this page",
+    "UI_BREADCRUMB_HOME": "Home", "UI_BREADCRUMB_GETTING": "Get started",
+    "UI_BREADCRUMB_SKILLS": "Skills", "UI_SIDEBAR_CATALOG": "Skill catalog",
+    "UI_PREVIOUS_SKILL": "Previous skill", "UI_NEXT_SKILL": "Next skill",
     "UI_FOOTER_TAGLINE": "Evidence-first skills for practical Intel AI and OpenVINO work.",
     "UI_REPO_LINK": "GitHub repository", "UI_GET_STARTED_LINK": "Get started",
     "UI_HOME_EYEBROW": "OpenVINO, made actionable",
@@ -236,6 +242,79 @@ def nav_html(prefix: str, current: str, ui: dict[str, str]) -> str:
     return "".join(f'<a href="{href}"{(" aria-current=\"page\"" if current == key else "")}>{esc(label)}</a>' for key, label, href in links)
 
 
+def sidebar_html(locale: dict, entries: list[dict], route: str, local_prefix: str) -> str:
+    ui = locale["ui"]
+    current_skill = route.removeprefix("skills/") if route.startswith("skills/") else ""
+    html_parts = [
+        f'<nav class="docs-nav"><p class="docs-nav-label">{esc(ui["UI_DOCS_NAV"])}</p>',
+        f'<a class="docs-nav-link" href="{local_prefix}index.html">{esc(ui["UI_NAV_HOME"])}</a>',
+        f'<a class="docs-nav-link" href="{local_prefix}getting-started.html">{esc(ui["UI_NAV_GETTING_STARTED"])}</a>',
+        f'<a class="docs-nav-link" href="{local_prefix}skills/index.html"{(" aria-current=\"page\"" if route == "skills/index.html" else "")}>{esc(ui["UI_SIDEBAR_CATALOG"])}</a>',
+    ]
+    by_category = {category["id"]: [] for category in locale["site"]["categories"]}
+    for entry in entries:
+        by_category.setdefault(entry["category"], []).append(entry)
+    for category in locale["site"]["categories"]:
+        html_parts.append(f'<p class="docs-nav-group">{esc(category["label"])}</p>')
+        for entry in by_category.get(category["id"], []):
+            active = ' aria-current="page"' if current_skill == entry["slug"] else ""
+            html_parts.append(f'<a class="docs-nav-link" href="{local_prefix}skills/{entry["slug"]}.html"{active}>{esc(entry["name"])}</a>')
+    html_parts.append("</nav>")
+    return "".join(html_parts)
+
+
+def breadcrumb_html(locale: dict, route: str, title: str, local_prefix: str) -> str:
+    ui = locale["ui"]
+    if route == "getting-started.html":
+        items = [(local_prefix + "index.html", ui["UI_BREADCRUMB_HOME"]), (None, ui["UI_BREADCRUMB_GETTING"])]
+    elif route == "skills/index.html":
+        items = [(local_prefix + "index.html", ui["UI_BREADCRUMB_HOME"]), (None, ui["UI_BREADCRUMB_SKILLS"])]
+    elif route.startswith("skills/"):
+        items = [(local_prefix + "index.html", ui["UI_BREADCRUMB_HOME"]), (local_prefix + "skills/index.html", ui["UI_BREADCRUMB_SKILLS"]), (None, title)]
+    else:
+        return ""
+    parts = []
+    for index, (href, label) in enumerate(items):
+        if index:
+            parts.append('<span class="breadcrumb-separator" aria-hidden="true">/</span>')
+        if href:
+            parts.append(f'<a href="{href}">{esc(label)}</a>')
+        else:
+            parts.append(f'<span class="breadcrumb-current">{esc(label)}</span>')
+    return "".join(parts)
+
+
+def toc_html(locale: dict, route: str) -> str:
+    ui = locale["ui"]
+    if route == "getting-started.html":
+        items = (("install", ui["UI_INSTALL_ONE_TITLE"]), ("how-it-works", ui["UI_HOW_EYEBROW"]), ("agents", ui["UI_AGENTS_TITLE"]), ("boundary", ui["UI_BOUNDARY_TITLE"]))
+    elif route == "skills/index.html":
+        items = (("catalog", ui["UI_CATALOG_TITLE"]),)
+    elif route.startswith("skills/"):
+        items = (("overview", ui["UI_WHAT_IT_IS"]), ("when-to-use", ui["UI_USE_IT_WHEN"]), ("workflow", ui["UI_WORKFLOW"]), ("boundaries", ui["UI_BOUNDARY"]), ("related", ui["UI_RELATED_SKILLS"]))
+    else:
+        return ""
+    return '<nav class="docs-toc-list">' + "".join(f'<a href="#{anchor}">{esc(label)}</a>' for anchor, label in items) + "</nav>"
+
+
+def prev_next_html(locale: dict, entries: list[dict], current: dict, local_prefix: str) -> str:
+    index = next((position for position, entry in enumerate(entries) if entry["slug"] == current["slug"]), -1)
+    if index < 0:
+        return ""
+    links = []
+    if index > 0:
+        previous = entries[index - 1]
+        links.append(f'<a href="{previous["slug"]}.html"><small>← {esc(locale["ui"]["UI_PREVIOUS_SKILL"])}</small><strong>{esc(previous["name"])}</strong></a>')
+    else:
+        links.append("<span></span>")
+    if index + 1 < len(entries):
+        following = entries[index + 1]
+        links.append(f'<a href="{following["slug"]}.html"><small>{esc(locale["ui"]["UI_NEXT_SKILL"])} →</small><strong>{esc(following["name"])}</strong></a>')
+    else:
+        links.append("<span></span>")
+    return '<nav class="prev-next" aria-label="' + esc(locale["ui"]["UI_DOCS_NAV"]) + '">' + "".join(links) + "</nav>"
+
+
 def language_switcher(current_locale: dict, locales: list[dict], page_relative: str) -> str:
     page_parent = posixpath.dirname(page_relative) or "."
     if page_relative.startswith("skills/"):
@@ -255,14 +334,16 @@ def language_switcher(current_locale: dict, locales: list[dict], page_relative: 
 
 def render_layout(template: str, *, title: str, description: str, content: str,
                   asset_prefix: str, local_prefix: str, current: str, repo: str,
-                  locale: dict, locales: list[dict], page_relative: str) -> str:
+                  locale: dict, locales: list[dict], page_relative: str,
+                  sidebar: str, breadcrumb: str, toc: str, layout_class: str) -> str:
     ui = locale["ui"]
     values = {**ui, "TITLE": esc(title), "META_DESCRIPTION": esc(description), "CONTENT": content,
               "LANG": esc(locale["lang"]), "ASSET_PREFIX": asset_prefix + "assets/",
               "HOME_LINK": local_prefix + "index.html", "GETTING_STARTED_LINK": local_prefix + "getting-started.html",
               "SKILLS_LINK": local_prefix + "skills/index.html", "NAV": nav_html(local_prefix, current, ui),
               "LANG_SWITCHER": language_switcher(locale, locales, page_relative), "REPO_LINK": esc(repo),
-              "BODY_CLASS": current}
+              "BODY_CLASS": current, "SIDEBAR": sidebar, "BREADCRUMB": breadcrumb,
+              "TOC": toc, "LAYOUT_CLASS": layout_class}
     output = template
     for key, value in values.items():
         output = output.replace("{{" + key + "}}", str(value))
@@ -357,10 +438,17 @@ def build() -> Path:
             local_prefix = "../" if route.startswith("skills/") else ""
             values = dict(locale["ui"])
             values.update(replacements)
+            values.setdefault("PREV_NEXT", "")
             content = render_template(template_root / content_template, values)
+            docs_route = route != "index.html"
+            sidebar = sidebar_html(locale, localized_entries, route, local_prefix) if docs_route else ""
+            breadcrumb = breadcrumb_html(locale, route, title, local_prefix) if docs_route else ""
+            toc = toc_html(locale, route) if docs_route else ""
             page = render_layout(layout, title=title, description=description, content=content,
                                  asset_prefix=asset_prefix, local_prefix=local_prefix, current=current,
-                                 repo=locale_site["repo"], locale=locale, locales=locales, page_relative=relative)
+                                 repo=locale_site["repo"], locale=locale, locales=locales, page_relative=relative,
+                                 sidebar=sidebar, breadcrumb=breadcrumb, toc=toc,
+                                 layout_class="home-layout" if route == "index.html" else "docs-layout")
             if "{{" in page or "}}" in page:
                 raise BuildError(f"Unresolved template token in {relative}")
             destination.parent.mkdir(parents=True, exist_ok=True)
@@ -378,7 +466,8 @@ def build() -> Path:
                             "SKILL_NAME": esc(entry["name"]), "TAGLINE": esc(entry["tagline"]), "INSTALL": esc(entry["install"]),
                             "PURPOSE": esc(entry["purpose"]), "WHEN_TO_USE": list_items(entry["when_to_use"], ""),
                             "WORKFLOW": list_items(entry["workflow"], ""), "BOUNDARIES": list_items(entry["boundaries"], ""),
-                            "RELATED": related_links(entry, by_id)}
+                            "RELATED": related_links(entry, by_id),
+                            "PREV_NEXT": prev_next_html(locale, localized_entries, entry, "../")}
             write_page(f"skills/{entry['slug']}.html", "skill-detail.html", title=entry["name"], description=entry["purpose"], current="skills", replacements=replacements)
         write_page("404.html", "404.html", title=locale["ui"]["UI_NOT_FOUND_TITLE"], description=locale["ui"]["UI_NOT_FOUND_LEDE"], current="home", replacements={})
     validate_output_links()

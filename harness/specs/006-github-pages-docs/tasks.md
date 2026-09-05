@@ -104,6 +104,19 @@ then verify every language-switcher link resolves.
 
 ---
 
+## Phase 8: Documentation Navigation Experience (Priority: P1)
+
+**Goal**: Organize the public site as a documentation product with predictable
+navigation around the project and every published skill.
+
+- [x] T031 Add the shared documentation shell with grouped sidebar, breadcrumbs, and contextual table of contents in `docs/site/templates/layout.html` and `docs/site/scripts/build_site.py`
+- [x] T032 Add previous/next skill navigation and stable section anchors to the getting-started, catalog, and skill detail templates
+- [x] T033 Add responsive documentation-shell styling that preserves access to the catalog and skill pages on narrow screens in `docs/site/static/site.css`
+- [x] T034 Add localized navigation labels and generated-output assertions for the documentation shell in `docs/site/content/locales.json` and `harness/tests/test_site.py`
+- [x] T035 Update the feature specification, data model, and quickstart with the documentation navigation contract
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies
