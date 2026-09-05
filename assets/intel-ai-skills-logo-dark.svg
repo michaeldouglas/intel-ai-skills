@@ -2,10 +2,19 @@
   <title id="title">Intel AI Skills</title>
   <desc id="desc">Direction C for dark backgrounds, an open monogram made from two interlocking geometric planes in rose and cyan.</desc>
   <rect width="1200" height="300" rx="18" fill="#0B1728"/>
+  <g fill="none" stroke="#47D3DD" stroke-width="1.5" opacity=".12" stroke-linecap="round">
+    <path d="M720 38C790 12 844 52 906 30s112-18 178 20"/>
+    <path d="M760 264c70-30 126 8 184-12s106-18 176 8"/>
+    <path d="M1010 62c38 18 58 18 94 2s54-12 74 4" stroke="#D46A96"/>
+  </g>
+  <g fill="#47D3DD" opacity=".18">
+    <circle cx="720" cy="38" r="3"/><circle cx="906" cy="30" r="3"/><circle cx="1084" cy="50" r="3"/>
+    <circle cx="760" cy="264" r="3"/><circle cx="944" cy="252" r="3"/><circle cx="1120" cy="260" r="3"/>
+  </g>
   <g transform="translate(42 0)">
     <path d="M62 66h48v118h38l36-36h54" fill="none" stroke="#D46A96" stroke-width="28" stroke-linecap="square" stroke-linejoin="bevel"/>
     <path d="M238 66h-48v118h-38l-36-36H62" fill="none" stroke="#47D3DD" stroke-width="28" stroke-linecap="square" stroke-linejoin="bevel"/>
     <path d="M110 66h80M110 184h80" fill="none" stroke="#F5F7FA" stroke-width="10"/>
   </g>
-  <text x="320" y="170" fill="#F5F7FA" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="82" font-weight="700" letter-spacing="-3">Intel <tspan fill="#D46A96">AI Skills</tspan></text>
+  <text x="320" y="172" fill="#F5F7FA" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="92" font-weight="700" letter-spacing="-2" textLength="820" lengthAdjust="spacing">Intel <tspan fill="#D46A96" font-weight="800">AI Skills</tspan></text>
 </svg>
