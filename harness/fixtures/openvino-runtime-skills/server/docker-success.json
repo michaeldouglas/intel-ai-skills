@@ -1,0 +1,7 @@
+{
+  "context": {"system": "Linux", "architecture": "x86_64", "docker": true},
+  "image": "fixture/openvino-model-server:2026",
+  "request": {"image": "fixture/openvino-model-server:2026", "repository": "./teste/model-repository", "model": "classifier", "rest_port": 9000, "grpc_port": 9001, "device": "CPU"},
+  "action_results": [{"status": "passed", "command": "docker run fixture ovms"}],
+  "verification": {"status": "passed", "container": "running", "health": "passed", "model": "loaded", "endpoints": ["REST", "gRPC"], "metrics": "available", "issues": []}
+}

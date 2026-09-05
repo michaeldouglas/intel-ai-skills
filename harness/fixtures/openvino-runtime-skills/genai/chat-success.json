@@ -1,0 +1,6 @@
+{
+  "context": {"system": "Linux", "architecture": "x86_64", "available_tools": {"python": true}},
+  "request": {"workload": "chat", "model": "models/chat-model", "device": "CPU", "package": "openvino-genai"},
+  "action_results": [{"status": "passed", "command": "install fixture package"}, {"status": "passed", "command": "run fixture chat"}],
+  "verification": {"status": "passed", "package_import": "passed", "model_loaded": "passed", "generation": "passed", "metrics": {"tokens_per_second": 12.4}, "issues": []}
+}
