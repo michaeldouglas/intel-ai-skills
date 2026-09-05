@@ -1,0 +1,18 @@
+{
+  "context": {
+    "system": "macOS",
+    "release": "15.0",
+    "architecture": "arm64",
+    "execution_context": "native",
+    "ecosystem": "conda",
+    "permissions": "available",
+    "available_tools": {
+      "conda": true,
+      "python": true
+    }
+  },
+  "request": {
+    "ecosystem": "conda",
+    "version": "2026.3.0"
+  }
+}

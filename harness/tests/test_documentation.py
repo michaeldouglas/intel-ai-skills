@@ -13,6 +13,7 @@ DOCUMENTS = {
 PUBLISHED_SKILLS = (
     "skills/intel-docs-reader/SKILL.md",
     "skills/intel-hardware-advisor/SKILL.md",
+    "skills/intel-openvino-installer/SKILL.md",
 )
 
 
@@ -48,12 +49,13 @@ def test_each_readme_catalogs_the_published_skills_before_project_details() -> N
         content = document.read_text(encoding="utf-8")
         assert "intel-docs-reader" in content
         assert "intel-hardware-advisor" in content
+        assert "intel-openvino-installer" in content
         details_heading = next(
             (heading for heading in ("## Why Intel AI Skills?", "## Por que Intel AI Skills?", "## ¿Por qué Intel AI Skills?") if heading in content),
             None,
         )
         assert details_heading is not None
-        skills_position = min(content.index(skill) for skill in ("intel-docs-reader", "intel-hardware-advisor"))
+        skills_position = min(content.index(skill) for skill in ("intel-docs-reader", "intel-hardware-advisor", "intel-openvino-installer"))
         assert skills_position < content.index(details_heading)
 
 
@@ -73,9 +75,9 @@ def test_each_readme_links_to_both_published_skill_files() -> None:
 def test_each_readme_documents_agent_neutral_installation() -> None:
     for document in DOCUMENTS.values():
         content = document.read_text(encoding="utf-8")
-        for skill in ("intel-hardware-advisor", "intel-docs-reader"):
+        for skill in ("intel-hardware-advisor", "intel-docs-reader", "intel-openvino-installer"):
             assert f"npx skills add michaeldouglas/intel-ai-skills --skill {skill} -a codex" in content
-        assert "npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor --skill intel-docs-reader -a codex" in content
+        assert "npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor --skill intel-docs-reader --skill intel-openvino-installer -a codex" in content
         assert "claude-code" in content
         assert "outro agente" in content or "otro agente" in content or "another supported agent" in content
         assert "cd skills/intel-" not in content
@@ -91,12 +93,16 @@ def test_public_readmes_do_not_expose_harness_internals() -> None:
 def test_openvino_skills_instruct_agents_to_run_bundled_scripts() -> None:
     hardware_skill = (REPOSITORY_ROOT / "skills/intel-hardware-advisor/SKILL.md").read_text(encoding="utf-8")
     docs_skill = (REPOSITORY_ROOT / "skills/intel-docs-reader/SKILL.md").read_text(encoding="utf-8")
-    assert "invoke the bundled" in hardware_skill
-    assert "Do not ask the user" in hardware_skill
+    installer_skill = (REPOSITORY_ROOT / "skills/intel-openvino-installer/SKILL.md").read_text(encoding="utf-8")
+    assert "invoke the bundled" in hardware_skill.lower()
+    assert "do not ask the user" in hardware_skill.lower()
     assert "scripts/hardware_probe.py" in hardware_skill
-    assert "invoke the bundled" in docs_skill
-    assert "Do not ask the user" in docs_skill
+    assert "invoke the bundled" in docs_skill.lower()
+    assert "do not ask the user" in docs_skill.lower()
     assert "scripts/read_openvino_docs.py" in docs_skill
+    assert "invoke the bundled" in installer_skill.lower()
+    assert "do not ask the user" in installer_skill.lower()
+    assert "scripts/openvino_installer.py" in installer_skill
 
 
 def test_harness_uses_local_openvino_docs_as_sdd_knowledge_base() -> None:
