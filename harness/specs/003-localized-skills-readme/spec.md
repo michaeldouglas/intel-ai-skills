@@ -68,6 +68,7 @@ Como um leitor que escolheu um idioma, quero encontrar nele o catálogo das skil
 - **FR-006**: Os links entre documentos, skills e arquivos do repositório MUST ser relativos e apontar para destinos existentes.
 - **FR-007**: A validação automatizada MUST verificar a presença dos documentos localizados, das referências de idioma e das referências das skills publicadas.
 - **FR-008**: A documentação localizada MUST preservar as fronteiras de segurança, privacidade, evidência e incerteza descritas pelas skills.
+- **FR-009**: A documentação MUST mostrar a instalação pelo padrão `npx skills add`, usando `codex` apenas como exemplo e indicando que o destino pode ser substituído por outro agente compatível.
 
 ## Success Criteria
 
@@ -81,6 +82,7 @@ Como um leitor que escolheu um idioma, quero encontrar nele o catálogo das skil
 ## Assumptions
 
 - O README raiz permanece em inglês como idioma padrão do projeto.
+- `codex` será o exemplo de agente nos comandos de instalação, mas as skills não serão descritas como exclusivas do Codex.
 - A pasta `docs/` será usada para documentação humana localizada e poderá receber outros idiomas no futuro.
 - A lista atual de skills publicadas é formada por `intel-hardware-advisor` e `intel-docs-reader`.
 - A tradução deve acompanhar o conteúdo essencial do README, mas não precisa traduzir nomes próprios, comandos, caminhos ou identificadores técnicos.

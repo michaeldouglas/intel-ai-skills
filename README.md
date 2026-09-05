@@ -83,6 +83,16 @@ Read the complete source and version-boundary contract in
 
 ## Quickstart
 
+### Install for your agent
+
+Use the command for each skill you want to add. The example targets Codex;
+replace `codex` with `claude-code` or another supported agent when needed.
+
+```bash
+npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor -a codex
+npx skills add michaeldouglas/intel-ai-skills --skill intel-docs-reader -a codex
+```
+
 ### Use the published skills
 
 Clone the repository and run either skill from its own directory:

@@ -12,6 +12,7 @@
 
 - [X] T002 Rewrite the opening and navigation sections of root `../README.md` so the published skills catalog and language selector appear before project internals.
 - [X] T003 [P] Update the root README quickstart and skill usage sections to cover both `intel-docs-reader` and `intel-hardware-advisor` accurately.
+- [X] T003a Add direct `npx skills add` commands for both published skills and state that `codex` is only an example destination.
 
 ## Phase 3: Localized documentation (P1)
 

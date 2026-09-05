@@ -68,3 +68,20 @@ def test_each_readme_links_to_both_published_skill_files() -> None:
         targets = set(local_markdown_links(document))
         expected = {(document.parent / ".." / path).resolve() if document.parent.name == "docs" else (document.parent / path).resolve() for path in PUBLISHED_SKILLS}
         assert expected <= targets, f"Missing skill links in {document}"
+
+
+def test_each_readme_documents_agent_neutral_installation() -> None:
+    for document in DOCUMENTS.values():
+        content = document.read_text(encoding="utf-8")
+        for skill in ("intel-hardware-advisor", "intel-docs-reader"):
+            assert f"npx skills add michaeldouglas/intel-ai-skills --skill {skill} -a codex" in content
+        assert "claude-code" in content
+        assert "outro agente" in content or "otro agente" in content or "another supported agent" in content
+
+
+def test_published_skills_have_standard_agent_skill_frontmatter() -> None:
+    for relative_path in PUBLISHED_SKILLS:
+        skill = (REPOSITORY_ROOT / relative_path).read_text(encoding="utf-8")
+        assert skill.startswith("---\n")
+        assert re.search(r"^name:\s*[a-z0-9][a-z0-9-]*$", skill, re.MULTILINE)
+        assert re.search(r"^description:\s*.+$", skill, re.MULTILINE)

@@ -67,6 +67,16 @@ Consulta el contrato completo de fuentes y límites de versión en
 
 ## Inicio rápido
 
+### Instalar para tu agente
+
+Usa el comando de la skill que quieras añadir. El ejemplo usa Codex; cambia
+`codex` por `claude-code` u otro agente compatible cuando sea necesario.
+
+```bash
+npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor -a codex
+npx skills add michaeldouglas/intel-ai-skills --skill intel-docs-reader -a codex
+```
+
 ### Usar las skills publicadas
 
 Clona el repositorio y ejecuta cada skill desde su propio directorio:
