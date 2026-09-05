@@ -8,7 +8,7 @@
 
 ## Summary
 
-Create a dependency-free static documentation site under `docs/site/` that
+Create a dependency-free multilingual static documentation site under `docs/site/` that
 explains Intel AI Skills, provides grouped navigation and detailed pages for
 all published skills, and uses the selected Open Monogram identity. A
 standard-library Python build script will validate the catalog and links,
@@ -41,7 +41,7 @@ will run the same build before serving the result.
 
 **Constraints**: Keep `docs/` untouched; no runtime backend; no third-party frontend dependency; core navigation and content must work without JavaScript; generated files must not be committed
 
-**Scale/Scope**: One overview, one getting-started page, one catalog, and one generated detail page for each current published skill
+**Scale/Scope**: One overview, one getting-started page, one catalog, and one generated detail page for each current published skill in English, pt-BR, and Spanish
 
 ## Constitution Check
 
@@ -84,7 +84,8 @@ specs/006-github-pages-docs/
 
 ```text
 docs/site/
-├── content/skills.json       # Public catalog metadata and detailed skill copy
+├── content/skills.json       # English catalog metadata and detailed skill copy
+├── content/locales.json      # pt-BR and Spanish UI and skill translations
 ├── templates/                # HTML page templates and shared navigation
 └── static/                   # CSS, progressive-enhancement JS, favicon assets
 

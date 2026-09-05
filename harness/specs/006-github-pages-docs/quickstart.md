@@ -24,7 +24,8 @@ From the repository root:
 python docs/site/scripts/serve_site.py
 ```
 
-Open `http://127.0.0.1:8000/` in a browser. The preview script rebuilds the
+Open `http://127.0.0.1:8000/` in a browser. English is at `/`, Brazilian
+Portuguese at `/pt-br/`, and Spanish at `/es/`. The preview script rebuilds the
 site before starting the standard-library web server, so it represents the same
 artifact used by the Pages workflow.
 
@@ -36,8 +37,9 @@ From `harness/`:
 python -m pytest -q
 ```
 
-The site-specific tests verify that all published skills have pages, required
-logo assets are copied, internal links resolve, and generated output exists.
+The site-specific tests verify that all published skills have pages in every
+locale, required logo assets are copied, internal and language-switcher links
+resolve, and generated output exists.
 
 ## Publication flow
 
