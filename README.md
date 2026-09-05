@@ -41,6 +41,7 @@ and can be installed independently.
 |---|---|---|
 | **Intel Hardware Advisor** | Inspect a local Windows, Linux, or macOS inference environment and understand what the available evidence supports. | [`intel-hardware-advisor/SKILL.md`](./skills/intel-hardware-advisor/SKILL.md) |
 | **Intel Docs Reader** | Search and cite the versioned local archive of official OpenVINO documentation. | [`intel-docs-reader/SKILL.md`](./skills/intel-docs-reader/SKILL.md) |
+| **Intel OpenVINO Installer** | Choose, install, and verify OpenVINO Runtime with a documented method for the user's platform and ecosystem. | [`intel-openvino-installer/SKILL.md`](./skills/intel-openvino-installer/SKILL.md) |
 
 ### Intel Hardware Advisor
 
@@ -64,6 +65,13 @@ Use this skill when your agent needs authoritative OpenVINO documentation
 about APIs, devices, setup, configuration, or documented limitations. It uses
 a local cache and cites the source page for useful results.
 
+### Intel OpenVINO Installer
+
+Use this skill when your agent needs to choose, install, or verify OpenVINO
+Runtime. It selects a documented method for the platform and ecosystem,
+previews the commands, asks for confirmation before changing the machine, and
+reports installation and runtime verification separately.
+
 ## Quickstart
 
 ### Install for your agent
@@ -74,12 +82,13 @@ replace `codex` with `claude-code` or another supported agent when needed.
 ```bash
 npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor -a codex
 npx skills add michaeldouglas/intel-ai-skills --skill intel-docs-reader -a codex
+npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-installer -a codex
 ```
 
-Or install both skills in one command:
+Or install all three skills in one command:
 
 ```bash
-npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor --skill intel-docs-reader -a codex
+npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor --skill intel-docs-reader --skill intel-openvino-installer -a codex
 ```
 
 ### Use the installed skills

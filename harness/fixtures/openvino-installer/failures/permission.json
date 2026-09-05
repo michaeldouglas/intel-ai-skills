@@ -1,0 +1,16 @@
+{
+  "context": {
+    "system": "Linux",
+    "distribution": "Ubuntu",
+    "distribution_version": "24.04",
+    "architecture": "x86_64",
+    "execution_context": "native",
+    "ecosystem": "python",
+    "permissions": "denied",
+    "available_tools": {"python": true, "pip": true}
+  },
+  "request": {"ecosystem": "python", "version": "2026.3.0"},
+  "action_results": [
+    {"status": "failed", "stderr": "permission denied token=SECRET_VALUE"}
+  ]
+}

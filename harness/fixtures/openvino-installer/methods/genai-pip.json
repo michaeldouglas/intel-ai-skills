@@ -1,0 +1,18 @@
+{
+  "context": {
+    "system": "Linux",
+    "distribution": "Ubuntu",
+    "distribution_version": "24.04",
+    "architecture": "x86_64",
+    "execution_context": "native",
+    "ecosystem": "genai",
+    "permissions": "available",
+    "available_tools": {"python": true}
+  },
+  "request": {
+    "ecosystem": "genai",
+    "method": "pip",
+    "version": "maintenance",
+    "components": ["genai"]
+  }
+}

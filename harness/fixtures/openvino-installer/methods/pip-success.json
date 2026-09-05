@@ -1,0 +1,32 @@
+{
+  "context": {
+    "system": "Linux",
+    "distribution": "Ubuntu",
+    "distribution_version": "24.04",
+    "architecture": "x86_64",
+    "execution_context": "native",
+    "ecosystem": "python",
+    "permissions": "available",
+    "available_tools": {
+      "python": true,
+      "pip": true
+    }
+  },
+  "request": {
+    "ecosystem": "python",
+    "version": "2026.3.0",
+    "target_dir": ".openvino-env"
+  },
+  "action_results": [
+    {"status": "passed", "stdout": "created"},
+    {"status": "passed", "stdout": "pip 25.0"},
+    {"status": "passed", "stdout": "openvino installed"}
+  ],
+  "verification": {
+    "status": "passed",
+    "installed_version": "2026.3.0",
+    "runtime_import": "passed",
+    "devices": ["CPU"],
+    "components": {}
+  }
+}

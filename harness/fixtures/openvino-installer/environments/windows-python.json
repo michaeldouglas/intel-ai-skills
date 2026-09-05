@@ -1,0 +1,20 @@
+{
+  "context": {
+    "system": "Windows",
+    "release": "11",
+    "architecture": "x86_64",
+    "execution_context": "native",
+    "ecosystem": "python",
+    "permissions": "available",
+    "available_tools": {
+      "python": true,
+      "pip": true,
+      "winget": true
+    }
+  },
+  "request": {
+    "ecosystem": "python",
+    "version": "maintenance",
+    "target_dir": ".openvino-env"
+  }
+}
