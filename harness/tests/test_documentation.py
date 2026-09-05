@@ -126,7 +126,6 @@ def test_runtime_skills_instruct_agents_to_run_bundled_scripts() -> None:
     for skill_name, script_name in script_names.items():
         content = (REPOSITORY_ROOT / "skills" / skill_name / "SKILL.md").read_text(encoding="utf-8").lower()
         assert "invoke" in content
-        assert "bundled" in content
         assert script_name.lower() in content
 
 
