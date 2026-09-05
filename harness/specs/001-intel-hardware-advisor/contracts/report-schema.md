@@ -24,6 +24,11 @@ Required nested behavior:
 - `recommendation` always has `decision`, `confidence`, `rationale`,
   `evidence_ids`, and `next_steps`.
 - `collection_status` always has `status` and `issues`.
+- `platform` may include `distribution`, `distribution_version`, `kernel`,
+  `architecture`, `os_version`, and `context` without changing the top-level
+  contract.
+- `runtime.additional_configurations` may contain lightweight status entries
+  for GPU, NPU, GenAI, OpenCV, and execution context.
 - An unavailable or unknown value is represented with a non-success status and
   a null value where a value is expected.
 - A report with insufficient evidence MUST use `decision: "no_decision"` and

@@ -1,0 +1,70 @@
+{
+  "fixture_version": "1",
+  "platform": {
+    "system": "macOS",
+    "release": "23.6-test",
+    "machine": "arm64",
+    "architecture": "arm64",
+    "os_version": "14.6",
+    "context": {
+      "wsl": false,
+      "container": false
+    },
+    "status": "detected"
+  },
+  "runtime": {
+    "openvino": {
+      "status": "available",
+      "version": "2026.0",
+      "devices": [
+        {
+          "id": "CPU",
+          "name": "Apple Silicon CPU",
+          "vendor": "Intel",
+          "type": "CPU",
+          "status": "detected"
+        }
+      ]
+    },
+    "additional_configurations": {
+      "gpu": {
+        "status": "not_applicable",
+        "checks": {},
+        "notes": ["The documented macOS path is CPU-only."]
+      },
+      "npu": {
+        "status": "not_applicable",
+        "checks": {},
+        "notes": []
+      },
+      "genai": {
+        "status": "not_checked",
+        "checks": {
+          "version_alignment": "not_checked"
+        },
+        "notes": ["GenAI is optional."]
+      },
+      "opencv": {
+        "status": "unavailable",
+        "checks": {
+          "python_module": "unavailable"
+        },
+        "notes": ["OpenCV is optional."]
+      },
+      "environment": {
+        "status": "detected",
+        "checks": {
+          "wsl": "not_detected",
+          "container": "not_detected",
+          "setupvars": "not_checked"
+        },
+        "notes": []
+      }
+    }
+  },
+  "collector_status": {
+    "platform": "complete",
+    "openvino": "available",
+    "configurations": "complete"
+  }
+}

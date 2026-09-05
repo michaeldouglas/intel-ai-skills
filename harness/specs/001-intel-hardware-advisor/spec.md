@@ -8,6 +8,14 @@
 
 **Input**: User description: "Create the first real Intel Hardware Advisor Agent Skill that detects local Intel inference hardware and OpenVINO runtime facts, reports evidence and uncertainty, and provides safe guidance."
 
+## Scope amendment — 2026-09-05
+
+The advisor remains a read-only first-diagnosis skill. It now covers Windows,
+Linux, and macOS platform metadata, normalizes common CPU architectures, and
+reports lightweight additional-configuration indicators for GPU, NPU, GenAI,
+OpenCV, and WSL/container context. It does not install, repair, benchmark, or
+replace the versioned OpenVINO documentation reader.
+
 ## User Scenarios & Testing *(mandatory)*
 
 <!--
@@ -90,7 +98,7 @@ without Intel hardware, internet access, or secrets and confirm stable results.
 
 **Acceptance Scenarios**:
 
-1. **Given** sanitized Windows and Linux fixtures, **When** the test suite runs,
+1. **Given** sanitized Windows, Linux, and macOS fixtures, **When** the test suite runs,
    **Then** both platforms produce schema-valid reports.
 2. **Given** missing tools, permission failures, unsupported hardware, or
    incomplete runtime properties, **When** the test suite runs, **Then** the
@@ -120,6 +128,10 @@ without Intel hardware, internet access, or secrets and confirm stable results.
   version or hardware scope.
 - A fixture is malformed, contains unknown fields, or includes sensitive data.
 - The host platform is unsupported or cannot be identified reliably.
+- A supported device is visible but its driver, OpenCL/Level Zero runtime, or
+  NPU device node cannot be verified by the portable probe.
+- Optional GenAI/OpenCV packages are absent or have versions that were not
+  checked.
 
 ## Requirements *(mandatory)*
 
@@ -163,6 +175,17 @@ without Intel hardware, internet access, or secrets and confirm stable results.
   without requiring internal harness paths.
 - **FR-015**: The release process MUST preserve the evidence and uncertainty
   fields when rendering or transporting a report.
+- **FR-016**: The advisor MUST identify Windows, Linux, and macOS explicitly and
+  MUST expose Linux distribution, kernel, operating-system version, and
+  normalized architecture when available.
+- **FR-017**: The runtime report MUST expose additional-configuration statuses
+  for GPU, NPU, GenAI, OpenCV, and execution context without modifying the
+  host or claiming workload compatibility.
+- **FR-018**: Configuration statuses MUST distinguish configured, incomplete,
+  not checked, not applicable, unavailable, and unknown outcomes.
+- **FR-019**: Documented support and setup claims MUST remain sourced from
+  versioned documentation; the local probe MUST NOT become a compatibility
+  matrix or installation tool.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -199,6 +222,9 @@ without Intel hardware, internet access, or secrets and confirm stable results.
   Intel hardware, OpenVINO installation, internet access, or secret access.
 - **SC-006**: A promoted skill can be copied to a clean supported environment
   and run without resolving paths inside the engineering harness.
+- **SC-007**: Supported-platform fixtures expose platform metadata and
+  additional-configuration statuses without changing the existing top-level
+  report contract.
 
 ## Assumptions
 
@@ -210,10 +236,13 @@ without Intel hardware, internet access, or secrets and confirm stable results.
 
 - The primary users are AI practitioners and maintainers evaluating local
   inference readiness.
-- The first release targets supported Windows and Linux profiles; unsupported
-  platforms return an explicit unsupported status.
+- The first release targets supported Windows, Linux, and macOS profiles;
+  unsupported platforms return an explicit unsupported status.
 - OpenVINO is an optional runtime signal, not a required dependency for basic
   platform discovery.
+- Additional configurations are lightweight read-only indicators. Detailed
+  support, driver, and version claims are answered from `intel-docs-reader` or
+  another version- and scope-matched authoritative source.
 - Recommendations are limited to version- and scope-matched evidence available
   to the skill; universal benchmark or compatibility claims are out of scope.
 - Live hardware validation is supplemental; deterministic sanitized fixtures

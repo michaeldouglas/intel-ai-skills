@@ -8,7 +8,7 @@ Build the first distributable Agent Skill as a self-contained, read-only
 hardware and runtime advisor. The skill will collect conservative platform
 facts, optionally inspect OpenVINO runtime visibility, preserve collection
 status and evidence, and emit a stable JSON report or a concise human-readable
-report. Deterministic Windows and Linux fixtures will exercise successful,
+report. Deterministic Windows, Linux, and macOS fixtures will exercise successful,
 partial, unsupported, permission-failure, malformed, and conflicting cases so
 release validation never depends on physical hardware.
 
@@ -27,8 +27,8 @@ the harness and are not runtime state.
 recommendation behavior, integration tests for the CLI, fixture validation, and
 scenario evaluations.
 
-**Target Platform**: Windows and Linux first; unsupported platforms return an
-explicit status.
+**Target Platform**: Windows, Linux, and macOS first; unsupported platforms
+return an explicit status.
 
 **Project Type**: Self-contained command-line Agent Skill with Python helper
 scripts and Markdown operating instructions.
@@ -40,10 +40,10 @@ live discovery uses bounded command timeouts and never waits indefinitely.
 no secrets or arbitrary file collection, offline-capable fixture validation,
 and no dependency on `harness/`, `.codex/`, or `.agents/` after promotion.
 
-**Scale/Scope**: One local host profile, a small stable report contract, two
-supported platform fixture families, and evidence-aware guidance for first
-diagnosis. Remote inventory, telemetry, benchmarks, installation, and model
-execution are out of scope.
+**Scale/Scope**: One local host profile, a small stable report contract, three
+supported platform fixture families, lightweight additional-configuration
+indicators, and evidence-aware guidance for first diagnosis. Remote inventory,
+telemetry, benchmarks, installation, and model execution are out of scope.
 
 ## Constitution Check
 
@@ -75,6 +75,8 @@ See [research.md](./research.md) for the decision log. The main decisions are:
    can never establish vendor, capability, compatibility, precision support,
    performance, or memory savings.
 4. Make the report contract explicit and versioned before implementation.
+5. Keep detailed OpenVINO support and setup claims in the versioned docs reader;
+   the advisor reports only local indicators and evidence gaps.
 
 ## Data and Contract Design
 
@@ -115,6 +117,7 @@ candidates/intel-hardware-advisor/
 fixtures/hardware-advisor/
 ├── windows-supported.json
 ├── linux-supported.json
+├── macos-supported.json
 ├── openvino-missing.json
 ├── permission-failure.json
 ├── unsupported-platform.json
@@ -147,6 +150,8 @@ promoted skill.
   redacted failure metadata. It never invokes a shell or dumps the environment.
 - OpenVINO collection is isolated from platform collection and records only
   runtime-visible device identifiers and explicitly readable properties.
+- Additional-configuration collection is optional, read-only, and status-based;
+  it does not install drivers or expose arbitrary command output.
 - Recommendation output includes `decision`, `confidence`, `rationale`, and
   `evidence_ids`; when evidence is insufficient, `decision` is `no_decision`.
 

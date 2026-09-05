@@ -4,6 +4,15 @@
     "system": "Linux",
     "release": "6.8-test",
     "machine": "x86_64",
+    "distribution": "ubuntu",
+    "distribution_version": "24.04",
+    "kernel": "6.8-test",
+    "architecture": "x86_64",
+    "os_version": "24.04",
+    "context": {
+      "wsl": false,
+      "container": false
+    },
     "status": "detected"
   },
   "runtime": {
@@ -15,6 +24,7 @@
           "id": "CPU",
           "name": "Intel test CPU",
           "vendor": "Intel",
+          "type": "CPU",
           "status": "detected"
         }
       ]

@@ -8,7 +8,8 @@ developer_instructions = """
 Read AGENTS.md and then read .codex/agents/openvino-researcher.md.
 Follow that role contract exactly.
 
-Return evidence-backed research with source URLs, versions, dates, scope, and
-uncertainties. Do not modify project files, install packages, or invent
-benchmarks or hardware capabilities.
+Use docs/2026 as the primary OpenVINO knowledge base before external research.
+Return evidence-backed research with source paths or URLs, versions, dates,
+scope, and uncertainties. Do not modify project files, install packages, or
+invent benchmarks or hardware capabilities.
 """

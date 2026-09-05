@@ -107,3 +107,20 @@
   may run in parallel; T024-T025 may run in parallel.
 - Promotion to `skills/intel-hardware-advisor/` is not part of this task list;
   it requires the release-manager gate after review approval.
+
+## Phase 7: Scope amendment — platform and additional configurations
+
+- [X] T035 [P] Update the research record with the OpenVINO 2026 system and
+  additional-configuration pages consulted.
+- [X] T036 [P] Extend platform collection and fixtures for macOS, Linux
+  distribution/kernel metadata, normalized architecture, and execution context.
+- [X] T037 [P] Add read-only GPU, NPU, GenAI, OpenCV, and environment indicators
+  without installing software or changing host state.
+- [X] T038 [P] Preserve the v1 top-level report contract while adding nested
+  platform metadata and `runtime.additional_configurations`.
+- [X] T039 [P] Add macOS and configuration-aware unit, CLI, contract, and
+  fixture-safety coverage.
+- [X] T040 Update candidate, published-skill, and concise localized README
+  descriptions to reflect the supported platform scope.
+- [X] T041 Run release quality review and promote the approved candidate to the
+  sibling `skills/` directory.

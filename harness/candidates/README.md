@@ -11,6 +11,6 @@ Validate them from the harness root with:
 python -m unittest discover -s tests -p "test*.py"
 ```
 
-The candidate reports local platform facts, optional OpenVINO visibility, and
-evidence-aware guidance. It is not promoted to `skills/` until the review and
-release gates pass.
+The candidate reports local platform facts, optional OpenVINO visibility,
+lightweight additional-configuration indicators, and evidence-aware guidance.
+It is not promoted to `skills/` until the review and release gates pass.
