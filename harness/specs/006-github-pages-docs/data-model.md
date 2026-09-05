@@ -24,8 +24,8 @@ page.
 The generated static site contains:
 
 - `index.html`: project overview and primary calls to action.
-- `getting-started.html`: installation, agent portability, local preview, and
-  public-vs-harness boundary.
+- `getting-started.html`: installation, agent portability, and the boundary
+  between a portable skill and the repository that publishes it.
 - `skills/index.html`: grouped catalog.
 - `skills/<slug>.html`: generated detail pages for every Published Skill.
 - `404.html`: branded fallback for invalid routes.

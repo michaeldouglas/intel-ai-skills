@@ -39,7 +39,7 @@
 
 - [x] T010 [P] [US1] Create the shared semantic page shell, header, footer, theme controls, and navigation in `docs/site/templates/layout.html`
 - [x] T011 [US1] Create the project overview content and primary calls to action in `docs/site/templates/index.html`
-- [x] T012 [US1] Create installation, agent portability, local preview, and public-vs-harness guidance in `docs/site/templates/getting-started.html`
+- [x] T012 [US1] Create installation, agent portability, and portable-skill guidance in `docs/site/templates/getting-started.html`
 - [x] T013 [US1] Add responsive branded styling for overview and getting-started pages in `docs/site/static/site.css`
 
 **Checkpoint**: A new visitor can understand the project and install a skill without reading repository-internal files.
@@ -100,7 +100,7 @@ then verify every language-switcher link resolves.
 - [x] T027 Add localized page generation, language-aware navigation, and route validation in `docs/site/scripts/build_site.py`
 - [x] T028 Add language-switcher markup and localized accessibility labels to the shared templates and styles
 - [x] T029 Add localized route, translation, and switcher assertions in `harness/tests/test_site.py`
-- [x] T030 Document the three local preview routes and update the feature artifacts for localization
+- [x] T030 Document the three local preview routes for maintainers and update the feature artifacts for localization
 
 ---
 

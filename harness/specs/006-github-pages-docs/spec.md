@@ -32,7 +32,8 @@ reading repository-internal documentation.
    next action.
 2. **Given** a visitor wants to install a skill, **When** they follow the
    getting-started guidance, **Then** they see a copyable `npx skills add`
-   example and a link to the skill catalog.
+   example, understand that Codex is only one target, and can choose Claude or
+   another compatible agent.
 
 ### User Story 2 - Explore and select a skill (Priority: P1)
 
@@ -70,8 +71,10 @@ before publication.
 documentation from drifting or requiring manual deployment steps.
 
 **Independent Test**: Run the documented local preview command and open the
-site locally; then inspect the publication workflow and verify that a successful
-change on `main` builds the site from `docs/site/` and deploys it to GitHub Pages.
+  site locally; then inspect the publication workflow and verify that a successful
+  change on `main` builds the site from `docs/site/` and deploys it to GitHub Pages.
+  Maintainer-only preview instructions belong in repository development docs,
+  not in the public skill onboarding page.
 
 **Acceptance Scenarios**:
 

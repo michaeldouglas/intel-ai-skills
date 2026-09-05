@@ -56,6 +56,21 @@ def test_site_build_generates_localized_content_and_language_switchers() -> None
     assert all("{{" not in page.read_text(encoding="utf-8") for page in output.rglob("*.html"))
 
 
+def test_public_site_explains_agent_portability_and_keeps_maintainer_preview_out() -> None:
+    output = build_site.build()
+    getting_started = (output / "getting-started.html").read_text(encoding="utf-8")
+    catalog = (output / "skills" / "index.html").read_text(encoding="utf-8")
+    installer = (output / "skills" / "intel-openvino-installer.html").read_text(encoding="utf-8")
+    assert "Claude" in getting_started
+    assert "agent-agnostic" in getting_started
+    assert "Choose the skill for your task." in catalog
+    assert "The skill is portable" in installer
+    assert "python docs/site/scripts/serve_site.py" not in getting_started
+    assert "For maintainers" not in getting_started
+    assert "What happens automatically" in installer
+    assert "What it does not do" in installer
+
+
 def test_site_keeps_existing_localized_markdown_outside_generated_output() -> None:
     assert (REPOSITORY_ROOT / "docs" / "README.pt-BR.md").is_file()
     assert (REPOSITORY_ROOT / "docs" / "README.es.md").is_file()
