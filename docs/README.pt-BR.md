@@ -54,6 +54,12 @@ npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor -a 
 npx skills add michaeldouglas/intel-ai-skills --skill intel-docs-reader -a codex
 ```
 
+Ou instale as duas skills em um único comando:
+
+```bash
+npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor --skill intel-docs-reader -a codex
+```
+
 ### Usar as skills instaladas
 
 Depois da instalação, peça ao seu agente para inspecionar o hardware ou
