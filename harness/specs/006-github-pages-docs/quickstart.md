@@ -27,7 +27,11 @@ python docs/site/scripts/serve_site.py
 Open `http://127.0.0.1:8000/` in a browser. English is at `/`, Brazilian
 Portuguese at `/pt-br/`, and Spanish at `/es/`. The preview script rebuilds the
 site before starting the standard-library web server, so it represents the same
-artifact used by the Pages workflow.
+artifact used by the Pages workflow. Documentation pages provide grouped skill
+navigation, breadcrumbs, an on-page section outline, and previous/next links;
+use the search field to filter the catalog, select a language from the combo box,
+collapse a skill category, and resize the browser to check the responsive mobile
+navigation as well. Scroll down to verify that the back-to-top control appears.
 
 ## Validate the repository
 

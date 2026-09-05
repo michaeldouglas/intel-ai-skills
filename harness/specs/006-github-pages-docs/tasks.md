@@ -104,6 +104,32 @@ then verify every language-switcher link resolves.
 
 ---
 
+## Phase 8: Documentation Navigation Experience (Priority: P1)
+
+**Goal**: Organize the public site as a documentation product with predictable
+navigation around the project and every published skill.
+
+- [x] T031 Add the shared documentation shell with grouped sidebar, breadcrumbs, and contextual table of contents in `docs/site/templates/layout.html` and `docs/site/scripts/build_site.py`
+- [x] T032 Add previous/next skill navigation and stable section anchors to the getting-started, catalog, and skill detail templates
+- [x] T033 Add responsive documentation-shell styling that preserves access to the catalog and skill pages on narrow screens in `docs/site/static/site.css`
+- [x] T034 Add localized navigation labels and generated-output assertions for the documentation shell in `docs/site/content/locales.json` and `harness/tests/test_site.py`
+- [x] T035 Update the feature specification, data model, and quickstart with the documentation navigation contract
+
+---
+
+## Phase 9: Findability and Interaction Polish (Priority: P1)
+
+**Goal**: Make the documentation easy to scan, search, localize, and navigate
+without making the public site depend on external UI packages.
+
+- [x] T036 Add the header/catalog skill search and localized result states in `docs/site/templates/layout.html`, `docs/site/scripts/build_site.py`, and `docs/site/static/site.js`
+- [x] T037 Replace language links with an accessible localized combo box and route-preserving selection behavior
+- [x] T038 Add local SVG icons, collapsible category groups, anchor offset handling, restrained entrance motion, and the back-to-top control in `docs/site/templates/layout.html` and `docs/site/static/site.css`
+- [x] T039 Shorten the getting-started copy in English, pt-BR, and Spanish while preserving installation intent in `docs/site/scripts/build_site.py` and `docs/site/content/locales.json`
+- [x] T040 Add generated-output assertions and JavaScript syntax validation to the site quality checks
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies
