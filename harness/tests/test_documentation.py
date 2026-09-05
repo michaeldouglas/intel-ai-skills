@@ -94,14 +94,14 @@ def test_openvino_skills_instruct_agents_to_run_bundled_scripts() -> None:
     hardware_skill = (REPOSITORY_ROOT / "skills/intel-hardware-advisor/SKILL.md").read_text(encoding="utf-8")
     docs_skill = (REPOSITORY_ROOT / "skills/intel-docs-reader/SKILL.md").read_text(encoding="utf-8")
     installer_skill = (REPOSITORY_ROOT / "skills/intel-openvino-installer/SKILL.md").read_text(encoding="utf-8")
-    assert "invoke the bundled" in hardware_skill
-    assert "Do not ask the user" in hardware_skill
+    assert "invoke the bundled" in hardware_skill.lower()
+    assert "do not ask the user" in hardware_skill.lower()
     assert "scripts/hardware_probe.py" in hardware_skill
-    assert "invoke the bundled" in docs_skill
-    assert "Do not ask the user" in docs_skill
+    assert "invoke the bundled" in docs_skill.lower()
+    assert "do not ask the user" in docs_skill.lower()
     assert "scripts/read_openvino_docs.py" in docs_skill
-    assert "invoke the bundled" in installer_skill
-    assert "Do not ask the user" in installer_skill
+    assert "invoke the bundled" in installer_skill.lower()
+    assert "do not ask the user" in installer_skill.lower()
     assert "scripts/openvino_installer.py" in installer_skill
 
 

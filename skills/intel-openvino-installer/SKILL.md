@@ -13,7 +13,7 @@ The skill is standalone. It does not require `intel-docs-reader`,
 
 ## Workflow
 
-1. Invoke the bundled `scripts/openvino_installer.py` relative to this
+1. The agent must invoke the bundled `scripts/openvino_installer.py` relative to this
    `SKILL.md`. Do not ask the user to locate the script or run it manually.
 2. Start with plan mode and JSON output:
 
