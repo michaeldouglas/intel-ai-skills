@@ -116,6 +116,22 @@ After installation, ask your agent to inspect the hardware or answer an
 OpenVINO question. The skill invokes its bundled scripts automatically. You do
 not need to change directories or execute Python scripts manually.
 
+### Preview the documentation site locally
+
+The public documentation site lives in `docs/site/`. The existing Markdown
+files directly under `docs/` remain independent and untouched. To build and preview the same
+artifact used by GitHub Pages, run this from the repository root:
+
+```bash
+python docs/site/scripts/serve_site.py
+```
+
+Then open `http://127.0.0.1:8000/`. The site build validates the published
+skill catalog, internal links, and logo assets before starting the local server.
+Changes merged into `main` run the same build through
+`.github/workflows/deploy-pages.yml` and publish the generated site to GitHub
+Pages.
+
 ## Why Intel AI Skills?
 
 AI workloads are increasingly heterogeneous. The same model can behave very

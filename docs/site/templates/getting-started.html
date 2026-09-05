@@ -1,0 +1,43 @@
+<section class="page-hero">
+  <p class="eyebrow">Getting started</p>
+  <h1>Bring the right capability<br><em>to your agent.</em></h1>
+  <p class="page-lede">Install only what you need. The skills are portable, self-contained, and designed to work with Codex and other compatible agents.</p>
+</section>
+
+<section class="content-grid two-column">
+  <article class="content-card accent-card">
+    <p class="card-kicker">01 · Install one skill</p>
+    <h2>Start focused</h2>
+    <p>Use the supported skills installer command and let the agent invoke the bundled scripts when the task requires them.</p>
+    <div class="code-block"><code>{{INSTALL_ONE}}</code><button class="copy-button" type="button" data-copy="{{INSTALL_ONE}}">Copy</button></div>
+  </article>
+  <article class="content-card cyan-card">
+    <p class="card-kicker">02 · Install a workflow pair</p>
+    <h2>Compose capabilities</h2>
+    <p>Install multiple independent skills in one command when a workflow benefits from more than one capability.</p>
+    <div class="code-block"><code>{{INSTALL_MULTIPLE}}</code><button class="copy-button" type="button" data-copy="{{INSTALL_MULTIPLE}}">Copy</button></div>
+  </article>
+</section>
+
+<section class="prose-section">
+  <p class="eyebrow">How it works</p>
+  <h2>Small skills. Clear handoffs.</h2>
+  <div class="steps-list">
+    <div class="step"><span>01</span><div><h3>Describe the outcome</h3><p>Ask your agent what you want to inspect, install, convert, run, measure, optimize, or serve.</p></div></div>
+    <div class="step"><span>02</span><div><h3>Let the skill gather evidence</h3><p>The skill uses its own bundled resources, shows prerequisites, and keeps detected facts separate from documented facts.</p></div></div>
+    <div class="step"><span>03</span><div><h3>Review before changing state</h3><p>Confirmation gates protect installations, downloads, benchmarks, optimized artifacts, and container starts.</p></div></div>
+  </div>
+</section>
+
+<section class="split-callout compact-callout">
+  <div><p class="eyebrow">Public product boundary</p><h2>The harness builds the skills.<br>You only use the skills.</h2></div>
+  <p>The internal engineering harness, research archive, fixtures, and release checks are development infrastructure. Published skills are designed to work independently and do not depend on that harness.</p>
+</section>
+
+<section class="prose-section local-section">
+  <p class="eyebrow">Preview locally</p>
+  <h2>See the same site before it ships.</h2>
+  <p>From the repository root, run the standard-library preview command. It rebuilds the publication artifact and starts a local server.</p>
+  <div class="code-block"><code>python docs/site/scripts/serve_site.py</code><button class="copy-button" type="button" data-copy="python docs/site/scripts/serve_site.py">Copy</button></div>
+  <p>Then open <code>http://127.0.0.1:8000/</code>. The existing <code>docs/</code> directory is intentionally not used by this site.</p>
+</section>

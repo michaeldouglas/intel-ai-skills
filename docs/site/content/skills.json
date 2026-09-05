@@ -1,0 +1,229 @@
+{
+  "skills": [
+    {
+      "id": "intel-hardware-advisor",
+      "slug": "intel-hardware-advisor",
+      "name": "Intel Hardware Advisor",
+      "category": "discovery",
+      "tagline": "Inspect the local inference environment before choosing an Intel execution path.",
+      "purpose": "A read-only hardware and runtime discovery skill that separates detected facts, documented facts, and uncertainty before an agent recommends a path.",
+      "when_to_use": [
+        "You want to know whether the current Windows, Linux, or macOS machine exposes Intel CPU, GPU, or NPU capabilities.",
+        "You need a safe first diagnosis before installing OpenVINO or choosing a device mode.",
+        "You want a JSON evidence report that another workflow can consume."
+      ],
+      "workflow": [
+        "Invoke the bundled hardware probe relative to the installed skill.",
+        "Collect platform, runtime, device, and lightweight configuration evidence without changing the machine.",
+        "Report facts, unavailable signals, uncertainty, and safe next steps separately."
+      ],
+      "boundaries": [
+        "Does not install packages, change drivers, or run benchmarks.",
+        "Does not infer model compatibility or performance from a device name alone.",
+        "Does not depend on the internal harness or the optional Docs Reader."
+      ],
+      "install": "npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor -a codex",
+      "related": ["intel-docs-reader", "intel-openvino-installer", "intel-openvino-inference-runner"]
+    },
+    {
+      "id": "intel-docs-reader",
+      "slug": "intel-docs-reader",
+      "name": "Intel Docs Reader",
+      "category": "discovery",
+      "tagline": "Search and cite the versioned official OpenVINO documentation archive.",
+      "purpose": "A documentation retrieval skill for questions about OpenVINO APIs, devices, setup, configuration, and documented limitations.",
+      "when_to_use": [
+        "You need a precise answer grounded in official OpenVINO documentation.",
+        "You need to compare setup or device behavior across a documented version.",
+        "You want source-page citations instead of an unsupported memory-based answer."
+      ],
+      "workflow": [
+        "Search the local versioned documentation archive when available.",
+        "Use the bundled reader to obtain relevant pages and source identifiers.",
+        "Return a concise explanation with the source and known scope or limitation."
+      ],
+      "boundaries": [
+        "Does not replace a hardware probe or install a runtime.",
+        "The local archive may need to be downloaded on its first query.",
+        "A missing or unavailable page remains explicit rather than guessed."
+      ],
+      "install": "npx skills add michaeldouglas/intel-ai-skills --skill intel-docs-reader -a codex",
+      "related": ["intel-hardware-advisor", "intel-openvino-installer"]
+    },
+    {
+      "id": "intel-openvino-installer",
+      "slug": "intel-openvino-installer",
+      "name": "Intel OpenVINO Installer",
+      "category": "runtime",
+      "tagline": "Choose, install, and verify OpenVINO Runtime with a documented method.",
+      "purpose": "A confirmation-gated installation skill that selects a suitable OpenVINO Runtime method for the operating system, ecosystem, version, and requested components.",
+      "when_to_use": [
+        "You need to install OpenVINO Runtime on a supported operating system.",
+        "You want to repair or verify an existing runtime installation.",
+        "You need a Docker, pip, package, or source-oriented setup plan with explicit prerequisites."
+      ],
+      "workflow": [
+        "Invoke the bundled installer planner and inspect the requested platform and components.",
+        "Present the documented method, commands, and expected verification separately.",
+        "Ask for confirmation before changing the machine, then verify the runtime."
+      ],
+      "boundaries": [
+        "Does not assume the optional Docs Reader is installed.",
+        "Does not silently install packages or modify the environment.",
+        "Does not invent unsupported versions, package names, or device claims."
+      ],
+      "install": "npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-installer -a codex",
+      "related": ["intel-hardware-advisor", "intel-docs-reader", "intel-openvino-inference-runner"]
+    },
+    {
+      "id": "intel-openvino-model-converter",
+      "slug": "intel-openvino-model-converter",
+      "name": "Intel OpenVINO Model Converter",
+      "category": "runtime",
+      "tagline": "Prepare supported framework models for OpenVINO IR with explicit shapes.",
+      "purpose": "A confirmation-gated conversion planner for PyTorch, ONNX, TensorFlow, Keras, and JAX model workflows.",
+      "when_to_use": [
+        "You have a framework model that needs to become an OpenVINO IR artifact.",
+        "You need to make input shapes and output directories explicit before conversion.",
+        "You want a plan that separates supported conversion from later inference."
+      ],
+      "workflow": [
+        "Invoke the bundled converter in plan mode with structured output.",
+        "Identify the source framework, model path, input shapes, and output location.",
+        "Request confirmation before generating artifacts and report the resulting files."
+      ],
+      "boundaries": [
+        "Does not claim support for a framework or operator without evidence.",
+        "Does not overwrite original model artifacts by default.",
+        "Conversion does not prove runtime compatibility or performance."
+      ],
+      "install": "npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-model-converter -a codex",
+      "related": ["intel-openvino-installer", "intel-openvino-model-optimizer", "intel-openvino-inference-runner"]
+    },
+    {
+      "id": "intel-openvino-inference-runner",
+      "slug": "intel-openvino-inference-runner",
+      "name": "Intel OpenVINO Inference Runner",
+      "category": "runtime",
+      "tagline": "Compile and run OpenVINO models locally or in Docker with evidence.",
+      "purpose": "A standalone execution skill for model runs, device selection, compatibility evidence, and Docker inference workspaces.",
+      "when_to_use": [
+        "You want to run or compile an OpenVINO model on a local device.",
+        "You need to validate a model workflow inside Docker.",
+        "You want device selection, prerequisites, and unresolved issues reported with the result."
+      ],
+      "workflow": [
+        "Invoke the bundled runner in plan mode with structured output.",
+        "Make model path, device mode, execution context, and compile-only choices explicit.",
+        "Run only after confirmation when execution changes state or consumes requested resources."
+      ],
+      "boundaries": [
+        "Does not require another published skill or the internal harness.",
+        "Does not turn an unresolved prerequisite into a success claim.",
+        "A successful compilation is not automatically a performance benchmark."
+      ],
+      "install": "npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-inference-runner -a codex",
+      "related": ["intel-openvino-installer", "intel-openvino-model-converter", "intel-openvino-benchmark"]
+    },
+    {
+      "id": "intel-openvino-benchmark",
+      "slug": "intel-openvino-benchmark",
+      "name": "Intel OpenVINO Benchmark",
+      "category": "optimize",
+      "tagline": "Measure reproducible latency and throughput across OpenVINO configurations.",
+      "purpose": "A benchmark planning and execution skill that makes device, batch, iterations, streams, and performance hints visible in the result.",
+      "when_to_use": [
+        "You need measured latency or throughput for an OpenVINO model.",
+        "You want to compare devices or runtime configurations fairly.",
+        "You need raw measurements and variance rather than an unsupported speed claim."
+      ],
+      "workflow": [
+        "Invoke the bundled benchmark runner in plan mode with JSON output.",
+        "Make model, device, batch, warmup, iterations, streams, and performance hint explicit.",
+        "Run after confirmation and report raw measurements, configuration, and limitations."
+      ],
+      "boundaries": [
+        "Does not substitute a benchmark with a device-name estimate.",
+        "Physical hardware and workload setup affect results and must be recorded.",
+        "Benchmark output is not a universal performance guarantee."
+      ],
+      "install": "npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-benchmark -a codex",
+      "related": ["intel-openvino-inference-runner", "intel-openvino-model-optimizer"]
+    },
+    {
+      "id": "intel-openvino-model-optimizer",
+      "slug": "intel-openvino-model-optimizer",
+      "name": "Intel OpenVINO Model Optimizer",
+      "category": "optimize",
+      "tagline": "Plan quantization and compression while protecting original artifacts.",
+      "purpose": "An accuracy-aware optimization skill for post-training quantization, weight compression, QAT, 4-bit, and microscaling workflows.",
+      "when_to_use": [
+        "You need to reduce model size, memory use, or inference cost.",
+        "You want to plan calibration and validation before generating optimized artifacts.",
+        "You need to preserve the original model while comparing optimized results."
+      ],
+      "workflow": [
+        "Invoke the bundled optimizer in plan mode with the requested technique.",
+        "Show calibration, validation, output, and accuracy prerequisites.",
+        "Require confirmation before generating optimized artifacts and report limitations."
+      ],
+      "boundaries": [
+        "Does not promise accuracy or memory improvements without measurements.",
+        "Does not overwrite original artifacts by default.",
+        "Optimization requires a validation workload appropriate to the model."
+      ],
+      "install": "npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-model-optimizer -a codex",
+      "related": ["intel-openvino-model-converter", "intel-openvino-benchmark", "intel-openvino-inference-runner"]
+    },
+    {
+      "id": "intel-openvino-model-server",
+      "slug": "intel-openvino-model-server",
+      "name": "Intel OpenVINO Model Server",
+      "category": "optimize",
+      "tagline": "Plan and verify local OpenVINO Model Server deployments.",
+      "purpose": "A Docker-oriented deployment skill for model repositories, versions, health checks, APIs, device context, and explicit resource boundaries.",
+      "when_to_use": [
+        "You want to serve an OpenVINO model locally through a server API.",
+        "You need to validate a Docker-based model repository and health path.",
+        "You want ports, volumes, image version, and device context shown before startup."
+      ],
+      "workflow": [
+        "Invoke the bundled server planner in plan mode with structured output.",
+        "Show image, repository, model versions, volumes, ports, device context, and checks.",
+        "Ask for confirmation before starting containers and verify health and API behavior."
+      ],
+      "boundaries": [
+        "Does not invent image tags or download assets when evidence is missing.",
+        "Does not start containers without explicit confirmation.",
+        "Local validation does not by itself establish production capacity."
+      ],
+      "install": "npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-model-server -a codex",
+      "related": ["intel-openvino-installer", "intel-openvino-inference-runner", "intel-openvino-benchmark"]
+    },
+    {
+      "id": "intel-openvino-genai-runner",
+      "slug": "intel-openvino-genai-runner",
+      "name": "Intel OpenVINO GenAI Runner",
+      "category": "optimize",
+      "tagline": "Plan and verify text, chat, VLM, speech, embedding, and image workflows.",
+      "purpose": "A prerequisite-aware skill for OpenVINO GenAI workflows that keeps workload type, model assets, package profile, device, and metrics explicit.",
+      "when_to_use": [
+        "You want to run a text, chat, GGUF, VLM, speech, embedding, or image-generation workflow.",
+        "You need to check package, model, license, device, NPU, and memory prerequisites.",
+        "You want confirmation before optional package installation or model downloads."
+      ],
+      "workflow": [
+        "Invoke the bundled GenAI runner in plan mode with structured output.",
+        "Identify workload type, model asset, package profile, device, and requested metrics.",
+        "Show prerequisites and ask for confirmation before downloads or optional installation."
+      ],
+      "boundaries": [
+        "Does not hide missing model assets, licenses, or device prerequisites.",
+        "Does not claim support for a workload without documented evidence.",
+        "GenAI results depend on model, prompt, device, and runtime configuration."
+      ],
+      "install": "npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-genai-runner -a codex",
+      "related": ["intel-openvino-installer", "intel-openvino-inference-runner", "intel-openvino-benchmark"]
+    }
+  ]
+}

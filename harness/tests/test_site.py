@@ -1,0 +1,63 @@
+from __future__ import annotations
+
+import json
+import sys
+from pathlib import Path
+
+
+REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
+SITE_ROOT = REPOSITORY_ROOT / "docs" / "site"
+OUTPUT_ROOT = SITE_ROOT / "build" / "site"
+sys.path.insert(0, str(SITE_ROOT / "scripts"))
+
+import build_site  # noqa: E402
+
+
+def test_site_build_covers_every_published_skill() -> None:
+    catalog = json.loads((SITE_ROOT / "content" / "skills.json").read_text(encoding="utf-8"))
+    indexed = {entry["id"] for entry in catalog["skills"]}
+    discovered = {path.name for path in (REPOSITORY_ROOT / "skills").iterdir() if path.is_dir()}
+    assert indexed == discovered
+
+
+def test_site_build_generates_expected_routes_and_assets() -> None:
+    output = build_site.build()
+    catalog = json.loads((SITE_ROOT / "content" / "skills.json").read_text(encoding="utf-8"))
+    expected = {
+        "index.html",
+        "getting-started.html",
+        "skills/index.html",
+        "404.html",
+        *(f"skills/{entry['slug']}.html" for entry in catalog["skills"]),
+    }
+    actual = {str(path.relative_to(output)).replace("\\", "/") for path in output.rglob("*.html")}
+    assert actual == expected
+    for logo in build_site.REQUIRED_LOGOS:
+        assert (output / "assets" / logo).is_file()
+
+
+def test_site_keeps_existing_localized_markdown_outside_generated_output() -> None:
+    assert (REPOSITORY_ROOT / "docs" / "README.pt-BR.md").is_file()
+    assert (REPOSITORY_ROOT / "docs" / "README.es.md").is_file()
+    assert not (OUTPUT_ROOT / "README.pt-BR.md").exists()
+    assert not (OUTPUT_ROOT / "README.es.md").exists()
+
+
+def test_pages_workflow_builds_docs_site_from_main() -> None:
+    workflow = (REPOSITORY_ROOT / ".github" / "workflows" / "deploy-pages.yml").read_text(encoding="utf-8")
+    assert "branches: [main]" in workflow
+    assert "python docs/site/scripts/build_site.py" in workflow
+    assert "path: docs/site/build/site" in workflow
+    assert "actions/upload-pages-artifact@v4" in workflow
+    assert "actions/deploy-pages@v4" in workflow
+    assert "pages: write" in workflow
+    assert "id-token: write" in workflow
+
+
+def test_site_specific_tools_are_inside_docs_site() -> None:
+    assert (SITE_ROOT / "scripts" / "build_site.py").is_file()
+    assert (SITE_ROOT / "scripts" / "serve_site.py").is_file()
+    assert not (REPOSITORY_ROOT / "website").exists()
+    assert not (REPOSITORY_ROOT / "scripts" / "build_site.py").exists()
+    assert not (REPOSITORY_ROOT / "scripts" / "serve_site.py").exists()
+    assert not (REPOSITORY_ROOT / "build" / "site").exists()

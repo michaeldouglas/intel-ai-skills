@@ -1,0 +1,13 @@
+{
+  "name": "Intel AI Skills",
+  "tagline": "Evidence-first skills for Intel AI and OpenVINO workloads.",
+  "description": "A collection of portable agent skills that help developers inspect hardware, understand OpenVINO documentation, install runtimes, prepare models, run inference, measure performance, and validate production-oriented workflows.",
+  "repo": "https://github.com/michaeldouglas/intel-ai-skills",
+  "install_one": "npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor -a codex",
+  "install_multiple": "npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor --skill intel-openvino-installer -a codex",
+  "categories": [
+    {"id": "discovery", "label": "Discover & Understand", "description": "Start with evidence about the machine and the official OpenVINO documentation."},
+    {"id": "runtime", "label": "Install & Run", "description": "Move from a documented runtime to repeatable model execution."},
+    {"id": "optimize", "label": "Optimize & Serve", "description": "Prepare, measure, optimize, and expose OpenVINO workloads."}
+  ]
+}
