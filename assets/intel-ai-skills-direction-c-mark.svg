@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300" role="img" aria-labelledby="title desc">
+  <title id="title">Direction C — Open Monogram</title>
+  <desc id="desc">Two interlocking open geometric planes create a compact monogram with a wine and cyan split.</desc>
+  <path d="M62 66h48v118h38l36-36h54" fill="none" stroke="#6B2145" stroke-width="28" stroke-linecap="square" stroke-linejoin="bevel"/>
+  <path d="M238 66h-48v118h-38l-36-36H62" fill="none" stroke="#19B8CA" stroke-width="28" stroke-linecap="square" stroke-linejoin="bevel"/>
+  <path d="M110 66h80M110 184h80" fill="none" stroke="#102A43" stroke-width="10"/>
+</svg>

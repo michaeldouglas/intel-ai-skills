@@ -1,11 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="title desc">
-  <title id="title">Intel AI Skills</title>
-  <desc id="desc">Direction A, an open geometric fold with a subtle wine-colored V and cyan modular arc.</desc>
+  <title id="title">Intel AI Skills — Direction A: Open Fold</title>
+  <desc id="desc">Horizontal lockup for Direction A, an open fold with a subtle wine-colored V and cyan modular arc.</desc>
   <g transform="translate(42 30)" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <path d="M62 92C73 48 108 28 150 28s77 20 88 64" stroke="#6B2145" stroke-width="28"/>
     <path d="M68 151c13 47 44 76 82 76s69-29 82-76" stroke="#19B8CA" stroke-width="28"/>
     <path d="M82 143l68 68 68-68" stroke="#6B2145" stroke-width="22"/>
   </g>
-  <text x="320" y="166" fill="#102A43" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="76" font-weight="500" letter-spacing="-2">Intel</text>
-  <text x="515" y="166" fill="#6B2145" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="86" font-weight="800" letter-spacing="-3">AI Skills</text>
+  <text x="320" y="170" fill="#102A43" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="82" font-weight="700" letter-spacing="-3">Intel <tspan fill="#6B2145">AI Skills</tspan></text>
 </svg>

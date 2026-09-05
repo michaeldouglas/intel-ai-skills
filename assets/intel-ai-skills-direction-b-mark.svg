@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300" role="img" aria-labelledby="title desc">
+  <title id="title">Direction B — Folded Modules</title>
+  <desc id="desc">Two geometric folded modules frame an open V, with a cyan inner plane.</desc>
+  <path d="M54 72h78l28 28-58 58H54l40-58z" fill="#6B2145"/>
+  <path d="M246 72h-78l-28 28 58 58h48l-40-58z" fill="#19B8CA"/>
+  <path d="M78 174l72 72 72-72-34-34-38 38-38-38z" fill="#6B2145"/>
+  <path d="M112 174l38 38 38-38-38-38z" fill="#19B8CA"/>
+</svg>

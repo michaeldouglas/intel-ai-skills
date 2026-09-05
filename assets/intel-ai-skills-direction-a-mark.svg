@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300" role="img" aria-labelledby="title desc">
-  <title id="title">Intel AI Skills mark</title>
-  <desc id="desc">Direction A isolated mark: an open fold, a subtle V, and a modular cyan arc.</desc>
-  <g transform="translate(0 0)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <title id="title">Direction A — Open Fold</title>
+  <desc id="desc">An open fold made from a wine-colored arc and V with a cyan lower modular arc.</desc>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
     <path d="M62 92C73 48 108 28 150 28s77 20 88 64" stroke="#6B2145" stroke-width="28"/>
     <path d="M68 151c13 47 44 76 82 76s69-29 82-76" stroke="#19B8CA" stroke-width="28"/>
     <path d="M82 143l68 68 68-68" stroke="#6B2145" stroke-width="22"/>

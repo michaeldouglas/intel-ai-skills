@@ -15,6 +15,7 @@
 
 <p>
   <a href="#available-skills">Skills</a> ·
+  <a href="#logo-directions">Logo</a> ·
   <a href="#quickstart">Quickstart</a> ·
   <a href="#why-intel-ai-skills">Why this project</a>
 </p>
@@ -31,6 +32,15 @@
 This repository publishes portable Agent Skills for Intel hardware, OpenVINO
 runtimes, and evidence-aware AI workload decisions. Install the skill you need
 and let your agent use it when the task requires it.
+
+## Logo directions
+
+The current README uses Direction A, **Open Fold**. The three vector directions
+are shown below; each includes an isolated mark and a horizontal lockup.
+
+<p align="center">
+  <img src="./assets/intel-ai-skills-logo-directions.svg" alt="Three Intel AI Skills logo directions: Open Fold, Folded Modules, and Open Monogram" width="920">
+</p>
 
 ## Available skills
 
