@@ -80,6 +80,13 @@ def test_each_readme_documents_agent_neutral_installation() -> None:
         assert "cd skills/intel-" not in content
 
 
+def test_public_readmes_do_not_expose_harness_internals() -> None:
+    forbidden = ("harness/", ".codex", ".agents", "Spec Kit", "Graphify")
+    for document in DOCUMENTS.values():
+        content = document.read_text(encoding="utf-8")
+        assert not any(term in content for term in forbidden), f"Internal harness detail leaked into {document}"
+
+
 def test_openvino_skills_instruct_agents_to_run_bundled_scripts() -> None:
     hardware_skill = (REPOSITORY_ROOT / "skills/intel-hardware-advisor/SKILL.md").read_text(encoding="utf-8")
     docs_skill = (REPOSITORY_ROOT / "skills/intel-docs-reader/SKILL.md").read_text(encoding="utf-8")
@@ -104,3 +111,14 @@ def test_published_skills_have_standard_agent_skill_frontmatter() -> None:
         assert skill.startswith("---\n")
         assert re.search(r"^name:\s*[a-z0-9][a-z0-9-]*$", skill, re.MULTILINE)
         assert re.search(r"^description:\s*.+$", skill, re.MULTILINE)
+
+
+def test_published_skills_do_not_depend_on_internal_harness_paths() -> None:
+    forbidden = ("harness/", ".codex", ".agents")
+    for skill_root in (REPOSITORY_ROOT / "skills").iterdir():
+        if not skill_root.is_dir():
+            continue
+        for file in skill_root.rglob("*"):
+            if file.is_file() and file.suffix.lower() in {".md", ".py", ".json", ".toml"}:
+                content = file.read_text(encoding="utf-8")
+                assert not any(term in content for term in forbidden), f"Internal path leaked into {file}"

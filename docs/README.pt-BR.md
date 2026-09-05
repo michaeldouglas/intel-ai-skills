@@ -10,56 +10,39 @@
 > **Construa com evidências. Faça deploy com confiança.**
 
 Este repositório publica Agent Skills portáteis para hardware Intel, runtimes
-OpenVINO e decisões sobre workloads de IA baseadas em evidências. Comece pelas
-skills abaixo; o harness de engenharia e o fluxo de release aparecem depois da
-orientação de produto.
+OpenVINO e decisões sobre workloads de IA baseadas em evidências. Instale a
+skill necessária e deixe seu agente utilizá-la quando a tarefa exigir.
 
 ## Skills disponíveis
 
-As skills publicadas ficam em [`skills/`](../skills/). Cada uma é
-autocontida e pode ser copiada ou instalada sem depender do harness interno.
+As skills publicadas ficam em [`skills/`](../skills/). Cada uma é autocontida e
+pode ser instalada de forma independente.
 
 | Skill | Use quando você precisa | Documentação |
 |---|---|---|
-| **Intel Hardware Advisor** | Inspecionar um ambiente local de inferência Windows ou Linux e entender o que as evidências disponíveis permitem concluir. | [`skills/intel-hardware-advisor/SKILL.md`](../skills/intel-hardware-advisor/SKILL.md) |
-| **Intel Docs Reader** | Pesquisar e citar o arquivo local versionado da documentação oficial do OpenVINO. | [`skills/intel-docs-reader/SKILL.md`](../skills/intel-docs-reader/SKILL.md) |
+| **Intel Hardware Advisor** | Inspecionar um ambiente local de inferência Windows ou Linux e entender o que as evidências disponíveis permitem concluir. | [`intel-hardware-advisor/SKILL.md`](../skills/intel-hardware-advisor/SKILL.md) |
+| **Intel Docs Reader** | Pesquisar e citar o arquivo local versionado da documentação oficial do OpenVINO. | [`intel-docs-reader/SKILL.md`](../skills/intel-docs-reader/SKILL.md) |
 
 ### Intel Hardware Advisor
 
-Use esta skill para o primeiro diagnóstico de um ambiente de inferência. Ela
-faz descoberta somente leitura, separa fatos da plataforma de fatos do runtime,
-segue os identificadores de evidência e mantém visíveis os resultados
-`unknown`, `unavailable` e `no_decision`.
+Use esta skill quando seu agente precisar entender o ambiente local de
+inferência antes de escolher um caminho de execução Intel. Ela faz descoberta
+somente leitura, separa fatos da plataforma de fatos do runtime, segue os
+identificadores de evidência e mantém visíveis os resultados `unknown`,
+`unavailable` e `no_decision`.
 
 Ela não instala pacotes, altera drivers, executa benchmarks, varre arquivos
 arbitrários nem infere compatibilidade de modelo, latência, throughput,
 economia de memória ou suporte a precisão a partir apenas do nome do
 dispositivo.
 
-Depois da instalação, peça ao seu agente para inspecionar o ambiente local de
-inferência. A própria skill executa o probe incluído e retorna um relatório
-qualificado por evidências.
-
-Consulte o contrato completo de comportamento e segurança em
-[`intel-hardware-advisor/SKILL.md`](../skills/intel-hardware-advisor/SKILL.md).
-
 ### Intel Docs Reader
 
-Use esta skill quando uma pergunta exigir documentação oficial do OpenVINO
-sobre APIs, dispositivos, configuração, setup ou limitações documentadas. O
-leitor usa um cache local e informa a página de origem dos resultados úteis.
+Use esta skill quando seu agente precisar de documentação oficial do OpenVINO
+sobre APIs, dispositivos, configuração, setup ou limitações documentadas. Ela
+usa um cache local e cita a página de origem dos resultados úteis.
 
-Depois da instalação, faça ao seu agente a pergunta de OpenVINO que precisa
-responder. A própria skill executa o leitor incluído e cita a fonte encontrada.
-
-A skill não baixa nada durante a instalação. Se o cache estiver ausente, a
-primeira consulta online baixa o arquivo oficial configurado para o cache local
-do usuário, fora da skill instalada e do repositório.
-
-Consulte o contrato completo de fontes e limites de versão em
-[`intel-docs-reader/SKILL.md`](../skills/intel-docs-reader/SKILL.md).
-
-## Quickstart
+## Início rápido
 
 ### Instalar para o seu agente
 
@@ -71,133 +54,46 @@ npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor -a 
 npx skills add michaeldouglas/intel-ai-skills --skill intel-docs-reader -a codex
 ```
 
-### Usar as skills publicadas
+### Usar as skills instaladas
 
 Depois da instalação, peça ao seu agente para inspecionar o hardware ou
-responder uma pergunta sobre OpenVINO. Não é necessário executar scripts
-manualmente.
-
-### Executar o harness de engenharia
-
-O harness valida candidatos antes que eles sejam liberados em `skills/`:
-
-```bash
-cd harness
-python -m venv .venv
-source .venv/bin/activate             # macOS/Linux
-# .venv\Scripts\Activate.ps1          # Windows PowerShell
-
-python -m pip install --upgrade pip pytest
-python -m pytest -q
-```
-
-A suíte determinística foi projetada para rodar sem hardware Intel, OpenVINO,
-acesso à internet ou acesso a secrets. Verificações em hardware real são
-complementares.
+responder uma pergunta sobre OpenVINO. A própria skill executa seus scripts
+incluídos automaticamente. Você não precisa mudar de diretório nem executar
+scripts Python manualmente.
 
 ## Por que Intel AI Skills?
 
 Workloads de IA são cada vez mais heterogêneos. O mesmo modelo pode se
 comportar de maneiras muito diferentes dependendo do processador, acelerador,
-versão do runtime, driver, precisão, orçamento de memória e destino de
-deploy.
+versão do runtime, driver, precisão, orçamento de memória e destino de deploy.
 
 Intel AI Skills transforma essa complexidade em um fluxo disciplinado:
 
 - **Orientada a hardware** — descobre a plataforma e o runtime local em vez de adivinhar pelo nome do dispositivo.
 - **Qualificada por evidências** — separa fatos detectados, documentação oficial, medições, estimativas e inferências.
-- **Portátil por design** — mantém as skills de produto independentes do harness interno.
+- **Portátil por design** — cada skill publicada é autocontida e independente.
 - **Determinística** — faz o mesmo fixture produzir a mesma resposta em cada máquina e pull request.
 - **Privacidade primeiro** — coleta apenas o necessário e nunca inspeciona secrets ou arquivos sem relação.
 - **Honesta sobre incerteza** — um resultado desconhecido é válido quando a evidência está incompleta, conflitante, desatualizada ou indisponível.
 
-## Como isso é diferente?
+## Como as skills funcionam
 
 ```text
-Ambiente local
-      │
-      ▼
-Descoberta somente leitura → Fatos + fontes + confiança → Orientação qualificada
-      │                                             │
-      └────────────────→ Desconhecido continua desconhecido
+Ambiente local ou pergunta sobre OpenVINO
+                  │
+                  ▼
+O agente invoca a skill instalada e seus scripts incluídos
+                  │
+                  ▼
+Fatos + fontes + confiança → Orientação qualificada
 ```
 
-O projeto transforma pesquisa em uma skill distribuível por meio de artefatos
-explícitos, fixtures reproduzíveis, testes automatizados, avaliação e revisão.
+## Segurança e evidências
 
-## Arquitetura
-
-```text
-intel-ai-skills/
-├── harness/
-│   ├── .specify/             # Constituição e memória do projeto Spec Kit
-│   ├── candidates/           # Skills em desenvolvimento
-│   ├── evaluations/          # Avaliações de recomendação e comportamento
-│   ├── fixtures/             # Ambientes sanitizados e reproduzíveis
-│   ├── research/             # Pesquisa técnica e evidências versionadas
-│   ├── specs/                # Especificações, planos e tarefas
-│   └── tests/                # Testes unitários, de contrato e integração
-├── skills/                   # Agent Skills revisadas e distribuíveis
-├── docs/                     # Documentação localizada
-├── .github/workflows/        # Automação de política de branches e qualidade
-├── CONTRIBUTING.md           # Fluxo de contribuição e promoção
-└── LICENSE                   # Apache License 2.0
-```
-
-Para trabalhos SDD relacionados a OpenVINO, o harness usa o arquivo local
-`harness/docs/2026/` como base de conhecimento principal. Essa documentação
-orienta pesquisa, especificações, planos, avaliações e criação de novas
-skills; as skills promovidas continuam portáteis e não dependem desse caminho.
-
-A separação é intencional:
-
-1. A pesquisa estabelece o que está documentado e o que ainda é desconhecido.
-2. O Spec Kit transforma requisitos em design e sequência de tarefas explícitos.
-3. As skills candidatas implementam o comportamento de produto no harness.
-4. Fixtures e testes tornam o comportamento reproduzível nas plataformas suportadas.
-5. Avaliações e revisão de qualidade somente leitura controlam a promoção.
-6. Apenas artefatos revisados chegam a `skills/`.
-
-## Fluxo de branches e release
-
-Todo trabalho segue `feature/<nome-kebab-case> → develop → main`:
-
-- Pull requests de features têm como destino `develop`.
-- Depois que uma feature entra em `develop`, o GitHub Actions abre ou reutiliza uma PR para `main`.
-- A PR de promoção é revisada e integrada manualmente.
-- Commits e pushes diretos em `main` não fazem parte do fluxo.
-
-Leia o processo completo em [`CONTRIBUTING.md`](../CONTRIBUTING.md).
-
-## Spec Kit + Graphify
-
-O **Spec Kit** transforma uma ideia em especificação, plano, tarefas,
-implementação, avaliação e revisão. O **Graphify** fornece navegação localizada
-do código por conceitos, relações, caminhos e estrutura entre arquivos.
-
-A sequência esperada é:
-
-```text
-Specify → Clarify → Plan → Tasks → Analyze → Implement → Evaluate → Review
-```
-
-O índice gerado pelo Graphify é um recurso de engenharia e não substitui
-testes ou revisão.
-
-## Contribuição
-
-Ideias, relatórios de bugs, melhorias de evidências, fixtures e novas skills
-são bem-vindos. Antes de abrir uma mudança:
-
-1. Crie `feature/<nome-kebab-case>` a partir de `develop`.
-2. Siga os artefatos do Spec Kit.
-3. Mantenha fixtures sanitizados e reproduzíveis.
-4. Execute os testes e avaliações relevantes.
-5. Faça o commit local das mudanças pretendidas.
-6. Publique a branch e abra a PR contra `develop` somente após a revisão local.
-
-Consulte [`CONTRIBUTING.md`](../CONTRIBUTING.md) e a
-[constituição](../harness/.specify/memory/constitution.md) do projeto.
+As skills são projetadas para descoberta somente leitura quando essa função é
+necessária. Elas separam fatos detectados, documentação oficial, medições,
+estimativas e inferências. Evidências desconhecidas, indisponíveis ou
+conflitantes continuam visíveis em vez de serem substituídas por suposições.
 
 ## Licença
 
