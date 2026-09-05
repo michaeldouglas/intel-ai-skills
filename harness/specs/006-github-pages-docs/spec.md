@@ -165,6 +165,10 @@ are translated and link to the equivalent page in each language.
   with grouped left navigation, breadcrumbs, a contextual "on this page"
   outline, and previous/next links for skill pages; the shell MUST preserve
   the site's language, theme, accessibility, and responsive behavior.
+- **FR-015**: The public documentation MUST provide a skill search field,
+  language selection as an accessible combobox, collapsible skill groups,
+  reliable smooth navigation to in-page anchors, a visible back-to-top control
+  after scrolling, and restrained motion with a reduced-motion fallback.
 
 ### Key Entities
 
@@ -198,6 +202,9 @@ are translated and link to the equivalent page in each language.
 - **SC-008**: A visitor can identify the current documentation location and
   jump to any major section of a skill page from the generated navigation
   shell, in every supported locale.
+- **SC-009**: A visitor can find a published skill by name or tagline from the
+  header/catalog search, change language with the selector, and return to the
+  top after scrolling without losing the current documentation context.
 
 ## Assumptions
 

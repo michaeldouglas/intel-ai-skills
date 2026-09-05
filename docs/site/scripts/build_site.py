@@ -34,6 +34,7 @@ REQUIRED_UI_KEYS = {
     "UI_PRIMARY_NAV", "UI_NAV_HOME", "UI_NAV_GETTING_STARTED", "UI_NAV_SKILLS",
     "UI_DOCS_NAV", "UI_ON_THIS_PAGE", "UI_BREADCRUMB_HOME", "UI_BREADCRUMB_GETTING",
     "UI_BREADCRUMB_SKILLS", "UI_SIDEBAR_CATALOG", "UI_PREVIOUS_SKILL", "UI_NEXT_SKILL",
+    "UI_SEARCH", "UI_SEARCH_PLACEHOLDER", "UI_SEARCH_HINT", "UI_SEARCH_RESULTS", "UI_NO_RESULTS", "UI_BACK_TO_TOP",
     "UI_FOOTER_TAGLINE", "UI_REPO_LINK", "UI_GET_STARTED_LINK",
     "UI_HOME_EYEBROW", "UI_HOME_TITLE", "UI_HOME_LEDE", "UI_START_BUTTON",
     "UI_CATALOG_BUTTON", "UI_FACTS", "UI_SKILLS", "UI_OPENVINO",
@@ -74,6 +75,9 @@ ENGLISH_UI = {
     "UI_BREADCRUMB_HOME": "Home", "UI_BREADCRUMB_GETTING": "Get started",
     "UI_BREADCRUMB_SKILLS": "Skills", "UI_SIDEBAR_CATALOG": "Skill catalog",
     "UI_PREVIOUS_SKILL": "Previous skill", "UI_NEXT_SKILL": "Next skill",
+    "UI_SEARCH": "Search skills", "UI_SEARCH_PLACEHOLDER": "Search skills...",
+    "UI_SEARCH_HINT": "Filter the catalog", "UI_SEARCH_RESULTS": "results", "UI_NO_RESULTS": "No skills found.",
+    "UI_BACK_TO_TOP": "Back to top",
     "UI_FOOTER_TAGLINE": "Evidence-first skills for practical Intel AI and OpenVINO work.",
     "UI_REPO_LINK": "GitHub repository", "UI_GET_STARTED_LINK": "Get started",
     "UI_HOME_EYEBROW": "OpenVINO, made actionable",
@@ -88,13 +92,13 @@ ENGLISH_UI = {
     "UI_VIEW_ALL": "View all skills", "UI_CALLOUT_EYEBROW": "A clear boundary",
     "UI_CALLOUT_TITLE": "Public skills stay portable.",
     "UI_CALLOUT_TEXT": "Each published skill is self-contained after installation. Add the capability you need to the agent you already use, then combine skills when a task crosses boundaries.",
-    "UI_GETTING_EYEBROW": "Install once, ask naturally",
-    "UI_GETTING_TITLE": "Give your agent<br><em>the right starting point.</em>",
-    "UI_GETTING_LEDE": "Install one skill for a focused workflow or combine several when a task crosses hardware, runtime, and model boundaries.",
-    "UI_INSTALL_ONE_KICKER": "One skill", "UI_INSTALL_ONE_TITLE": "Inspect the machine first",
-    "UI_INSTALL_ONE_TEXT": "A read-only starting point for understanding the Intel devices and runtime signals available on the current system.",
-    "UI_INSTALL_PAIR_KICKER": "A useful pair", "UI_INSTALL_PAIR_TITLE": "Hardware plus runtime",
-    "UI_INSTALL_PAIR_TEXT": "Install the advisor and installer together when you want an evidence-based path from device discovery to an OpenVINO setup.",
+    "UI_GETTING_EYEBROW": "Install and ask",
+    "UI_GETTING_TITLE": "Start in the<br><em>right place.</em>",
+    "UI_GETTING_LEDE": "Install a skill, then ask your agent in plain language.",
+    "UI_INSTALL_ONE_KICKER": "One skill", "UI_INSTALL_ONE_TITLE": "Inspect the machine",
+    "UI_INSTALL_ONE_TEXT": "Read the hardware before choosing a runtime.",
+    "UI_INSTALL_PAIR_KICKER": "Two skills", "UI_INSTALL_PAIR_TITLE": "Hardware plus runtime",
+    "UI_INSTALL_PAIR_TEXT": "Move from device discovery to OpenVINO setup.",
     "UI_COPY": "Copy", "UI_COPY_INSTALL": "Copy install command",
     "UI_HOW_EYEBROW": "How it works",
     "UI_HOW_TITLE": "A skill is an instruction layer,<br><em>not a hidden dependency.</em>",
@@ -247,6 +251,7 @@ def sidebar_html(locale: dict, entries: list[dict], route: str, local_prefix: st
     current_skill = route.removeprefix("skills/") if route.startswith("skills/") else ""
     html_parts = [
         f'<nav class="docs-nav"><p class="docs-nav-label">{esc(ui["UI_DOCS_NAV"])}</p>',
+        f'<div class="docs-search"><label class="docs-search-label" for="skill-search"><svg class="icon" aria-hidden="true"><use href="#icon-search"></use></svg><span>{esc(ui["UI_SEARCH"])}</span></label><input id="skill-search" type="search" data-skill-search placeholder="{esc(ui["UI_SEARCH_PLACEHOLDER"])}" autocomplete="off"><p class="docs-search-hint" data-search-status data-default-label="{esc(ui["UI_SEARCH_HINT"])}" data-result-label="{esc(ui["UI_SEARCH_RESULTS"])}" data-empty-label="{esc(ui["UI_NO_RESULTS"])}">{esc(ui["UI_SEARCH_HINT"])}</p></div>',
         f'<a class="docs-nav-link" href="{local_prefix}index.html">{esc(ui["UI_NAV_HOME"])}</a>',
         f'<a class="docs-nav-link" href="{local_prefix}getting-started.html">{esc(ui["UI_NAV_GETTING_STARTED"])}</a>',
         f'<a class="docs-nav-link" href="{local_prefix}skills/index.html"{(" aria-current=\"page\"" if route == "skills/index.html" else "")}>{esc(ui["UI_SIDEBAR_CATALOG"])}</a>',
@@ -255,10 +260,12 @@ def sidebar_html(locale: dict, entries: list[dict], route: str, local_prefix: st
     for entry in entries:
         by_category.setdefault(entry["category"], []).append(entry)
     for category in locale["site"]["categories"]:
-        html_parts.append(f'<p class="docs-nav-group">{esc(category["label"])}</p>')
+        html_parts.append(f'<details class="docs-nav-section" data-search-group open><summary><span>{esc(category["label"])}</span><svg class="icon" aria-hidden="true"><use href="#icon-chevron"></use></svg></summary>')
         for entry in by_category.get(category["id"], []):
             active = ' aria-current="page"' if current_skill == entry["slug"] else ""
-            html_parts.append(f'<a class="docs-nav-link" href="{local_prefix}skills/{entry["slug"]}.html"{active}>{esc(entry["name"])}</a>')
+            searchable = esc(f'{entry["name"]} {entry["tagline"]}')
+            html_parts.append(f'<a class="docs-nav-link" data-searchable="{searchable}" href="{local_prefix}skills/{entry["slug"]}.html"{active}>{esc(entry["name"])}</a>')
+        html_parts.append("</details>")
     html_parts.append("</nav>")
     return "".join(html_parts)
 
@@ -315,7 +322,7 @@ def prev_next_html(locale: dict, entries: list[dict], current: dict, local_prefi
     return '<nav class="prev-next" aria-label="' + esc(locale["ui"]["UI_DOCS_NAV"]) + '">' + "".join(links) + "</nav>"
 
 
-def language_switcher(current_locale: dict, locales: list[dict], page_relative: str) -> str:
+def language_switcher(current_locale: dict, locales: list[dict], page_relative: str, ui: dict[str, str]) -> str:
     page_parent = posixpath.dirname(page_relative) or "."
     if page_relative.startswith("skills/"):
         route = page_relative
@@ -323,13 +330,13 @@ def language_switcher(current_locale: dict, locales: list[dict], page_relative: 
         route = "skills/" + page_relative.rsplit("/skills/", 1)[1]
     else:
         route = posixpath.basename(page_relative)
-    links = []
+    options = []
     for locale in locales:
         target = posixpath.join(locale["path"], route) if locale["path"] else route
         href = posixpath.relpath(target, page_parent)
-        current = ' aria-current="true"' if locale["id"] == current_locale["id"] else ""
-        links.append(f'<a href="{href}"{current}>{esc(locale["label"])}</a>')
-    return "".join(links)
+        current = " selected" if locale["id"] == current_locale["id"] else ""
+        options.append(f'<option value="{esc(href)}"{current}>{esc(locale["label"])}</option>')
+    return f'<label class="language-select"><span class="sr-only">{esc(ui["UI_LANGUAGE_LABEL"])}</span><select data-language-select aria-label="{esc(ui["UI_LANGUAGE_LABEL"])}">{"".join(options)}</select></label>'
 
 
 def render_layout(template: str, *, title: str, description: str, content: str,
@@ -341,7 +348,7 @@ def render_layout(template: str, *, title: str, description: str, content: str,
               "LANG": esc(locale["lang"]), "ASSET_PREFIX": asset_prefix + "assets/",
               "HOME_LINK": local_prefix + "index.html", "GETTING_STARTED_LINK": local_prefix + "getting-started.html",
               "SKILLS_LINK": local_prefix + "skills/index.html", "NAV": nav_html(local_prefix, current, ui),
-              "LANG_SWITCHER": language_switcher(locale, locales, page_relative), "REPO_LINK": esc(repo),
+              "LANG_SWITCHER": language_switcher(locale, locales, page_relative, ui), "REPO_LINK": esc(repo),
               "BODY_CLASS": current, "SIDEBAR": sidebar, "BREADCRUMB": breadcrumb,
               "TOC": toc, "LAYOUT_CLASS": layout_class}
     output = template
@@ -360,8 +367,8 @@ def render_template(path: Path, replacements: dict[str, str]) -> str:
 def featured_cards(entries: list[dict], ui: dict[str, str]) -> str:
     cards = []
     for entry in entries[:3]:
-        icon = "◌" if entry["category"] == "discovery" else "↗" if entry["category"] == "runtime" else "✦"
-        cards.append(f'<a class="feature-card" href="skills/{esc(entry["slug"])}.html"><span class="card-icon" aria-hidden="true">{icon}</span><span><h3>{esc(entry["name"])}</h3><p>{esc(entry["tagline"])}</p></span><span class="card-arrow">{esc(ui["UI_CARD_EXPLORE"])} ↗</span></a>')
+        icon = entry["category"] if entry["category"] in {"discovery", "runtime", "optimize"} else "discovery"
+        cards.append(f'<a class="feature-card" href="skills/{esc(entry["slug"])}.html"><span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#icon-{icon}"></use></svg></span><span><h3>{esc(entry["name"])}</h3><p>{esc(entry["tagline"])}</p></span><span class="card-arrow">{esc(ui["UI_CARD_EXPLORE"])} <span aria-hidden="true">↗</span></span></a>')
     return "".join(cards)
 
 
@@ -373,9 +380,10 @@ def category_sections(entries: list[dict], site: dict, ui: dict[str, str]) -> st
     for category in site["categories"]:
         cards = []
         for entry in by_category.get(category["id"], []):
-            icon = "◌" if category["id"] == "discovery" else "↗" if category["id"] == "runtime" else "✦"
-            cards.append(f'<a class="catalog-card" href="{esc(entry["slug"])}.html"><span class="card-icon" aria-hidden="true">{icon}</span><h3>{esc(entry["name"])}</h3><p>{esc(entry["tagline"])}</p><span class="card-arrow">{esc(ui["UI_CARD_READ_DETAILS"])} ↗</span></a>')
-        sections.append(f'<section class="catalog-group"><div class="catalog-group-heading"><h2>{esc(category["label"])}</h2><p>{esc(category["description"])}</p></div><div class="catalog-cards">{"".join(cards)}</div></section>')
+            icon = category["id"] if category["id"] in {"discovery", "runtime", "optimize"} else "discovery"
+            searchable = esc(f'{entry["name"]} {entry["tagline"]}')
+            cards.append(f'<a class="catalog-card" data-searchable="{searchable}" href="{esc(entry["slug"])}.html"><span class="card-icon" aria-hidden="true"><svg class="icon"><use href="#icon-{icon}"></use></svg></span><h3>{esc(entry["name"])}</h3><p>{esc(entry["tagline"])}</p><span class="card-arrow">{esc(ui["UI_CARD_READ_DETAILS"])} <span aria-hidden="true">↗</span></span></a>')
+        sections.append(f'<section class="catalog-group" data-search-group><div class="catalog-group-heading"><h2>{esc(category["label"])}</h2><p>{esc(category["description"])}</p></div><div class="catalog-cards">{"".join(cards)}</div></section>')
     return "".join(sections)
 
 

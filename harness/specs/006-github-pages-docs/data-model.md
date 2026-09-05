@@ -40,6 +40,14 @@ Each documentation route also exposes a shared navigation shell:
 These navigation fields are generated from the localized site and catalog data;
 they are presentation metadata, not a second source of truth for skill content.
 
+The public shell also exposes interaction metadata:
+
+- `searchable`: the published skill name and tagline used by the client-side
+  catalog filter and header search query;
+- `language selector`: the equivalent route for each supported locale;
+- `collapsible groups`: category sections that can be opened or closed without
+  JavaScript.
+
 ## Locale
 
 Represents one supported language and its translated public copy.

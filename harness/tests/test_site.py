@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -50,9 +52,10 @@ def test_site_build_generates_localized_content_and_language_switchers() -> None
     assert "Comece aqui" in portuguese_home
     assert "Empieza aquí" in spanish_home
     assert "Inspecione o ambiente local" in portuguese_skill
-    assert 'href="../index.html">EN</a>' in portuguese_home
-    assert 'href="../es/index.html">ES</a>' in portuguese_home
-    assert 'href="../../es/skills/intel-hardware-advisor.html">ES</a>' in portuguese_skill
+    assert 'data-language-select' in portuguese_home
+    assert 'value="../index.html"' in portuguese_home
+    assert 'value="../es/index.html"' in portuguese_home
+    assert 'value="../../es/skills/intel-hardware-advisor.html"' in portuguese_skill
     assert all("{{" not in page.read_text(encoding="utf-8") for page in output.rglob("*.html"))
 
 
@@ -84,8 +87,13 @@ def test_docs_pages_use_grouped_navigation_and_contextual_page_navigation() -> N
     assert 'class="docs-toc"' in skill
     assert 'href="#workflow"' in skill
     assert 'class="prev-next"' in skill
+    assert 'data-skill-search' in skill
+    assert '<details class="docs-nav-section"' in skill
+    assert 'data-back-to-top' in skill
+    assert 'id="icon-search"' in skill
     assert 'Navegação da documentação' in portuguese_skill
     assert 'href="#agents"' in getting_started
+    assert "Comece pelo" in (output / "pt-br" / "getting-started.html").read_text(encoding="utf-8")
 
 
 def test_site_keeps_existing_localized_markdown_outside_generated_output() -> None:
@@ -113,3 +121,15 @@ def test_site_specific_tools_are_inside_docs_site() -> None:
     assert not (REPOSITORY_ROOT / "scripts" / "build_site.py").exists()
     assert not (REPOSITORY_ROOT / "scripts" / "serve_site.py").exists()
     assert not (REPOSITORY_ROOT / "build" / "site").exists()
+
+
+def test_site_interactions_are_local_and_javascript_is_syntax_valid() -> None:
+    script = (SITE_ROOT / "static" / "site.js").read_text(encoding="utf-8")
+    assert "data-language-select" in script
+    assert "data-back-to-top" in script
+    assert "scrollIntoView" in script
+    assert "new URLSearchParams" in script
+    node = shutil.which("node")
+    if node:
+        result = subprocess.run([node, "--check", str(SITE_ROOT / "static" / "site.js")], capture_output=True, text=True)
+        assert result.returncode == 0, result.stderr

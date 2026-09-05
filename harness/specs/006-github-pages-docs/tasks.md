@@ -117,6 +117,19 @@ navigation around the project and every published skill.
 
 ---
 
+## Phase 9: Findability and Interaction Polish (Priority: P1)
+
+**Goal**: Make the documentation easy to scan, search, localize, and navigate
+without making the public site depend on external UI packages.
+
+- [x] T036 Add the header/catalog skill search and localized result states in `docs/site/templates/layout.html`, `docs/site/scripts/build_site.py`, and `docs/site/static/site.js`
+- [x] T037 Replace language links with an accessible localized combo box and route-preserving selection behavior
+- [x] T038 Add local SVG icons, collapsible category groups, anchor offset handling, restrained entrance motion, and the back-to-top control in `docs/site/templates/layout.html` and `docs/site/static/site.css`
+- [x] T039 Shorten the getting-started copy in English, pt-BR, and Spanish while preserving installation intent in `docs/site/scripts/build_site.py` and `docs/site/content/locales.json`
+- [x] T040 Add generated-output assertions and JavaScript syntax validation to the site quality checks
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies
