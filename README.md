@@ -12,34 +12,115 @@
 </p>
 
 <p>
-  <a href="#why-intel-ai-skills">Why this project</a> ·
+  <a href="#available-skills">Skills</a> ·
   <a href="#quickstart">Quickstart</a> ·
-  <a href="#architecture">Architecture</a> ·
+  <a href="#why-intel-ai-skills">Project</a> ·
   <a href="#contributing">Contributing</a>
+</p>
+
+<p>
+  <a href="./docs/README.pt-BR.md">🇧🇷 Português (Brasil)</a> ·
+  <a href="./docs/README.es.md">🇪🇸 Español</a>
 </p>
 
 </div>
 
 > **Build with evidence. Deploy with confidence.**
 
-> 🚦 **Delivery signal:** changes flow through `feature/* → develop → main`,
-> with promotion to `main` prepared automatically after `develop` changes.
+This repository publishes portable Agent Skills for Intel hardware,
+OpenVINO runtimes, and evidence-aware AI workload decisions. Start with the
+skills below; the engineering harness and release workflow are documented
+after the product guidance.
 
-Intel AI Skills is an open-source engineering system for building portable,
-deterministic Agent Skills that understand Intel hardware, OpenVINO runtimes,
-and the evidence behind every recommendation.
+## Available skills
 
-The project is designed for teams that want AI agents to inspect the real
-environment, distinguish facts from assumptions, explain uncertainty, and
-remain useful when a runtime, driver, device, or capability is unavailable.
+The published skills live in [`skills/`](./skills/). Each one is self-contained
+and can be copied or installed independently of the internal harness.
 
-<div align="center">
+| Skill | Use it when you need to | Documentation |
+|---|---|---|
+| **Intel Hardware Advisor** | Inspect a local Windows or Linux inference environment and understand what the available evidence supports. | [`skills/intel-hardware-advisor/SKILL.md`](./skills/intel-hardware-advisor/SKILL.md) |
+| **Intel Docs Reader** | Search and cite the versioned local archive of official OpenVINO documentation. | [`skills/intel-docs-reader/SKILL.md`](./skills/intel-docs-reader/SKILL.md) |
 
-| Discover | Reason | Validate | Release |
-|:---:|:---:|:---:|:---:|
-| Inspect the environment | Qualify recommendations | Test with fixtures | Promote reviewed skills |
+### Intel Hardware Advisor
 
-</div>
+Use this skill for first diagnosis of an inference environment. It performs
+read-only discovery, separates platform facts from runtime facts, follows
+evidence identifiers, and keeps `unknown`, `unavailable`, and `no_decision`
+outcomes visible.
+
+It does not install packages, change drivers, run benchmarks, scan arbitrary
+files, or infer model compatibility, latency, throughput, memory savings, or
+precision support from a device name alone.
+
+```bash
+cd skills/intel-hardware-advisor
+python scripts/hardware_probe.py --format text
+python scripts/hardware_probe.py --format json
+```
+
+Read the complete behavior and safety contract in
+[`intel-hardware-advisor/SKILL.md`](./skills/intel-hardware-advisor/SKILL.md).
+
+### Intel Docs Reader
+
+Use this skill when a question needs authoritative OpenVINO documentation
+about APIs, devices, setup, configuration, or documented limitations. The
+reader uses a local cache and reports the source page for useful results.
+
+```bash
+cd skills/intel-docs-reader
+python scripts/read_openvino_docs.py --query "NPU device"
+python scripts/read_openvino_docs.py --query "NPU device" --offline
+```
+
+The skill does not download anything at installation time. If its cache is
+missing, the first online query retrieves the configured official archive into
+the user's local cache, outside the installed skill and repository.
+
+Read the complete source and version-boundary contract in
+[`intel-docs-reader/SKILL.md`](./skills/intel-docs-reader/SKILL.md).
+
+## Quickstart
+
+### Use the published skills
+
+Clone the repository and run either skill from its own directory:
+
+```bash
+git clone https://github.com/michaeldouglas/intel-ai-skills.git
+cd intel-ai-skills
+
+python skills/intel-hardware-advisor/scripts/hardware_probe.py --format json
+python skills/intel-docs-reader/scripts/read_openvino_docs.py --query "NPU device"
+```
+
+For deterministic hardware validation, pass a sanitized fixture to the
+hardware advisor. A fixture is a test input, not a runtime dependency of the
+published skill:
+
+```bash
+python skills/intel-hardware-advisor/scripts/hardware_probe.py \
+  --fixture path/to/sanitized-fixture.json \
+  --format json
+```
+
+### Run the engineering harness
+
+The harness validates candidates before they are released to `skills/`:
+
+```bash
+cd harness
+python -m venv .venv
+source .venv/bin/activate             # macOS/Linux
+# .venv\Scripts\Activate.ps1          # Windows PowerShell
+
+python -m pip install --upgrade pip pytest
+python -m pytest -q
+```
+
+The deterministic suite is designed to run without Intel hardware, OpenVINO,
+internet access, or access to secrets. Live hardware checks are supplemental.
 
 ## Why Intel AI Skills?
 
@@ -49,34 +130,12 @@ precision, memory budget, and deployment target.
 
 Intel AI Skills turns that complexity into a disciplined workflow:
 
-- **Hardware-aware** — discover the local platform and runtime instead of
-  guessing from a device name.
-- **Evidence-qualified** — separate detected facts, official documentation,
-  measurements, estimates, and inferences.
-- **Portable by design** — keep product skills independent from the internal
-  engineering harness.
-- **Deterministic** — make the same fixture produce the same answer on every
-  machine and in every pull request.
-- **Privacy-first** — collect only what is needed and never inspect secrets or
-  unrelated files.
-- **Honest about uncertainty** — an unknown result is valid when evidence is
-  incomplete, conflicting, stale, or unavailable.
-
-## Current focus: Intel Hardware Advisor
-
-The first product track is an Intel Hardware Advisor skill for inspecting an
-inference environment and producing evidence-qualified guidance.
-
-It is being built to answer:
-
-> What Intel inference hardware and runtime are available on this machine,
-> and what can I safely conclude from the evidence?
-
-The advisor is intentionally conservative. It can report platform facts,
-runtime-visible devices, collection status, evidence, and an explicit
-no-decision result. It does **not** invent support claims, benchmark results,
-latency, throughput, memory savings, or precision compatibility from a device
-label alone.
+- **Hardware-aware** — discover the local platform and runtime instead of guessing from a device name.
+- **Evidence-qualified** — separate detected facts, official documentation, measurements, estimates, and inferences.
+- **Portable by design** — keep product skills independent from the internal engineering harness.
+- **Deterministic** — make the same fixture produce the same answer on every machine and in every pull request.
+- **Privacy-first** — collect only what is needed and never inspect secrets or unrelated files.
+- **Honest about uncertainty** — an unknown result is valid when evidence is incomplete, conflicting, stale, or unavailable.
 
 ## What makes this different?
 
@@ -92,45 +151,6 @@ Read-only discovery → Facts + sources + confidence → Qualified guidance
 The project moves from research to a distributable skill through explicit
 artifacts, reproducible fixtures, automated tests, evaluation, and review.
 
-## Quickstart
-
-### Clone and inspect the engineering harness
-
-```bash
-git clone https://github.com/michaeldouglas/intel-ai-skills.git
-cd intel-ai-skills/harness
-
-python -m venv .venv
-source .venv/bin/activate             # macOS/Linux
-# .venv\Scripts\Activate.ps1          # Windows PowerShell
-
-python -m pip install --upgrade pip pytest
-python -m pytest -q
-```
-
-The deterministic suite is designed to run without Intel hardware, OpenVINO,
-internet access, or access to secrets. Live hardware checks are supplemental.
-
-### Run the advisor locally
-
-When the candidate skill is present in your checkout:
-
-```bash
-python candidates/intel-hardware-advisor/scripts/hardware_probe.py --format text
-python candidates/intel-hardware-advisor/scripts/hardware_probe.py --format json
-```
-
-For deterministic validation with a sanitized fixture:
-
-```bash
-python candidates/intel-hardware-advisor/scripts/hardware_probe.py \
-  --fixture path/to/sanitized-fixture.json \
-  --format json
-```
-
-The machine-readable report exposes `schema_version`, `platform`, `runtime`,
-`facts`, `evidence`, `recommendation`, and `collection_status`.
-
 ## Architecture
 
 ```text
@@ -143,10 +163,11 @@ intel-ai-skills/
 │   ├── research/             # Versioned evidence and technical research
 │   ├── specs/                # Feature specifications, plans, and tasks
 │   └── tests/                # Unit, contract, and integration tests
-├── skills/                  # Reviewed, distributable Agent Skills
-├── .github/workflows/       # Branch policy and quality automation
-├── CONTRIBUTING.md          # Contribution and promotion flow
-└── LICENSE                  # Apache License 2.0
+├── skills/                   # Reviewed, distributable Agent Skills
+├── docs/                     # Localized project documentation
+├── .github/workflows/        # Branch policy and quality automation
+├── CONTRIBUTING.md           # Contribution and promotion flow
+└── LICENSE                   # Apache License 2.0
 ```
 
 The separation is deliberate:
@@ -176,8 +197,7 @@ flowchart LR
 
 - Work starts on `feature/<kebab-case-name>`.
 - Feature pull requests target `develop`.
-- After a feature enters `develop`, GitHub Actions opens or reuses a PR to
-  `main` automatically.
+- After a feature enters `develop`, GitHub Actions opens or reuses a PR to `main` automatically.
 - The promotion PR is reviewed and merged manually.
 - Direct commits and direct pushes to `main` are not part of the workflow.
 
@@ -219,7 +239,7 @@ tests or review.
 - [x] Define constitution, branch policy, Spec Kit flow, and quality gates.
 - [x] Build the initial Intel Hardware Advisor candidate architecture.
 - [x] Add deterministic fixture, contract, integration, and evaluation paths.
-- [ ] Promote the first reviewed skill to `skills/`.
+- [x] Publish the first skills: Intel Hardware Advisor and Intel Docs Reader.
 - [ ] Expand version-scoped OpenVINO capability evidence.
 - [ ] Add more Intel CPU, GPU, and NPU guidance scenarios.
 - [ ] Publish richer examples and reusable skill integration patterns.
@@ -240,11 +260,6 @@ welcome. Before opening a change:
 For agent-assisted work, broad changes are committed locally first. The agent
 must ask for explicit confirmation before pushing a broad change set or
 opening its PR; no remote publication happens silently.
-
-Before creating a branch, the agent asks which branch you want to use and
-reuses an existing compliant feature branch when possible. The
-`git-workflow-manager` sub-agent coordinates the Git lifecycle without editing
-product files.
 
 Please read [`CONTRIBUTING.md`](./CONTRIBUTING.md) and the project
 [constitution](./harness/.specify/memory/constitution.md) first.
