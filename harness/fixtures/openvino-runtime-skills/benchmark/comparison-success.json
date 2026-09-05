@@ -1,0 +1,8 @@
+{
+  "context": {"system": "Linux", "architecture": "x86_64", "available_tools": {"benchmark_app": true}},
+  "request": {"model": "model.xml", "device": "CPU", "iterations": 50, "warmup": 5, "batch": 1, "performance_hint": "LATENCY"},
+  "measurements": {"latency_ms": 4.2, "throughput_fps": 238.1, "iterations": 50, "warmup": 5},
+  "comparison": [{"device": "CPU", "latency_ms": 4.2, "throughput_fps": 238.1}],
+  "limitations": ["Fixture measurement; not a physical hardware result."],
+  "action_results": [{"status": "passed", "command": "benchmark_app fixture"}]
+}

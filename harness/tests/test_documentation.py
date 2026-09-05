@@ -11,10 +11,17 @@ DOCUMENTS = {
     "spanish": REPOSITORY_ROOT / "docs" / "README.es.md",
 }
 PUBLISHED_SKILLS = (
-    "skills/intel-docs-reader/SKILL.md",
     "skills/intel-hardware-advisor/SKILL.md",
+    "skills/intel-docs-reader/SKILL.md",
     "skills/intel-openvino-installer/SKILL.md",
+    "skills/intel-openvino-model-converter/SKILL.md",
+    "skills/intel-openvino-inference-runner/SKILL.md",
+    "skills/intel-openvino-benchmark/SKILL.md",
+    "skills/intel-openvino-model-optimizer/SKILL.md",
+    "skills/intel-openvino-model-server/SKILL.md",
+    "skills/intel-openvino-genai-runner/SKILL.md",
 )
+PUBLISHED_NAMES = tuple(Path(path).parts[1] for path in PUBLISHED_SKILLS)
 
 
 def local_markdown_links(document: Path) -> list[Path]:
@@ -49,13 +56,14 @@ def test_each_readme_catalogs_the_published_skills_before_project_details() -> N
         content = document.read_text(encoding="utf-8")
         assert "intel-docs-reader" in content
         assert "intel-hardware-advisor" in content
-        assert "intel-openvino-installer" in content
+        for skill in PUBLISHED_NAMES:
+            assert skill in content
         details_heading = next(
             (heading for heading in ("## Why Intel AI Skills?", "## Por que Intel AI Skills?", "## ¿Por qué Intel AI Skills?") if heading in content),
             None,
         )
         assert details_heading is not None
-        skills_position = min(content.index(skill) for skill in ("intel-docs-reader", "intel-hardware-advisor", "intel-openvino-installer"))
+        skills_position = min(content.index(skill) for skill in PUBLISHED_NAMES)
         assert skills_position < content.index(details_heading)
 
 
@@ -75,9 +83,10 @@ def test_each_readme_links_to_both_published_skill_files() -> None:
 def test_each_readme_documents_agent_neutral_installation() -> None:
     for document in DOCUMENTS.values():
         content = document.read_text(encoding="utf-8")
-        for skill in ("intel-hardware-advisor", "intel-docs-reader", "intel-openvino-installer"):
+        for skill in PUBLISHED_NAMES:
             assert f"npx skills add michaeldouglas/intel-ai-skills --skill {skill} -a codex" in content
-        assert "npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor --skill intel-docs-reader --skill intel-openvino-installer -a codex" in content
+        combined = "npx skills add michaeldouglas/intel-ai-skills " + " ".join(f"--skill {skill}" for skill in PUBLISHED_NAMES) + " -a codex"
+        assert combined in content
         assert "claude-code" in content
         assert "outro agente" in content or "otro agente" in content or "another supported agent" in content
         assert "cd skills/intel-" not in content
@@ -103,6 +112,22 @@ def test_openvino_skills_instruct_agents_to_run_bundled_scripts() -> None:
     assert "invoke the bundled" in installer_skill.lower()
     assert "do not ask the user" in installer_skill.lower()
     assert "scripts/openvino_installer.py" in installer_skill
+
+
+def test_runtime_skills_instruct_agents_to_run_bundled_scripts() -> None:
+    script_names = {
+        "intel-openvino-model-converter": "scripts/model_converter.py",
+        "intel-openvino-inference-runner": "scripts/inference_runner.py",
+        "intel-openvino-benchmark": "scripts/benchmark_runner.py",
+        "intel-openvino-model-optimizer": "scripts/model_optimizer.py",
+        "intel-openvino-model-server": "scripts/model_server.py",
+        "intel-openvino-genai-runner": "scripts/genai_runner.py",
+    }
+    for skill_name, script_name in script_names.items():
+        content = (REPOSITORY_ROOT / "skills" / skill_name / "SKILL.md").read_text(encoding="utf-8").lower()
+        assert "invoke" in content
+        assert "bundled" in content
+        assert script_name.lower() in content
 
 
 def test_harness_uses_local_openvino_docs_as_sdd_knowledge_base() -> None:

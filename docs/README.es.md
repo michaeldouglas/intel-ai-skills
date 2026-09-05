@@ -23,6 +23,12 @@ autocontenida y puede instalarse de forma independiente.
 | **Intel Hardware Advisor** | Inspeccionar un entorno local de inferencia Windows, Linux o macOS y entender qué permiten concluir las evidencias disponibles. | [`intel-hardware-advisor/SKILL.md`](../skills/intel-hardware-advisor/SKILL.md) |
 | **Intel Docs Reader** | Buscar y citar el archivo local versionado de la documentación oficial de OpenVINO. | [`intel-docs-reader/SKILL.md`](../skills/intel-docs-reader/SKILL.md) |
 | **Intel OpenVINO Installer** | Elegir, instalar y verificar OpenVINO Runtime con un método documentado para la plataforma y el ecosistema del usuario. | [`intel-openvino-installer/SKILL.md`](../skills/intel-openvino-installer/SKILL.md) |
+| **Intel OpenVINO Model Converter** | Convertir modelos de frameworks compatibles a OpenVINO IR con formas y artefactos explícitos. | [`intel-openvino-model-converter/SKILL.md`](../skills/intel-openvino-model-converter/SKILL.md) |
+| **Intel OpenVINO Inference Runner** | Compilar y ejecutar modelos localmente o en Docker, informando dispositivos y evidencias de compatibilidad. | [`intel-openvino-inference-runner/SKILL.md`](../skills/intel-openvino-inference-runner/SKILL.md) |
+| **Intel OpenVINO Benchmark** | Medir latencia y throughput reproducibles entre configuraciones de OpenVINO. | [`intel-openvino-benchmark/SKILL.md`](../skills/intel-openvino-benchmark/SKILL.md) |
+| **Intel OpenVINO Model Optimizer** | Planificar cuantización y compresión de pesos preservando los artefactos originales. | [`intel-openvino-model-optimizer/SKILL.md`](../skills/intel-openvino-model-optimizer/SKILL.md) |
+| **Intel OpenVINO Model Server** | Validar deployments locales de OpenVINO Model Server con Docker, repositorios, APIs y health checks. | [`intel-openvino-model-server/SKILL.md`](../skills/intel-openvino-model-server/SKILL.md) |
+| **Intel OpenVINO GenAI Runner** | Planificar y verificar flujos GenAI de texto, chat, GGUF, VLM, voz y otros. | [`intel-openvino-genai-runner/SKILL.md`](../skills/intel-openvino-genai-runner/SKILL.md) |
 
 ### Intel Hardware Advisor
 
@@ -56,6 +62,13 @@ muestra los comandos antes de ejecutarlos, pide confirmación antes de cambiar
 la máquina y separa la validación de la instalación de la validación del
 runtime.
 
+### Skills del flujo de runtime
+
+Después de preparar el runtime, usa las skills enfocadas en conversión de
+modelos, inferencia, benchmark, optimización, validación local del Model Server
+y flujos GenAI. Cada una ejecuta su propio script incluido y mantiene un alcance
+independiente.
+
 ## Inicio rápido
 
 ### Instalar para tu agente
@@ -67,12 +80,18 @@ Usa el comando de la skill que quieras añadir. El ejemplo usa Codex; cambia
 npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor -a codex
 npx skills add michaeldouglas/intel-ai-skills --skill intel-docs-reader -a codex
 npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-installer -a codex
+npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-model-converter -a codex
+npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-inference-runner -a codex
+npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-benchmark -a codex
+npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-model-optimizer -a codex
+npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-model-server -a codex
+npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-genai-runner -a codex
 ```
 
-O instala las tres skills con un solo comando:
+O instala las nueve skills con un solo comando:
 
 ```bash
-npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor --skill intel-docs-reader --skill intel-openvino-installer -a codex
+npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor --skill intel-docs-reader --skill intel-openvino-installer --skill intel-openvino-model-converter --skill intel-openvino-inference-runner --skill intel-openvino-benchmark --skill intel-openvino-model-optimizer --skill intel-openvino-model-server --skill intel-openvino-genai-runner -a codex
 ```
 
 ### Usar las skills instaladas
