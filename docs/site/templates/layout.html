@@ -21,14 +21,29 @@
       </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">{{UI_MENU}}</button>
       <nav id="site-navigation" class="site-navigation" aria-label="{{UI_PRIMARY_NAV}}">
+        <form class="global-search" action="{{SKILLS_LINK}}" method="get" role="search">
+          <svg class="icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+          <label class="sr-only" for="global-search">{{UI_SEARCH}}</label>
+          <input id="global-search" name="q" type="search" placeholder="{{UI_SEARCH_PLACEHOLDER}}" autocomplete="off">
+        </form>
         {{NAV}}
         <button class="theme-toggle" type="button" aria-label="{{UI_THEME}}" data-theme-toggle>◐ <span>{{UI_THEME}}</span></button>
       </nav>
-      <div class="language-switcher" aria-label="{{UI_LANGUAGE_LABEL}}">{{LANG_SWITCHER}}</div>
+      <div class="language-switcher">{{LANG_SWITCHER}}</div>
     </header>
-    <main id="main-content" class="{{BODY_CLASS}}">
-      {{CONTENT}}
-    </main>
+    <div class="docs-frame {{LAYOUT_CLASS}}">
+      <aside class="docs-sidebar" aria-label="{{UI_DOCS_NAV}}">{{SIDEBAR}}</aside>
+      <div class="docs-main-column">
+        <div class="breadcrumbs">{{BREADCRUMB}}</div>
+        <main id="main-content" class="{{BODY_CLASS}}">
+          {{CONTENT}}
+        </main>
+      </div>
+      <aside class="docs-toc" aria-label="{{UI_ON_THIS_PAGE}}">
+        <p class="docs-toc-label">{{UI_ON_THIS_PAGE}}</p>
+        {{TOC}}
+      </aside>
+    </div>
     <footer class="site-footer">
       <div>
         <strong>Intel AI Skills</strong>
@@ -40,6 +55,18 @@
       </div>
     </footer>
   </div>
+  <button class="back-to-top" type="button" data-back-to-top aria-label="{{UI_BACK_TO_TOP}}">
+    <svg class="icon" aria-hidden="true"><use href="#icon-arrow-up"></use></svg>
+    <span class="sr-only">{{UI_BACK_TO_TOP}}</span>
+  </button>
+  <svg class="icon-sprite" aria-hidden="true" focusable="false">
+    <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 5 5"></path></symbol>
+    <symbol id="icon-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5"></path><path d="m6 11 6-6 6 6"></path></symbol>
+    <symbol id="icon-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></symbol>
+    <symbol id="icon-discovery" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 5 5M11 8v6M8 11h6"></path></symbol>
+    <symbol id="icon-runtime" viewBox="0 0 24 24"><path d="m9 6 9 6-9 6z"></path><path d="M5 5v14"></path></symbol>
+    <symbol id="icon-optimize" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1"></rect><rect x="13" y="13" width="7" height="7" rx="1"></rect><path d="M11 7h2M7 11v2M17 11v2M11 17h2"></path></symbol>
+  </svg>
   <script src="{{ASSET_PREFIX}}site.js" defer></script>
 </body>
 </html>

@@ -9,13 +9,14 @@
 
 <section class="skill-layout">
   <article class="skill-main">
-    <div class="prose-section first-prose"><p class="eyebrow">{{UI_WHAT_IT_IS}}</p><h2>{{SKILL_NAME}} {{UI_SKILL_H2_SUFFIX}}</h2><p>{{PURPOSE}}</p></div>
-    <div class="prose-section"><p class="eyebrow">{{UI_USE_IT_WHEN}}</p><ul class="check-list">{{WHEN_TO_USE}}</ul></div>
-    <div class="prose-section"><p class="eyebrow">{{UI_WORKFLOW}}</p><ol class="number-list">{{WORKFLOW}}</ol></div>
-    <div class="prose-section boundary-section"><p class="eyebrow">{{UI_BOUNDARY}}</p><ul class="boundary-list">{{BOUNDARIES}}</ul></div>
+    <div class="prose-section first-prose" id="overview"><p class="eyebrow">{{UI_WHAT_IT_IS}}</p><h2>{{SKILL_NAME}} {{UI_SKILL_H2_SUFFIX}}</h2><p>{{PURPOSE}}</p></div>
+    <div class="prose-section" id="when-to-use"><p class="eyebrow">{{UI_USE_IT_WHEN}}</p><ul class="check-list">{{WHEN_TO_USE}}</ul></div>
+    <div class="prose-section" id="workflow"><p class="eyebrow">{{UI_WORKFLOW}}</p><ol class="number-list">{{WORKFLOW}}</ol></div>
+    <div class="prose-section boundary-section" id="boundaries"><p class="eyebrow">{{UI_BOUNDARY}}</p><ul class="boundary-list">{{BOUNDARIES}}</ul></div>
   </article>
   <aside class="skill-aside" aria-label="{{UI_RELATED_LABEL}}">
-    <div class="aside-card"><p class="eyebrow">{{UI_RELATED_SKILLS}}</p><div class="related-list">{{RELATED}}</div></div>
+    <div class="aside-card" id="related"><p class="eyebrow">{{UI_RELATED_SKILLS}}</p><div class="related-list">{{RELATED}}</div></div>
     <div class="aside-card aside-note"><span class="aside-symbol">✦</span><p>{{UI_ASIDE_NOTE}}</p></div>
   </aside>
 </section>
+{{PREV_NEXT}}
