@@ -1,20 +1,21 @@
 <section class="skill-hero">
-  <a class="back-link" href="{{SKILLS_LINK}}">← Back to the catalog</a>
+  <a class="back-link" href="{{SKILLS_LINK}}">← {{UI_BACK_TO_CATALOG}}</a>
   <p class="eyebrow">{{CATEGORY_LABEL}}</p>
   <h1>{{SKILL_NAME}}</h1>
   <p class="page-lede">{{TAGLINE}}</p>
-  <div class="skill-install"><span>Install</span><code>{{INSTALL}}</code><button class="copy-button" type="button" data-copy="{{INSTALL}}">Copy</button></div>
+  <div class="skill-install"><span>{{UI_INSTALL_LABEL}}</span><code>{{INSTALL}}</code><button class="copy-button" type="button" data-copy="{{INSTALL}}">{{UI_COPY}}</button></div>
+  <p class="install-note">{{UI_INSTALL_NOTE}}</p>
 </section>
 
 <section class="skill-layout">
   <article class="skill-main">
-    <div class="prose-section first-prose"><p class="eyebrow">What it is</p><h2>{{SKILL_NAME}} gives your agent a reliable starting point.</h2><p>{{PURPOSE}}</p></div>
-    <div class="prose-section"><p class="eyebrow">Use it when</p><ul class="check-list">{{WHEN_TO_USE}}</ul></div>
-    <div class="prose-section"><p class="eyebrow">Workflow</p><ol class="number-list">{{WORKFLOW}}</ol></div>
-    <div class="prose-section boundary-section"><p class="eyebrow">Know the boundary</p><ul class="boundary-list">{{BOUNDARIES}}</ul></div>
+    <div class="prose-section first-prose"><p class="eyebrow">{{UI_WHAT_IT_IS}}</p><h2>{{SKILL_NAME}} {{UI_SKILL_H2_SUFFIX}}</h2><p>{{PURPOSE}}</p></div>
+    <div class="prose-section"><p class="eyebrow">{{UI_USE_IT_WHEN}}</p><ul class="check-list">{{WHEN_TO_USE}}</ul></div>
+    <div class="prose-section"><p class="eyebrow">{{UI_WORKFLOW}}</p><ol class="number-list">{{WORKFLOW}}</ol></div>
+    <div class="prose-section boundary-section"><p class="eyebrow">{{UI_BOUNDARY}}</p><ul class="boundary-list">{{BOUNDARIES}}</ul></div>
   </article>
-  <aside class="skill-aside" aria-label="Related skills">
-    <div class="aside-card"><p class="eyebrow">Related skills</p><div class="related-list">{{RELATED}}</div></div>
-    <div class="aside-card aside-note"><span class="aside-symbol">✦</span><p>Evidence first. Unknown is a valid result.</p></div>
+  <aside class="skill-aside" aria-label="{{UI_RELATED_LABEL}}">
+    <div class="aside-card"><p class="eyebrow">{{UI_RELATED_SKILLS}}</p><div class="related-list">{{RELATED}}</div></div>
+    <div class="aside-card aside-note"><span class="aside-symbol">✦</span><p>{{UI_ASIDE_NOTE}}</p></div>
   </aside>
 </section>

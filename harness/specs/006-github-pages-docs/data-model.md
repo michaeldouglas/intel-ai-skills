@@ -24,11 +24,27 @@ page.
 The generated static site contains:
 
 - `index.html`: project overview and primary calls to action.
-- `getting-started.html`: installation, agent portability, local preview, and
-  public-vs-harness boundary.
+- `getting-started.html`: installation, agent portability, and the boundary
+  between a portable skill and the repository that publishes it.
 - `skills/index.html`: grouped catalog.
 - `skills/<slug>.html`: generated detail pages for every Published Skill.
 - `404.html`: branded fallback for invalid routes.
+
+## Locale
+
+Represents one supported language and its translated public copy.
+
+| Field | Type | Required | Validation |
+|---|---|---:|---|
+| `id` | string | yes | `en`, `pt-br`, or `es`; unique route prefix |
+| `lang` | string | yes | HTML language tag |
+| `label` | string | yes | Short accessible selector label |
+| `ui` | object | yes | Contains every shared interface label |
+| `categories` | object | yes | Contains every catalog category |
+| `skills` | object | yes | Contains translated metadata for every Published Skill |
+
+English is emitted at the site root. The `pt-br` and `es` locales are emitted
+under their route prefixes and preserve the same page and skill slugs.
 
 ## Publication Build
 

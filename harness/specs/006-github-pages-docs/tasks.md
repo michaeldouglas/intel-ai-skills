@@ -39,7 +39,7 @@
 
 - [x] T010 [P] [US1] Create the shared semantic page shell, header, footer, theme controls, and navigation in `docs/site/templates/layout.html`
 - [x] T011 [US1] Create the project overview content and primary calls to action in `docs/site/templates/index.html`
-- [x] T012 [US1] Create installation, agent portability, local preview, and public-vs-harness guidance in `docs/site/templates/getting-started.html`
+- [x] T012 [US1] Create installation, agent portability, and portable-skill guidance in `docs/site/templates/getting-started.html`
 - [x] T013 [US1] Add responsive branded styling for overview and getting-started pages in `docs/site/static/site.css`
 
 **Checkpoint**: A new visitor can understand the project and install a skill without reading repository-internal files.
@@ -87,6 +87,23 @@
 
 ---
 
+## Phase 7: User Story 4 - Localized Documentation (Priority: P2)
+
+**Goal**: Publish equivalent English, pt-BR, and Spanish documentation routes
+without changing the existing Markdown files directly under `docs/`.
+
+**Independent Test**: Build the site and verify every locale contains the
+overview, getting-started, catalog, fallback, and all published skill pages;
+then verify every language-switcher link resolves.
+
+- [x] T026 Add the locale data contract and complete pt-BR and Spanish translations in `docs/site/content/locales.json`
+- [x] T027 Add localized page generation, language-aware navigation, and route validation in `docs/site/scripts/build_site.py`
+- [x] T028 Add language-switcher markup and localized accessibility labels to the shared templates and styles
+- [x] T029 Add localized route, translation, and switcher assertions in `harness/tests/test_site.py`
+- [x] T030 Document the three local preview routes for maintainers and update the feature artifacts for localization
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies
@@ -96,6 +113,7 @@
 - **User Story 1 (Phase 3)**: Depends on the shared shell and builder from Phase 2.
 - **User Story 2 (Phase 4)**: Depends on the shared shell, builder, and catalog metadata from Phases 1–2.
 - **User Story 3 (Phase 5)**: Depends on the generated output and validation from Phases 2–4.
+- **User Story 4 (Phase 7)**: Depends on the shared templates, catalog model, and deterministic builder from Phases 1–6.
 - **Polish (Phase 6)**: Depends on all user stories.
 
 ### Parallel Opportunities
@@ -119,3 +137,4 @@
 1. Add the skill catalog and generated pages for User Story 2.
 2. Add the Pages workflow and maintainer documentation for User Story 3.
 3. Apply accessibility, metadata, and final quality checks.
+4. Add and validate the localized routes without copying or rewriting `docs/README.pt-BR.md` or `docs/README.es.md`.

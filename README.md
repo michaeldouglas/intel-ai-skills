@@ -126,8 +126,11 @@ artifact used by GitHub Pages, run this from the repository root:
 python docs/site/scripts/serve_site.py
 ```
 
-Then open `http://127.0.0.1:8000/`. The site build validates the published
-skill catalog, internal links, and logo assets before starting the local server.
+Then open `http://127.0.0.1:8000/`. The English site is at `/`, the Brazilian
+Portuguese version at `/pt-br/`, and the Spanish version at `/es/`. The language
+switcher is available on every generated page. The site build validates the
+published skill catalog, internal links, translations, and logo assets before
+starting the local server.
 Changes merged into `main` run the same build through
 `.github/workflows/deploy-pages.yml` and publish the generated site to GitHub
 Pages.
