@@ -77,6 +77,25 @@ def test_each_readme_documents_agent_neutral_installation() -> None:
             assert f"npx skills add michaeldouglas/intel-ai-skills --skill {skill} -a codex" in content
         assert "claude-code" in content
         assert "outro agente" in content or "otro agente" in content or "another supported agent" in content
+        assert "cd skills/intel-" not in content
+
+
+def test_openvino_skills_instruct_agents_to_run_bundled_scripts() -> None:
+    hardware_skill = (REPOSITORY_ROOT / "skills/intel-hardware-advisor/SKILL.md").read_text(encoding="utf-8")
+    docs_skill = (REPOSITORY_ROOT / "skills/intel-docs-reader/SKILL.md").read_text(encoding="utf-8")
+    assert "invoke the bundled" in hardware_skill
+    assert "Do not ask the user" in hardware_skill
+    assert "scripts/hardware_probe.py" in hardware_skill
+    assert "invoke the bundled" in docs_skill
+    assert "Do not ask the user" in docs_skill
+    assert "scripts/read_openvino_docs.py" in docs_skill
+
+
+def test_harness_uses_local_openvino_docs_as_sdd_knowledge_base() -> None:
+    harness_instructions = (REPOSITORY_ROOT / "harness/AGENTS.md").read_text(encoding="utf-8")
+    assert "docs/2026/" in harness_instructions
+    assert "primary agent MUST consult" in harness_instructions
+    assert "openvino-researcher" in harness_instructions
 
 
 def test_published_skills_have_standard_agent_skill_frontmatter() -> None:

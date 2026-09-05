@@ -64,6 +64,7 @@ contract test in the harness because the harness owns automated validation.
 1. Banner and language selector.
 2. Published skills catalog with direct links and short use cases.
 3. Quickstart with direct `npx skills add` commands and an agent-neutral destination note.
+4. Harness SDD guidance that makes `harness/docs/2026/` the primary OpenVINO knowledge base and keeps script execution inside the skills.
 4. Project purpose, evidence model, architecture, and release flow.
 5. Harness quickstart, contribution guidance, and license.
 

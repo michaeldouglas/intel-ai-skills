@@ -69,6 +69,8 @@ Como um leitor que escolheu um idioma, quero encontrar nele o catálogo das skil
 - **FR-007**: A validação automatizada MUST verificar a presença dos documentos localizados, das referências de idioma e das referências das skills publicadas.
 - **FR-008**: A documentação localizada MUST preservar as fronteiras de segurança, privacidade, evidência e incerteza descritas pelas skills.
 - **FR-009**: A documentação MUST mostrar a instalação pelo padrão `npx skills add`, usando `codex` apenas como exemplo e indicando que o destino pode ser substituído por outro agente compatível.
+- **FR-010**: O fluxo SDD do harness MUST consultar `harness/docs/2026/` como fonte de conhecimento principal para qualquer trabalho relacionado a OpenVINO antes de criar ou alterar skills, especificações, planos, tarefas ou avaliações.
+- **FR-011**: As skills publicadas MUST instruir o agente a executar seus scripts internos quando necessário e MUST NOT exigir que o usuário altere diretórios ou execute scripts manualmente.
 
 ## Success Criteria
 
@@ -83,6 +85,7 @@ Como um leitor que escolheu um idioma, quero encontrar nele o catálogo das skil
 
 - O README raiz permanece em inglês como idioma padrão do projeto.
 - `codex` será o exemplo de agente nos comandos de instalação, mas as skills não serão descritas como exclusivas do Codex.
+- O arquivo local `harness/docs/2026/` está disponível no ambiente do harness; se estiver ausente, o fluxo usará o leitor de documentação ou uma fonte oficial externa e registrará a limitação.
 - A pasta `docs/` será usada para documentação humana localizada e poderá receber outros idiomas no futuro.
 - A lista atual de skills publicadas é formada por `intel-hardware-advisor` e `intel-docs-reader`.
 - A tradução deve acompanhar o conteúdo essencial do README, mas não precisa traduzir nomes próprios, comandos, caminhos ou identificadores técnicos.

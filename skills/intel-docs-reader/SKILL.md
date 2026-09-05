@@ -21,14 +21,16 @@ source page for every useful result.
 - If the archive is missing, invalid, or incomplete, disclose that limitation
   instead of presenting uncaptured web content as documentation.
 
-## Run it
+## Use
 
-From the directory containing this skill:
+When this skill is activated, invoke the bundled
+`scripts/read_openvino_docs.py` yourself with the user's technical question.
+Resolve that path relative to the directory containing this `SKILL.md`; do not
+assume the user's current working directory. Use `--offline` when only the
+existing cache may be used.
 
-```text
-python scripts/read_openvino_docs.py --query "NPU device"
-python scripts/read_openvino_docs.py --query "NPU device" --offline
-```
+Do not ask the user to change directories, locate the script, or run the
+reader manually. The skill owns the lookup, source extraction, and citation.
 
 The archive source can be overridden with `--archive-url` or the
 `INTEL_DOCS_ARCHIVE_URL` environment variable. The default points to the

@@ -13,6 +13,8 @@
 - [X] T002 Rewrite the opening and navigation sections of root `../README.md` so the published skills catalog and language selector appear before project internals.
 - [X] T003 [P] Update the root README quickstart and skill usage sections to cover both `intel-docs-reader` and `intel-hardware-advisor` accurately.
 - [X] T003a Add direct `npx skills add` commands for both published skills and state that `codex` is only an example destination.
+- [X] T003b Update harness SDD guidance and the OpenVINO researcher fallback to use `docs/2026/` as the primary knowledge base.
+- [X] T003c Update the OpenVINO skills so the agent invokes bundled scripts automatically instead of asking users to run them.
 
 ## Phase 3: Localized documentation (P1)
 

@@ -36,11 +36,9 @@ arbitrários nem infere compatibilidade de modelo, latência, throughput,
 economia de memória ou suporte a precisão a partir apenas do nome do
 dispositivo.
 
-```bash
-cd skills/intel-hardware-advisor
-python scripts/hardware_probe.py --format text
-python scripts/hardware_probe.py --format json
-```
+Depois da instalação, peça ao seu agente para inspecionar o ambiente local de
+inferência. A própria skill executa o probe incluído e retorna um relatório
+qualificado por evidências.
 
 Consulte o contrato completo de comportamento e segurança em
 [`intel-hardware-advisor/SKILL.md`](../skills/intel-hardware-advisor/SKILL.md).
@@ -51,11 +49,8 @@ Use esta skill quando uma pergunta exigir documentação oficial do OpenVINO
 sobre APIs, dispositivos, configuração, setup ou limitações documentadas. O
 leitor usa um cache local e informa a página de origem dos resultados úteis.
 
-```bash
-cd skills/intel-docs-reader
-python scripts/read_openvino_docs.py --query "NPU device"
-python scripts/read_openvino_docs.py --query "NPU device" --offline
-```
+Depois da instalação, faça ao seu agente a pergunta de OpenVINO que precisa
+responder. A própria skill executa o leitor incluído e cita a fonte encontrada.
 
 A skill não baixa nada durante a instalação. Se o cache estiver ausente, a
 primeira consulta online baixa o arquivo oficial configurado para o cache local
@@ -78,25 +73,9 @@ npx skills add michaeldouglas/intel-ai-skills --skill intel-docs-reader -a codex
 
 ### Usar as skills publicadas
 
-Clone o repositório e execute cada skill a partir do seu próprio diretório:
-
-```bash
-git clone https://github.com/michaeldouglas/intel-ai-skills.git
-cd intel-ai-skills
-
-python skills/intel-hardware-advisor/scripts/hardware_probe.py --format json
-python skills/intel-docs-reader/scripts/read_openvino_docs.py --query "NPU device"
-```
-
-Para uma validação determinística do hardware, passe um fixture sanitizado ao
-hardware advisor. O fixture é uma entrada de teste, não uma dependência de
-runtime da skill publicada:
-
-```bash
-python skills/intel-hardware-advisor/scripts/hardware_probe.py \
-  --fixture path/to/sanitized-fixture.json \
-  --format json
-```
+Depois da instalação, peça ao seu agente para inspecionar o hardware ou
+responder uma pergunta sobre OpenVINO. Não é necessário executar scripts
+manualmente.
 
 ### Executar o harness de engenharia
 
@@ -164,6 +143,11 @@ intel-ai-skills/
 ├── CONTRIBUTING.md           # Fluxo de contribuição e promoção
 └── LICENSE                   # Apache License 2.0
 ```
+
+Para trabalhos SDD relacionados a OpenVINO, o harness usa o arquivo local
+`harness/docs/2026/` como base de conhecimento principal. Essa documentação
+orienta pesquisa, especificações, planos, avaliações e criação de novas
+skills; as skills promovidas continuam portáteis e não dependem desse caminho.
 
 A separação é intencional:
 

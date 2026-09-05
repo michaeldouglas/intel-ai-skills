@@ -9,17 +9,18 @@ Use this skill when a user needs to understand the local inference environment
 before selecting an Intel execution path. It is designed for first diagnosis:
 read-only discovery, explicit uncertainty, and safe next steps.
 
-## Run it
+## Use
 
-From the directory containing this skill:
+When this skill is activated, invoke the bundled
+`scripts/hardware_probe.py` yourself. Resolve that path relative to the
+directory containing this `SKILL.md`; do not assume the user's current
+working directory. Use `--format json` as the stable interface and interpret
+the report before answering. Use text output only as a human-friendly view of
+the same report.
 
-```text
-python scripts/hardware_probe.py
-python scripts/hardware_probe.py --format json
-```
-
-The JSON report is the stable interface. Text output is a human-friendly view
-of the same report and must not be treated as a different source of truth.
+Do not ask the user to change directories, locate the script, or run the
+probe manually. The skill owns discovery and should run the probe whenever the
+request requires current local hardware or runtime facts.
 
 ## Interpret it
 
