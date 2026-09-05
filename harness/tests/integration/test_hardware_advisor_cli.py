@@ -26,6 +26,14 @@ class HardwareAdvisorCliTests(unittest.TestCase):
         report = json.loads(result.stdout)
         self.assertEqual(report["schema_version"], "1.0")
         self.assertIn("recommendation", report)
+        self.assertIn("additional_configurations", report["runtime"])
+
+    def test_macos_fixture_reports_normalized_architecture(self):
+        result = self.run_cli("macos-supported.json")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        report = json.loads(result.stdout)
+        self.assertEqual(report["platform"]["system"], "macOS")
+        self.assertEqual(report["platform"]["architecture"], "arm64")
 
     def test_text_output_preserves_status_and_evidence(self):
         result = self.run_cli("openvino-missing.json", "text")

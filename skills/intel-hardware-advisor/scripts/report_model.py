@@ -15,6 +15,7 @@ REQUIRED_TOP_LEVEL = (
     "collection_status",
 )
 VALID_STATUSES = {
+    "configured",
     "detected",
     "documented",
     "measured",
@@ -25,8 +26,24 @@ VALID_STATUSES = {
     "unsupported",
     "permission_denied",
     "failed",
+    "not_checked",
+    "incomplete",
+    "missing",
+    "not_applicable",
 }
 VALID_EVIDENCE_KINDS = {"detected", "documented", "measured", "estimate", "inference"}
+CONFIGURATION_STATUSES = {
+    "configured",
+    "detected",
+    "incomplete",
+    "missing",
+    "not_checked",
+    "not_applicable",
+    "unavailable",
+    "unknown",
+    "failed",
+    "permission_denied",
+}
 
 
 def _text(value: Any, default: str = "") -> str:
@@ -70,9 +87,18 @@ def _fact(
     }
 
 
-def build_recommendation(facts: list[dict[str, Any]], evidence: list[dict[str, Any]]) -> dict[str, Any]:
+def build_recommendation(
+    facts: list[dict[str, Any]],
+    evidence: list[dict[str, Any]],
+    additional_configurations: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     """Return guidance only when evidence supports a bounded conclusion."""
-    device_facts = [fact for fact in facts if fact.get("name", "").startswith("runtime.device.")]
+    device_facts = [
+        fact
+        for fact in facts
+        if fact.get("name", "").startswith("runtime.device.")
+        or fact.get("name", "").startswith("configuration.")
+    ]
     vendor_facts = [fact for fact in facts if fact.get("name", "").endswith(".vendor")]
     evidence_by_id = {item.get("id"): item for item in evidence}
     related_evidence = list(dict.fromkeys(
@@ -122,6 +148,15 @@ def build_recommendation(facts: list[dict[str, Any]], evidence: list[dict[str, A
 
     rationale = ["Local evidence confirms an Intel device is visible to the inspected profile."]
     next_steps = ["Verify model, precision, driver, and device support for the intended workload."]
+    incomplete_configurations = [
+        name
+        for name, entry in (additional_configurations or {}).items()
+        if isinstance(entry, dict) and entry.get("status") in {"incomplete", "missing"}
+    ]
+    if incomplete_configurations:
+        names = ", ".join(sorted(incomplete_configurations))
+        rationale.append(f"Additional configuration evidence is incomplete for: {names}.")
+        next_steps.insert(0, "Consult the matching OpenVINO configuration guide before using that device.")
     if runtime_available:
         rationale.append("OpenVINO is available in the profile, but visibility does not prove model compatibility.")
         confidence = "medium"
@@ -143,6 +178,9 @@ def build_report(profile: dict[str, Any]) -> dict[str, Any]:
     platform_input = profile.get("platform", {})
     runtime_input = profile.get("runtime", {})
     openvino = runtime_input.get("openvino", {})
+    additional_configurations = runtime_input.get("additional_configurations", {})
+    if not isinstance(additional_configurations, dict):
+        additional_configurations = {}
     platform_status = _text(platform_input.get("status"), "detected")
     openvino_status = _text(openvino.get("status"), "unavailable")
     platform_evidence_id = "ev.platform"
@@ -162,9 +200,28 @@ def build_report(profile: dict[str, Any]) -> dict[str, Any]:
             version=_text(openvino.get("version")) or None,
         ),
     ]
+    if additional_configurations:
+        evidence.append(
+            _evidence(
+                "ev.additional_configurations",
+                "detected",
+                "local additional-configuration collector",
+                ["These indicators are read-only checks and do not prove driver or workload compatibility."],
+            )
+        )
     facts: list[dict[str, Any]] = []
 
-    for name, key in (("platform.system", "system"), ("platform.release", "release"), ("platform.machine", "machine")):
+    platform_fields = (
+        ("platform.system", "system"),
+        ("platform.release", "release"),
+        ("platform.machine", "machine"),
+        ("platform.distribution", "distribution"),
+        ("platform.distribution_version", "distribution_version"),
+        ("platform.kernel", "kernel"),
+        ("platform.architecture", "architecture"),
+        ("platform.os_version", "os_version"),
+    )
+    for name, key in platform_fields:
         value = platform_input.get(key)
         status = platform_status if value not in (None, "") else "unknown"
         facts.append(_fact(name, name, value, status, "platform", [platform_evidence_id]))
@@ -190,11 +247,30 @@ def build_report(profile: dict[str, Any]) -> dict[str, Any]:
         device_status = _text(device.get("status"), "detected")
         device_name = device.get("name") or device.get("id")
         facts.append(_fact(fact_id, fact_id, device_name, device_status, "openvino", [openvino_evidence_id]))
+        device_type = device.get("type")
+        if device_type:
+            facts.append(_fact(f"{fact_id}.type", f"{fact_id}.type", device_type, "detected", "openvino", [openvino_evidence_id]))
         vendor = device.get("vendor")
         if vendor:
             facts.append(
                 _fact(f"{fact_id}.vendor", f"{fact_id}.vendor", vendor, "detected", "openvino", [openvino_evidence_id])
             )
+
+    for name, entry in additional_configurations.items():
+        if not isinstance(entry, dict):
+            continue
+        status = _text(entry.get("status"), "unknown")
+        fact_status = status if status in VALID_STATUSES else "unknown"
+        facts.append(
+            _fact(
+                f"configuration.{name}",
+                f"configuration.{name}",
+                entry,
+                fact_status,
+                "additional_configurations",
+                ["ev.additional_configurations"],
+            )
+        )
 
     collector_status = profile.get("collector_status", {})
     issues = []
@@ -208,6 +284,11 @@ def build_report(profile: dict[str, Any]) -> dict[str, Any]:
         statuses.append(current)
         if current not in {"complete", "detected", "available"}:
             issues.append({"collector": collector, "status": current, "message": f"{collector} collection is {current}."})
+    if additional_configurations:
+        configuration_status = collector_status.get("configurations", "complete") if isinstance(collector_status, dict) else "complete"
+        statuses.append(_text(configuration_status, "complete"))
+        if configuration_status not in {"complete", "detected", "available"}:
+            issues.append({"collector": "configurations", "status": configuration_status, "message": f"configurations collection is {configuration_status}."})
 
     if platform_status == "unsupported":
         overall = "unsupported"
@@ -224,6 +305,12 @@ def build_report(profile: dict[str, Any]) -> dict[str, Any]:
             "system": platform_input.get("system"),
             "release": platform_input.get("release"),
             "machine": platform_input.get("machine"),
+            "distribution": platform_input.get("distribution"),
+            "distribution_version": platform_input.get("distribution_version"),
+            "kernel": platform_input.get("kernel"),
+            "architecture": platform_input.get("architecture"),
+            "os_version": platform_input.get("os_version"),
+            "context": platform_input.get("context", {}),
             "status": platform_status,
         },
         "runtime": {
@@ -231,15 +318,21 @@ def build_report(profile: dict[str, Any]) -> dict[str, Any]:
                 "status": openvino_status,
                 "version": openvino_version,
                 "devices": [
-                    {"id": item.get("id"), "name": item.get("name"), "status": item.get("status", "detected")}
+                    {
+                        "id": item.get("id"),
+                        "name": item.get("name"),
+                        "type": item.get("type"),
+                        "status": item.get("status", "detected"),
+                    }
                     for item in devices
                     if isinstance(item, dict)
                 ],
-            }
+            },
+            "additional_configurations": additional_configurations,
         },
         "facts": facts,
         "evidence": evidence,
-        "recommendation": build_recommendation(facts, evidence),
+        "recommendation": build_recommendation(facts, evidence, additional_configurations),
         "collection_status": {"status": overall, "issues": issues},
     }
     validate_report(report)
@@ -253,6 +346,13 @@ def validate_report(report: dict[str, Any]) -> None:
         raise ValueError("unsupported report schema")
     if not isinstance(report["platform"], dict) or not isinstance(report["runtime"], dict):
         raise ValueError("platform and runtime must be objects")
+    context = report["platform"].get("context", {})
+    if (
+        not isinstance(context, dict)
+        or not {"wsl", "container"}.issuperset(context)
+        or any(not isinstance(value, bool) for value in context.values())
+    ):
+        raise ValueError("platform context does not match the report contract")
     if not isinstance(report["facts"], list) or not isinstance(report["evidence"], list):
         raise ValueError("facts and evidence must be arrays")
     evidence_ids = {item.get("id") for item in report["evidence"] if isinstance(item, dict)}
@@ -268,6 +368,16 @@ def validate_report(report: dict[str, Any]) -> None:
             raise ValueError("evidence does not match the report contract")
         if item["kind"] not in VALID_EVIDENCE_KINDS or not isinstance(item["limitations"], list):
             raise ValueError("evidence has an invalid shape")
+    configurations = report["runtime"].get("additional_configurations", {})
+    if not isinstance(configurations, dict):
+        raise ValueError("additional configurations must be an object")
+    for name, entry in configurations.items():
+        if not isinstance(name, str) or not isinstance(entry, dict):
+            raise ValueError("additional configuration has an invalid shape")
+        if entry.get("status") not in CONFIGURATION_STATUSES:
+            raise ValueError("additional configuration has an invalid status")
+        if not isinstance(entry.get("checks", {}), dict) or not isinstance(entry.get("notes", []), list):
+            raise ValueError("additional configuration details are malformed")
     recommendation = report["recommendation"]
     if not isinstance(recommendation, dict) or not {"decision", "confidence", "rationale", "evidence_ids", "next_steps"}.issubset(recommendation):
         raise ValueError("recommendation does not match the report contract")

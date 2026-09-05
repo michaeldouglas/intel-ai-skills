@@ -11,6 +11,11 @@ The advisor uses these evidence classes:
 - `inference`: a reasoned conclusion that must not be presented as a detected
   capability.
 
+The report may also expose lightweight configuration statuses: `configured`,
+`incomplete`, `not_checked`, and `not_applicable`. These describe what the
+portable probe could observe; they do not replace versioned driver or workload
+documentation.
+
 For the first release, local detection is enough to say that a runtime sees a
 device. It is not enough to say that a particular model, precision, driver, or
 performance target is supported. Those conclusions need evidence whose version,

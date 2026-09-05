@@ -25,6 +25,23 @@ class HardwareAdvisorUnitTests(unittest.TestCase):
         self.assertEqual(report["runtime"]["openvino"]["status"], "available")
         self.assertTrue(report["facts"])
         self.assertTrue(report["evidence"])
+        self.assertEqual(report["runtime"]["openvino"]["devices"][0]["type"], "GPU")
+        self.assertEqual(report["runtime"]["additional_configurations"]["gpu"]["status"], "incomplete")
+        self.assertIn("additional configuration", " ".join(report["recommendation"]["rationale"]).lower())
+
+    def test_macos_arm64_is_detected_and_keeps_device_specific_scope(self):
+        report = build_report(fixture("macos-supported.json"))
+        self.assertEqual(report["platform"]["system"], "macOS")
+        self.assertEqual(report["platform"]["architecture"], "arm64")
+        self.assertEqual(report["runtime"]["additional_configurations"]["gpu"]["status"], "not_applicable")
+        self.assertEqual(report["runtime"]["openvino"]["devices"][0]["type"], "CPU")
+
+    def test_platform_metadata_is_preserved_as_facts(self):
+        report = build_report(fixture("linux-supported.json"))
+        facts = {fact["name"]: fact["value"] for fact in report["facts"]}
+        self.assertEqual(facts["platform.distribution"], "ubuntu")
+        self.assertEqual(facts["platform.kernel"], "6.8-test")
+        self.assertEqual(facts["platform.architecture"], "x86_64")
 
     def test_missing_openvino_does_not_hide_platform_facts(self):
         report = build_report(fixture("openvino-missing.json"))
@@ -54,6 +71,17 @@ class HardwareAdvisorUnitTests(unittest.TestCase):
         with patch.dict(sys.modules, {"openvino": None}):
             result = hardware_probe.collect_openvino()
         self.assertIn(result["status"], {"unavailable", "failed"})
+
+    def test_live_macos_platform_collection_is_supported_and_normalized(self):
+        with patch.object(hardware_probe.platform, "system", return_value="Darwin"), patch.object(
+            hardware_probe.platform, "release", return_value="23.6-test"
+        ), patch.object(hardware_probe.platform, "machine", return_value="arm64"), patch.object(
+            hardware_probe.platform, "mac_ver", return_value=("14.6", ("", "", ""), "")
+        ):
+            profile = hardware_probe.collect_platform()
+        self.assertEqual(profile["system"], "macOS")
+        self.assertEqual(profile["architecture"], "arm64")
+        self.assertEqual(profile["status"], "detected")
 
     def test_failure_fixture_preserves_non_success_status(self):
         report = build_report(fixture("permission-failure.json"))

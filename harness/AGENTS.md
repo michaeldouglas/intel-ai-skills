@@ -87,6 +87,35 @@ The candidate must pass validation, automated tests, evaluations, and quality
 review before it is promoted to `skills/`. The final skill must not depend on
 `harness/`, `.codex/`, `.agents/`, or any other internal project file.
 
+### OpenVINO knowledge base for SDD
+
+The harness is an SDD environment for building OpenVINO-related skills. For
+every OpenVINO, Intel runtime, device, API, setup, limitation, or capability
+question, the primary agent MUST consult the local knowledge base at
+`docs/2026/` before writing or updating the specification, research notes,
+plan, tasks, candidate skill, or evaluation.
+
+The required order is:
+
+1. Search and read the relevant pages under `docs/2026/` first. Treat this
+   archive as the authoritative OpenVINO 2026 source for the feature.
+2. Record the relative page path, OpenVINO version (`2026`), access date, and
+   scope in the feature's research or evidence notes.
+3. Use the local documentation to shape the SDD requirements, acceptance
+   scenarios, implementation plan, and evaluation cases.
+4. If the archive is unavailable or does not answer the question, use the
+   bundled `intel-docs-reader` workflow or an official external source and
+   mark the gap and uncertainty explicitly.
+5. Delegate to `openvino-researcher` only when a documentation gap, cross-
+   version comparison, or independent evidence review justifies a sub-agent;
+   the primary agent does not need a sub-agent for routine local-doc lookup.
+
+The local archive is research material for the harness, not a runtime
+dependency. A promoted skill MUST remain portable and MUST NOT reference
+`harness/docs/2026` directly. Any knowledge needed at runtime must be encoded
+in self-contained product instructions, scripts, references, or the
+on-demand documentation-reader behavior.
+
 ## Sub-agent responsibilities
 
 Sub-agents are defined in `.codex/agents/`. The primary agent coordinates them

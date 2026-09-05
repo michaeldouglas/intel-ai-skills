@@ -8,8 +8,8 @@ collection and recommendation uncertainty.
 | Field | Type | Required | Meaning |
 |---|---|---:|---|
 | `schema_version` | string | yes | Report contract version, initially `1.0`. |
-| `platform` | object | yes | Host platform facts and status. |
-| `runtime` | object | yes | Runtime facts, including optional OpenVINO status. |
+| `platform` | object | yes | Host platform facts, metadata, context, and status. |
+| `runtime` | object | yes | Runtime facts, optional OpenVINO status, and lightweight additional-configuration checks. |
 | `facts` | array | yes | Normalized observed facts. |
 | `evidence` | array | yes | Sources and limitations linked by ID. |
 | `recommendation` | object | yes | Qualified guidance or `no_decision`. |
@@ -30,6 +30,15 @@ scope: optional platform/runtime/version scope
 
 `null` is required when a value is not available. A missing value is not
 silently interpreted as false.
+
+Platform metadata may include Linux distribution/version, kernel, normalized
+architecture, OS version, and WSL/container context. These are observations,
+not compatibility claims.
+
+`runtime.additional_configurations` may contain `gpu`, `npu`, `genai`,
+`opencv`, and `environment` entries. Each entry has a status, optional check
+map, and concise notes. `configured` means only that the portable indicators
+were observed; detailed driver and workload support remains documented evidence.
 
 ## Evidence
 
