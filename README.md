@@ -35,8 +35,9 @@ and let your agent use it when the task requires it.
 
 ## Logo directions
 
-The current README uses Direction A, **Open Fold**. The three vector directions
-are shown below; each includes an isolated mark and a horizontal lockup.
+The current README uses Direction C, **Open Monogram**. The three vector
+directions are shown below; each includes an isolated mark and a horizontal
+lockup.
 
 <p align="center">
   <img src="./assets/intel-ai-skills-logo-directions.svg" alt="Three Intel AI Skills logo directions: Open Fold, Folded Modules, and Open Monogram" width="920">
