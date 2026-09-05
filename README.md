@@ -42,6 +42,12 @@ and can be installed independently.
 | **Intel Hardware Advisor** | Inspect a local Windows, Linux, or macOS inference environment and understand what the available evidence supports. | [`intel-hardware-advisor/SKILL.md`](./skills/intel-hardware-advisor/SKILL.md) |
 | **Intel Docs Reader** | Search and cite the versioned local archive of official OpenVINO documentation. | [`intel-docs-reader/SKILL.md`](./skills/intel-docs-reader/SKILL.md) |
 | **Intel OpenVINO Installer** | Choose, install, and verify OpenVINO Runtime with a documented method for the user's platform and ecosystem. | [`intel-openvino-installer/SKILL.md`](./skills/intel-openvino-installer/SKILL.md) |
+| **Intel OpenVINO Model Converter** | Convert supported framework models to OpenVINO IR with explicit shapes and artifacts. | [`intel-openvino-model-converter/SKILL.md`](./skills/intel-openvino-model-converter/SKILL.md) |
+| **Intel OpenVINO Inference Runner** | Compile and run models locally or in Docker while reporting devices and compatibility evidence. | [`intel-openvino-inference-runner/SKILL.md`](./skills/intel-openvino-inference-runner/SKILL.md) |
+| **Intel OpenVINO Benchmark** | Measure reproducible latency and throughput across OpenVINO configurations. | [`intel-openvino-benchmark/SKILL.md`](./skills/intel-openvino-benchmark/SKILL.md) |
+| **Intel OpenVINO Model Optimizer** | Plan quantization and weight compression while protecting original artifacts. | [`intel-openvino-model-optimizer/SKILL.md`](./skills/intel-openvino-model-optimizer/SKILL.md) |
+| **Intel OpenVINO Model Server** | Validate local OpenVINO Model Server deployments with Docker, repositories, APIs, and health checks. | [`intel-openvino-model-server/SKILL.md`](./skills/intel-openvino-model-server/SKILL.md) |
+| **Intel OpenVINO GenAI Runner** | Plan and verify text, chat, GGUF, VLM, speech, and other OpenVINO GenAI workflows. | [`intel-openvino-genai-runner/SKILL.md`](./skills/intel-openvino-genai-runner/SKILL.md) |
 
 ### Intel Hardware Advisor
 
@@ -72,6 +78,13 @@ Runtime. It selects a documented method for the platform and ecosystem,
 previews the commands, asks for confirmation before changing the machine, and
 reports installation and runtime verification separately.
 
+### Runtime workflow skills
+
+After the runtime is ready, use the focused skills for model conversion,
+inference, benchmarking, optimization, local Model Server validation, and
+GenAI workflows. Each one invokes its own bundled script and keeps its scope
+independent.
+
 ## Quickstart
 
 ### Install for your agent
@@ -83,12 +96,18 @@ replace `codex` with `claude-code` or another supported agent when needed.
 npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor -a codex
 npx skills add michaeldouglas/intel-ai-skills --skill intel-docs-reader -a codex
 npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-installer -a codex
+npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-model-converter -a codex
+npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-inference-runner -a codex
+npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-benchmark -a codex
+npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-model-optimizer -a codex
+npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-model-server -a codex
+npx skills add michaeldouglas/intel-ai-skills --skill intel-openvino-genai-runner -a codex
 ```
 
-Or install all three skills in one command:
+Or install all nine skills in one command:
 
 ```bash
-npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor --skill intel-docs-reader --skill intel-openvino-installer -a codex
+npx skills add michaeldouglas/intel-ai-skills --skill intel-hardware-advisor --skill intel-docs-reader --skill intel-openvino-installer --skill intel-openvino-model-converter --skill intel-openvino-inference-runner --skill intel-openvino-benchmark --skill intel-openvino-model-optimizer --skill intel-openvino-model-server --skill intel-openvino-genai-runner -a codex
 ```
 
 ### Use the installed skills

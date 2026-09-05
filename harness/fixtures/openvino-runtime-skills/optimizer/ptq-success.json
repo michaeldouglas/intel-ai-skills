@@ -1,0 +1,7 @@
+{
+  "context": {"system": "Linux", "architecture": "x86_64", "permissions": "available"},
+  "request": {"model": "models/classifier.xml", "method": "ptq", "calibration_data": "calibration/", "output_dir": "artifacts/classifier-int8"},
+  "calibration_data": "calibration/",
+  "action_results": [{"status": "passed", "command": "ptq fixture"}],
+  "verification": {"status": "passed", "artifacts": ["artifacts/classifier-int8/model.xml", "artifacts/classifier-int8/model.bin"], "accuracy": "pending_evaluation", "issues": []}
+}

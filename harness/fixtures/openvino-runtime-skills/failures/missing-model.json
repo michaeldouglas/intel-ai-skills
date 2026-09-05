@@ -1,0 +1,4 @@
+{
+  "context": {"system": "Linux", "architecture": "x86_64"},
+  "request": {"device": "CPU"}
+}
