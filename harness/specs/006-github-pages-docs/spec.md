@@ -6,7 +6,7 @@
 
 **Status**: Draft
 
-**Input**: User description: "Create a modern GitHub Pages documentation site inside docs/site, keep the existing Markdown files in docs untouched and independent, use the selected logo and visual identity, publish automatically when main changes, and provide a local preview command."
+**Input**: User description: "Create a modern GitHub Pages documentation site inside docs/site, keep the existing Markdown files in docs untouched and independent, use the selected logo and visual identity, publish automatically when main changes, provide a local preview command, and offer the site in English, Brazilian Portuguese, and Spanish."
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -85,6 +85,25 @@ change on `main` builds the site from `docs/site/` and deploys it to GitHub Page
    site is built, **Then** those files remain unchanged and are not required as
    site input.
 
+### User Story 4 - Read the site in a preferred language (Priority: P2)
+
+As a visitor who prefers Brazilian Portuguese or Spanish, I want the same
+project and skill documentation available in my language so that I can learn
+and install the skills without translating the site manually.
+
+**Independent Test**: Build the site, open `/pt-br/` and `/es/`, and verify
+that the overview, catalog, skill details, navigation, and language switcher
+are translated and link to the equivalent page in each language.
+
+**Acceptance Scenarios**:
+
+1. **Given** a visitor opens a localized home page, **When** they navigate the
+   site, **Then** the overview, installation guidance, categories, and skill
+   descriptions remain in the selected language.
+2. **Given** a visitor is on any generated page, **When** they use the language
+   switcher, **Then** they reach the equivalent route in English, pt-BR, or
+   Spanish.
+
 ### Edge Cases
 
 - A skill directory may contain supporting scripts or references that are useful
@@ -131,6 +150,14 @@ change on `main` builds the site from `docs/site/` and deploys it to GitHub Page
 - **FR-010**: Build validation MUST check required site entry points, skill-page
   coverage, internal links, and the presence of the selected logo assets before
   a deployment is attempted.
+- **FR-011**: The site MUST generate English, Brazilian Portuguese (`/pt-br/`),
+  and Spanish (`/es/`) versions of the overview, getting-started, catalog,
+  fallback, and every published skill page.
+- **FR-012**: Every generated page MUST expose a language switcher that points
+  to the equivalent route in all supported languages and marks the active
+  language accessibly.
+- **FR-013**: Build validation MUST verify that every supported locale contains
+  translated UI labels, category copy, and metadata for every published skill.
 
 ### Key Entities
 
@@ -159,6 +186,8 @@ change on `main` builds the site from `docs/site/` and deploys it to GitHub Page
   publication path without manual file copying.
 - **SC-006**: The primary content remains usable at mobile widths and when
   client-side scripting is disabled.
+- **SC-007**: A successful build generates the same complete route set for all
+  three supported languages, and every language-switcher link resolves.
 
 ## Assumptions
 
@@ -170,6 +199,6 @@ change on `main` builds the site from `docs/site/` and deploys it to GitHub Page
   documentation and are not rewritten or copied into the site automatically.
 - GitHub Pages and GitHub Actions will be enabled for the repository by the
   maintainer if repository settings require an explicit activation.
-- English is the initial site language; the existing localized READMEs remain
-  available through repository links until a separate localization feature is
-  requested.
+- English is the default site language; Brazilian Portuguese and Spanish are
+  generated as first-class localized routes. The existing localized READMEs
+  remain repository documentation and are not rewritten or used as site input.

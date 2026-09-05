@@ -30,6 +30,22 @@ The generated static site contains:
 - `skills/<slug>.html`: generated detail pages for every Published Skill.
 - `404.html`: branded fallback for invalid routes.
 
+## Locale
+
+Represents one supported language and its translated public copy.
+
+| Field | Type | Required | Validation |
+|---|---|---:|---|
+| `id` | string | yes | `en`, `pt-br`, or `es`; unique route prefix |
+| `lang` | string | yes | HTML language tag |
+| `label` | string | yes | Short accessible selector label |
+| `ui` | object | yes | Contains every shared interface label |
+| `categories` | object | yes | Contains every catalog category |
+| `skills` | object | yes | Contains translated metadata for every Published Skill |
+
+English is emitted at the site root. The `pt-br` and `es` locales are emitted
+under their route prefixes and preserve the same page and skill slugs.
+
 ## Publication Build
 
 The build is a deterministic transformation from `docs/site/` plus the sibling
