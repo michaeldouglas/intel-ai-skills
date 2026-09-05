@@ -1,6 +1,10 @@
 <div align="center">
 
-<img src="./assets/intel-ai-skills-logo.svg" alt="Intel AI Skills" width="820">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/intel-ai-skills-logo-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="./assets/intel-ai-skills-logo-light.svg">
+  <img src="./assets/intel-ai-skills-logo.svg" alt="Intel AI Skills" width="820">
+</picture>
 
 <p><strong>Evidence-first agent skills for Intel AI and OpenVINO workloads.</strong></p>
 

@@ -156,7 +156,7 @@ def build_recommendation(
     if incomplete_configurations:
         names = ", ".join(sorted(incomplete_configurations))
         rationale.append(f"Additional configuration evidence is incomplete for: {names}.")
-        next_steps.insert(0, "Consult the matching OpenVINO configuration guide before using that device.")
+        next_steps.insert(0, "If needed, consult the matching OpenVINO configuration guide before using that device.")
     if runtime_available:
         rationale.append("OpenVINO is available in the profile, but visibility does not prove model compatibility.")
         confidence = "medium"
