@@ -174,7 +174,7 @@ def _has_device_node(*paths: str) -> str:
 
 
 def collect_additional_configurations(platform_profile: dict[str, Any], openvino_profile: dict[str, Any]) -> dict[str, Any]:
-    """Collect small, read-only indicators; detailed requirements stay in the docs reader."""
+    """Collect small, read-only indicators without external skill dependencies."""
     system = platform_profile.get("system")
     device_types = {
         str(device.get("type") or _device_type(str(device.get("id", "")))).upper()

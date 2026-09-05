@@ -52,9 +52,12 @@ request requires current local hardware or runtime facts.
   names, environment dumps, or unrelated filesystem contents.
 - When a user asks for a stronger claim, ask for version- and scope-matched
   authoritative documentation or a reproducible measurement.
-- For documented OpenVINO support, setup, driver, or version questions, use
-  `intel-docs-reader` when it is installed; the probe itself is not the
-  documentation source.
+- This skill is standalone: it must produce its diagnostic from local
+  evidence without requiring another skill, the harness, or project files.
+  `intel-docs-reader` is optional enrichment only when the user wants a
+  deeper version- and scope-matched interpretation of official OpenVINO
+  support, setup, or driver documentation. Its absence must not block or
+  invalidate this report.
 
 ## Maintainer validation
 
